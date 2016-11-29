@@ -1,0 +1,400 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B35980FA1DE346F300DA7119 /* iOSBellaDatiSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B359810A1DE398B900DA7119 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981091DE398B900DA7119 /* APIClient.swift */; };
+		B359810C1DE398DB00DA7119 /* OAuth1a.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359810B1DE398DB00DA7119 /* OAuth1a.swift */; };
+		B359810E1DE398F400DA7119 /* Reports.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359810D1DE398F400DA7119 /* Reports.swift */; };
+		B35981101DE3990800DA7119 /* ReportDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359810F1DE3990800DA7119 /* ReportDetail.swift */; };
+		B35981121DE3991B00DA7119 /* ImportForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981111DE3991B00DA7119 /* ImportForms.swift */; };
+		B35981141DE3993A00DA7119 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981131DE3993A00DA7119 /* Attribute.swift */; };
+		B35981161DE3995100DA7119 /* DataSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981151DE3995100DA7119 /* DataSets.swift */; };
+		B35981181DE3995D00DA7119 /* DataSetDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981171DE3995D00DA7119 /* DataSetDetail.swift */; };
+		B359811A1DE3997A00DA7119 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981191DE3997A00DA7119 /* View.swift */; };
+		B359811C1DE3998800DA7119 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359811B1DE3998800DA7119 /* User.swift */; };
+		B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3F4CD421DE39F9400EFE847 /* Info.plist */; };
+		B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B3FFCA3D1DEDC80B004D323C /* .gitignore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BellaDatiSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSBellaDatiSDK.h; sourceTree = "<group>"; };
+		B35981091DE398B900DA7119 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		B359810B1DE398DB00DA7119 /* OAuth1a.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1a.swift; sourceTree = "<group>"; };
+		B359810D1DE398F400DA7119 /* Reports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reports.swift; sourceTree = "<group>"; };
+		B359810F1DE3990800DA7119 /* ReportDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportDetail.swift; sourceTree = "<group>"; };
+		B35981111DE3991B00DA7119 /* ImportForms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportForms.swift; sourceTree = "<group>"; };
+		B35981131DE3993A00DA7119 /* Attribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
+		B35981151DE3995100DA7119 /* DataSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSets.swift; sourceTree = "<group>"; };
+		B35981171DE3995D00DA7119 /* DataSetDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSetDetail.swift; sourceTree = "<group>"; };
+		B35981191DE3997A00DA7119 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		B359811B1DE3998800DA7119 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B3F4CD421DE39F9400EFE847 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		B3FFCA3D1DEDC80B004D323C /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B35980F11DE346F300DA7119 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B35980EB1DE346F300DA7119 = {
+			isa = PBXGroup;
+			children = (
+				B3FFCA3D1DEDC80B004D323C /* .gitignore */,
+				B35980F71DE346F300DA7119 /* iOSBellaDatiSDK */,
+				B35980F61DE346F300DA7119 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B35980F61DE346F300DA7119 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B35980F71DE346F300DA7119 /* iOSBellaDatiSDK */ = {
+			isa = PBXGroup;
+			children = (
+				B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */,
+				B3F4CD421DE39F9400EFE847 /* Info.plist */,
+				B35981081DE3988000DA7119 /* Users */,
+				B35981071DE3986600DA7119 /* Views */,
+				B35981051DE397B700DA7119 /* Import */,
+				B35981031DE3972900DA7119 /* oAuth */,
+				B35981041DE3979B00DA7119 /* Reports */,
+				B35981061DE397EF00DA7119 /* Datasets */,
+			);
+			path = iOSBellaDatiSDK;
+			sourceTree = "<group>";
+		};
+		B35981031DE3972900DA7119 /* oAuth */ = {
+			isa = PBXGroup;
+			children = (
+				B359810B1DE398DB00DA7119 /* OAuth1a.swift */,
+				B35981091DE398B900DA7119 /* APIClient.swift */,
+			);
+			name = oAuth;
+			sourceTree = "<group>";
+		};
+		B35981041DE3979B00DA7119 /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+				B359810D1DE398F400DA7119 /* Reports.swift */,
+				B359810F1DE3990800DA7119 /* ReportDetail.swift */,
+			);
+			name = Reports;
+			sourceTree = "<group>";
+		};
+		B35981051DE397B700DA7119 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				B35981111DE3991B00DA7119 /* ImportForms.swift */,
+			);
+			name = Import;
+			sourceTree = "<group>";
+		};
+		B35981061DE397EF00DA7119 /* Datasets */ = {
+			isa = PBXGroup;
+			children = (
+				B35981131DE3993A00DA7119 /* Attribute.swift */,
+				B35981151DE3995100DA7119 /* DataSets.swift */,
+				B35981171DE3995D00DA7119 /* DataSetDetail.swift */,
+			);
+			name = Datasets;
+			sourceTree = "<group>";
+		};
+		B35981071DE3986600DA7119 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B35981191DE3997A00DA7119 /* View.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B35981081DE3988000DA7119 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				B359811B1DE3998800DA7119 /* User.swift */,
+			);
+			name = Users;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B35980F21DE346F300DA7119 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B35980FA1DE346F300DA7119 /* iOSBellaDatiSDK.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		B35980F41DE346F300DA7119 /* BellaDatiSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B35980FD1DE346F300DA7119 /* Build configuration list for PBXNativeTarget "BellaDatiSDK" */;
+			buildPhases = (
+				B35980F01DE346F300DA7119 /* Sources */,
+				B35980F11DE346F300DA7119 /* Frameworks */,
+				B35980F21DE346F300DA7119 /* Headers */,
+				B35980F31DE346F300DA7119 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BellaDatiSDK;
+			productName = iOSBellaDatiSDK;
+			productReference = B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B35980EC1DE346F300DA7119 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "BellaDati Inc.";
+				TargetAttributes = {
+					B35980F41DE346F300DA7119 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = NTCQ7SYR29;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B35980EF1DE346F300DA7119 /* Build configuration list for PBXProject "BellaDatiSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B35980EB1DE346F300DA7119;
+			productRefGroup = B35980F61DE346F300DA7119 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B35980F41DE346F300DA7119 /* BellaDatiSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B35980F31DE346F300DA7119 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */,
+				B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B35980F01DE346F300DA7119 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B35981161DE3995100DA7119 /* DataSets.swift in Sources */,
+				B35981141DE3993A00DA7119 /* Attribute.swift in Sources */,
+				B35981101DE3990800DA7119 /* ReportDetail.swift in Sources */,
+				B359810A1DE398B900DA7119 /* APIClient.swift in Sources */,
+				B35981121DE3991B00DA7119 /* ImportForms.swift in Sources */,
+				B359811A1DE3997A00DA7119 /* View.swift in Sources */,
+				B359810C1DE398DB00DA7119 /* OAuth1a.swift in Sources */,
+				B359810E1DE398F400DA7119 /* Reports.swift in Sources */,
+				B359811C1DE3998800DA7119 /* User.swift in Sources */,
+				B35981181DE3995D00DA7119 /* DataSetDetail.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B35980FB1DE346F300DA7119 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B35980FC1DE346F300DA7119 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B35980FE1DE346F300DA7119 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = NTCQ7SYR29;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = iOSBellaDatiSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.belladati.com.iOSBellaDatiSDK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B35980FF1DE346F300DA7119 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = NTCQ7SYR29;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = iOSBellaDatiSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.belladati.com.iOSBellaDatiSDK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B35980EF1DE346F300DA7119 /* Build configuration list for PBXProject "BellaDatiSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B35980FB1DE346F300DA7119 /* Debug */,
+				B35980FC1DE346F300DA7119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B35980FD1DE346F300DA7119 /* Build configuration list for PBXNativeTarget "BellaDatiSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B35980FE1DE346F300DA7119 /* Debug */,
+				B35980FF1DE346F300DA7119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B35980EC1DE346F300DA7119 /* Project object */;
+}
