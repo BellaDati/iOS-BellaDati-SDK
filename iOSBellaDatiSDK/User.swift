@@ -58,7 +58,7 @@ import UIKit
     }
     
     
-    /* Uploads data from default Apps bundle --- only for testing*/
+    /* Uploads data from default Apps      bundle --- only for testing*/
     
     public func uploadSavedUser() {
         let s = Bundle.main.url(forResource: "myjson", withExtension: "json")
