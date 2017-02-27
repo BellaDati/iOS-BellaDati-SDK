@@ -15,6 +15,9 @@ public class Reports {
     public var size:Int?
     public var filter:String?
     
+    public init(){
+        
+    }
     
     /* Uploads data from default Apps bundle --- only for testing now */
     
@@ -37,7 +40,8 @@ public class Reports {
     }
     
     
-    /* Downloads list of reports available for currently logged user */
+    /*downloadListOfReports func will authenticate client automatically if APIClient func hasAccessTokenSave returns false.
+     Once this async call is finished.It will try to download list of reports available for authenticated user  */
     
     public func downloadListOfReports(filter:String?,offset:String?,size:String?,completion:(() -> ())? = nil) {
         
@@ -63,6 +67,33 @@ public class Reports {
         
         
         
+        let getData =
+            
+            {
+                APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,params:paramsarray){(getData) in
+            
+            do{
+                
+                let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
+                let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
+                print("Reports:" , jsonstring)
+                if let dictionary = jsonObject as? [String:AnyObject] {
+                    self.readJSONObject (object: dictionary)
+                    print("Setting JSON")
+                }
+                
+                
+                if let completionHandler = completion{
+                    completionHandler()
+                }
+                
+            } catch {
+                
+            }
+            
+        }
+        }
+        
         let loadInitialData =
             
             {
@@ -72,7 +103,11 @@ public class Reports {
                     {
                         print(receivedError)
                     }
+                    
+                    getData()
                 }
+                
+                
         }
         
         if (!APIClient.sharedInstance.hasAccessTokenSaved()){
@@ -81,29 +116,9 @@ public class Reports {
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,params:paramsarray){(getData) in
-                
-                do{
-                    
-                    let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                    print("Reports:" , jsonstring)
-                    if let dictionary = jsonObject as? [String:AnyObject] {
-                        self.readJSONObject (object: dictionary)
-                        print("Setting JSON")
+            getData()
+            
                     }
-                    
-                    
-                    if let completionHandler = completion{
-                        completionHandler()
-                    }
-                    
-                } catch {
-                    
-                }
-                
-            }
-        }
         
         
     }
@@ -131,7 +146,7 @@ public class Reports {
         
         guard let reports = object["reports"] as? ReportsArray else {return}
         
-        self.reportDetails = [ReportDetail]() // here we inicialize empty array of DataSet objects
+        self.reportDetails = [ReportDetail]() // here we inicialize empty array of ReportDetail objects
         
         //Setting value for filter, offset and size
         

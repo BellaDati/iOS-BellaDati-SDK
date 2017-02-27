@@ -105,6 +105,32 @@ public class ImportForms{
     public func downloadOnLineForms(completion:(() -> ())? = nil) {
         
         
+        let getData =
+        
+            {
+                APIClient.sharedInstance.getData(service: APIClient.APIService.IMPORTFORMS){(getData) in
+                    
+                    do{
+                        
+                        let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
+                        
+                        if let dictionary = jsonObject as? [String:AnyObject] {
+                            self.readJSONObject (object: dictionary)
+                        }
+                        
+                        
+                        if let completionHandler = completion{
+                            completionHandler()
+                        }
+                        
+                    } catch {
+                        
+                    }
+                    
+                }
+   
+        }
+        
         let loadInitialData =
             
             {
@@ -114,6 +140,8 @@ public class ImportForms{
                     {
                         print(receivedError)
                     }
+                    
+                    getData()
                 }
         }
         
@@ -123,26 +151,7 @@ public class ImportForms{
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.IMPORTFORMS){(getData) in
-                
-                do{
-                    
-                    let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                    
-                    if let dictionary = jsonObject as? [String:AnyObject] {
-                        self.readJSONObject (object: dictionary)
-                    }
-                    
-                    
-                    if let completionHandler = completion{
-                        completionHandler()
-                    }
-                    
-                } catch {
-                    
-                }
-                
-            }
+           getData()
         }
         
         
@@ -154,6 +163,17 @@ public class ImportForms{
     
     public func uploadOnlineFormValues(formid:Int,completion: (() -> ())? = nil){
         
+        
+        
+        let postData =
+        
+            {
+                let readyData = self.buildJSONObject(formid: formid)
+                APIClient.sharedInstance.postData(service: APIClient.APIService.IMPORTFORMS,id:String(formid),httpBodyData:readyData){(responseData) in
+                }
+  
+        }
+        
         let loadInitialData =
             
             {
@@ -163,6 +183,8 @@ public class ImportForms{
                     {
                         print(receivedError)
                     }
+                    
+                    postData()
                 }
         }
         
@@ -171,11 +193,8 @@ public class ImportForms{
             loadInitialData()
             
         } else {
+            postData()
             
-            let readyData = self.buildJSONObject(formid: formid)
-            APIClient.sharedInstance.postData(service: APIClient.APIService.IMPORTFORMS,id:String(formid),httpBodyData:readyData){(responseData) in
-            }
-        
         }
 
     }

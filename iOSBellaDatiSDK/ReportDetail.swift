@@ -444,9 +444,12 @@ public class ReportDetail {
             
             /*Add guard statement values into View object */
             
-            viewObject.id = Int(id)
-            viewObject.type = type
-            viewObject.name = name
+            viewObject.viewId = id
+            
+            
+            
+            viewObject.viewType = type
+            viewObject.viewName = name
             viewObject.isFavourite = isFavourite
             
             var localizations = [String:String]() // localizations of view
@@ -693,7 +696,7 @@ public class ReportDetail {
         
         
         for item in views! {
-            print(item.name)
+            print(item.viewName)
         }
         
         

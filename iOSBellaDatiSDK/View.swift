@@ -10,13 +10,17 @@ import Foundation
 
 public class View {
     
-    public var id:Int?
-    public var type:String?
-    public var name:String?
+    public var viewId:String?
+    public var viewType:String?
+    public var viewName:String?
     public var localizations:[String:String]?
     public var isFavourite:Bool?
     public var dateTimeDefinition:DateTimeDefinition?
     public var drillDownFilter:[Attribute]? //...is using Attribute Object from getDataSetDetail
+    
+    public init(){
+        
+    }
     
     
     public class DateTimeDefinition{

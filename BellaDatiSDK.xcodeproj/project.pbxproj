@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B308C27A1E55FA5D008251BD /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C2791E55FA5D008251BD /* Chart.swift */; };
+		B308C27C1E55FA9B008251BD /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C27B1E55FA9B008251BD /* Table.swift */; };
+		B308C27F1E572FE8008251BD /* X_Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C27E1E572FE8008251BD /* X_Axis.swift */; };
+		B308C2811E573015008251BD /* Y_Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C2801E573015008251BD /* Y_Axis.swift */; };
+		B308C2841E5A4164008251BD /* myjson.json in Resources */ = {isa = PBXBuildFile; fileRef = B308C2821E5A3EE4008251BD /* myjson.json */; };
+		B308C2871E5B3374008251BD /* myjson.json in Resources */ = {isa = PBXBuildFile; fileRef = B308C2821E5A3EE4008251BD /* myjson.json */; };
 		B35980FA1DE346F300DA7119 /* iOSBellaDatiSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B359810A1DE398B900DA7119 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981091DE398B900DA7119 /* APIClient.swift */; };
 		B359810C1DE398DB00DA7119 /* OAuth1a.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359810B1DE398DB00DA7119 /* OAuth1a.swift */; };
@@ -18,12 +24,30 @@
 		B35981181DE3995D00DA7119 /* DataSetDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981171DE3995D00DA7119 /* DataSetDetail.swift */; };
 		B359811A1DE3997A00DA7119 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981191DE3997A00DA7119 /* View.swift */; };
 		B359811C1DE3998800DA7119 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359811B1DE3998800DA7119 /* User.swift */; };
+		B37FB0E61E518EA3009AF908 /* BellaDatiSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37FB0E51E518EA3009AF908 /* BellaDatiSDKTests.swift */; };
+		B37FB0E81E518EA3009AF908 /* BellaDatiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */; };
+		B38399AE1E607A3E0062B111 /* KpiLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38399AD1E607A3E0062B111 /* KpiLabel.swift */; };
 		B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3F4CD421DE39F9400EFE847 /* Info.plist */; };
 		B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B3FFCA3D1DEDC80B004D323C /* .gitignore */; };
 		B3FFCA401DEDCB16004D323C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B3FFCA3F1DEDCB16004D323C /* README.md */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B37FB0E91E518EA3009AF908 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B35980EC1DE346F300DA7119 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B35980F41DE346F300DA7119;
+			remoteInfo = BellaDatiSDK;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		B308C2791E55FA5D008251BD /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		B308C27B1E55FA9B008251BD /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		B308C27E1E572FE8008251BD /* X_Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X_Axis.swift; sourceTree = "<group>"; };
+		B308C2801E573015008251BD /* Y_Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Y_Axis.swift; sourceTree = "<group>"; };
+		B308C2821E5A3EE4008251BD /* myjson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = myjson.json; sourceTree = "<group>"; };
 		B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BellaDatiSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSBellaDatiSDK.h; sourceTree = "<group>"; };
 		B35981091DE398B900DA7119 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -36,6 +60,10 @@
 		B35981171DE3995D00DA7119 /* DataSetDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSetDetail.swift; sourceTree = "<group>"; };
 		B35981191DE3997A00DA7119 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		B359811B1DE3998800DA7119 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B37FB0E31E518EA3009AF908 /* BellaDatiSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BellaDatiSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B37FB0E51E518EA3009AF908 /* BellaDatiSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellaDatiSDKTests.swift; sourceTree = "<group>"; };
+		B37FB0E71E518EA3009AF908 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B38399AD1E607A3E0062B111 /* KpiLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiLabel.swift; sourceTree = "<group>"; };
 		B3F4CD421DE39F9400EFE847 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		B3FFCA3D1DEDC80B004D323C /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B3FFCA3F1DEDCB16004D323C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -49,15 +77,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B37FB0E01E518EA3009AF908 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B37FB0E81E518EA3009AF908 /* BellaDatiSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B308C27D1E5646C2008251BD /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				B308C2791E55FA5D008251BD /* Chart.swift */,
+				B308C27E1E572FE8008251BD /* X_Axis.swift */,
+				B308C2801E573015008251BD /* Y_Axis.swift */,
+			);
+			name = Charts;
+			sourceTree = "<group>";
+		};
 		B35980EB1DE346F300DA7119 = {
 			isa = PBXGroup;
 			children = (
 				B3FFCA3F1DEDCB16004D323C /* README.md */,
 				B3FFCA3D1DEDC80B004D323C /* .gitignore */,
+				B308C2821E5A3EE4008251BD /* myjson.json */,
 				B35980F71DE346F300DA7119 /* iOSBellaDatiSDK */,
+				B37FB0E41E518EA3009AF908 /* BellaDatiSDKTests */,
 				B35980F61DE346F300DA7119 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */,
+				B37FB0E31E518EA3009AF908 /* BellaDatiSDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,7 +173,10 @@
 		B35981071DE3986600DA7119 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B308C27D1E5646C2008251BD /* Charts */,
 				B35981191DE3997A00DA7119 /* View.swift */,
+				B308C27B1E55FA9B008251BD /* Table.swift */,
+				B38399AD1E607A3E0062B111 /* KpiLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -135,6 +187,15 @@
 				B359811B1DE3998800DA7119 /* User.swift */,
 			);
 			name = Users;
+			sourceTree = "<group>";
+		};
+		B37FB0E41E518EA3009AF908 /* BellaDatiSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				B37FB0E51E518EA3009AF908 /* BellaDatiSDKTests.swift */,
+				B37FB0E71E518EA3009AF908 /* Info.plist */,
+			);
+			path = BellaDatiSDKTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,12 +230,34 @@
 			productReference = B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		B37FB0E21E518EA3009AF908 /* BellaDatiSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B37FB0ED1E518EA3009AF908 /* Build configuration list for PBXNativeTarget "BellaDatiSDKTests" */;
+			buildPhases = (
+				B37FB0DF1E518EA3009AF908 /* Sources */,
+				B37FB0E01E518EA3009AF908 /* Frameworks */,
+				B37FB0E11E518EA3009AF908 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B37FB0EA1E518EA3009AF908 /* PBXTargetDependency */,
+			);
+			name = BellaDatiSDKTests;
+			productName = BellaDatiSDKTests;
+			productReference = B37FB0E31E518EA3009AF908 /* BellaDatiSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B35980EC1DE346F300DA7119 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
+				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "BellaDati Inc.";
 				TargetAttributes = {
@@ -182,6 +265,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = NTCQ7SYR29;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+					B37FB0E21E518EA3009AF908 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = NTCQ7SYR29;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -199,6 +287,7 @@
 			projectRoot = "";
 			targets = (
 				B35980F41DE346F300DA7119 /* BellaDatiSDK */,
+				B37FB0E21E518EA3009AF908 /* BellaDatiSDKTests */,
 			);
 		};
 /* End PBXProject section */
@@ -210,6 +299,15 @@
 			files = (
 				B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */,
 				B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */,
+				B308C2841E5A4164008251BD /* myjson.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B37FB0E11E518EA3009AF908 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B308C2871E5B3374008251BD /* myjson.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,21 +318,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B308C2811E573015008251BD /* Y_Axis.swift in Sources */,
 				B35981161DE3995100DA7119 /* DataSets.swift in Sources */,
 				B35981141DE3993A00DA7119 /* Attribute.swift in Sources */,
 				B35981101DE3990800DA7119 /* ReportDetail.swift in Sources */,
 				B359810A1DE398B900DA7119 /* APIClient.swift in Sources */,
 				B35981121DE3991B00DA7119 /* ImportForms.swift in Sources */,
+				B308C27F1E572FE8008251BD /* X_Axis.swift in Sources */,
 				B359811A1DE3997A00DA7119 /* View.swift in Sources */,
 				B359810C1DE398DB00DA7119 /* OAuth1a.swift in Sources */,
 				B359810E1DE398F400DA7119 /* Reports.swift in Sources */,
+				B308C27A1E55FA5D008251BD /* Chart.swift in Sources */,
+				B308C27C1E55FA9B008251BD /* Table.swift in Sources */,
 				B359811C1DE3998800DA7119 /* User.swift in Sources */,
+				B38399AE1E607A3E0062B111 /* KpiLabel.swift in Sources */,
 				B3FFCA401DEDCB16004D323C /* README.md in Sources */,
 				B35981181DE3995D00DA7119 /* DataSetDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B37FB0DF1E518EA3009AF908 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B37FB0E61E518EA3009AF908 /* BellaDatiSDKTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B37FB0EA1E518EA3009AF908 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B35980F41DE346F300DA7119 /* BellaDatiSDK */;
+			targetProxy = B37FB0E91E518EA3009AF908 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B35980FB1DE346F300DA7119 /* Debug */ = {
@@ -377,6 +496,32 @@
 			};
 			name = Release;
 		};
+		B37FB0EB1E518EA3009AF908 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NTCQ7SYR29;
+				INFOPLIST_FILE = BellaDatiSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.belladati.com.BellaDatiSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B37FB0EC1E518EA3009AF908 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = NTCQ7SYR29;
+				INFOPLIST_FILE = BellaDatiSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.belladati.com.BellaDatiSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -394,6 +539,15 @@
 			buildConfigurations = (
 				B35980FE1DE346F300DA7119 /* Debug */,
 				B35980FF1DE346F300DA7119 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B37FB0ED1E518EA3009AF908 /* Build configuration list for PBXNativeTarget "BellaDatiSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B37FB0EB1E518EA3009AF908 /* Debug */,
+				B37FB0EC1E518EA3009AF908 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

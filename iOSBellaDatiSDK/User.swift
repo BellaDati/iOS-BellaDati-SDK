@@ -32,7 +32,9 @@ import UIKit
     public var group = [Group?]()
     var userphoto:NSData?
     
-    
+    public init () {
+        
+    }
     
     
     public class Role {
@@ -85,6 +87,38 @@ import UIKit
     public func downloadUserDetailByUsername(username:String,completion:(() -> ())? = nil) {
         
         
+        
+        
+        
+        let getData =
+            
+            {
+            
+            APIClient.sharedInstance.getData(service: APIClient.APIService.USERDETAIL,id: username){(getData) in
+            
+            do{
+                
+                let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
+                let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
+                print("User:" , jsonstring)
+                if let dictionary = jsonObject as? [String:AnyObject] {
+                    self.readJSONObject (user: dictionary)
+                }
+                
+                
+                if let completionHandler = completion{
+                    completionHandler()
+                }
+                
+            } catch {
+                
+            }
+            
+        }
+
+        }
+        
+        
         let loadInitialData =
             
             {
@@ -94,8 +128,13 @@ import UIKit
                     {
                         print(receivedError)
                     }
+                    
+                    getData()
+                    
                 }
         }
+        
+        
         
         if (!APIClient.sharedInstance.hasAccessTokenSaved()){
             
@@ -103,28 +142,8 @@ import UIKit
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.USERDETAIL,id: username){(getData) in
-                
-                do{
-                    
-                    let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                     let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                    print("User:" , jsonstring)
-                    if let dictionary = jsonObject as? [String:AnyObject] {
-                        self.readJSONObject (user: dictionary)
+            getData()
                     }
-                    
-                    
-                    if let completionHandler = completion{
-                        completionHandler()
-                    }
-                    
-                } catch {
-                    
-                }
-                
-            }
-        }
         
         
     }
@@ -133,6 +152,23 @@ import UIKit
     
     public func downloadUserPhoto(userid:Int, completion:(() -> ())? = nil){
         
+        
+        
+        let getData =
+        
+            {
+                APIClient.sharedInstance.getData(service: APIClient.APIService.USER,id: String(userid),urlSuffix: ["image"]){(getData) in
+                    
+                    self.userphoto = getData
+                    
+                    if let completionHandler = completion{
+                        completionHandler()
+                    }
+                    
+                    
+                }
+        }
+        
         let loadInitialData =
             
             {
@@ -142,6 +178,7 @@ import UIKit
                     {
                         print(receivedError)
                     }
+                    getData()
                 }
         }
         
@@ -151,16 +188,7 @@ import UIKit
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.USER,id: String(userid),urlSuffix: ["image"]){(getData) in
-                
-                self.userphoto = getData
-                    
-                    if let completionHandler = completion{
-                        completionHandler()
-                    }
-                
-                
-            }
+            getData()
         }
 
         

@@ -1,38 +1,54 @@
-/*
- //  APIClient.swift
- //  iOSBellaDatiSDK
- //
- //  Created by Martin Trgina on 8/25/16.
- //  Copyright © 2016 BellaDati Inc. All rights reserved.
- 
- This class makes API requests. It connects to BellaDati API. Important notes about BellaDati API follow
- 
- 1. The API service calls have service names and values mashed up in slesh delimited string. Example /api/import/forms/:id = /api/service/service/number
- 
- */
+//
+//  APIClient.swift
+//  iOSBellaDatiSDK
+//
+//  Created by Martin Trgina on 8/25/16.
+//  Copyright © 2016 BellaDati Inc. All rights reserved.
+//
+
+
 
 import Foundation
+
+/**
+ 
+ - This class makes API requests. It connects to BellaDati API. Important notes about BellaDati API follow
+ 
+ - The API service calls have service names and values mashed up in slesh delimited string. Example /api/import/forms/:id = /api/service/service/number
+ 
+ - Copyright © 2016 BellaDati Inc. All rights reserved.
+ 
+ */
 
 public class APIClient {
     
     
-    var baseURL = "/belladati/api" // /belladati/api /api
-    var relativeAccessTokenURL = "/belladati/oauth/accessToken" // /belladati/oauth/accessToken /oauth/accessToken
-    let oauth_consumer_key = "apikey" //apikey frameworkforms
-    var oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
-    var oauth_nonce = NSUUID().uuidString
-    let encoding = String.Encoding.utf8
-    var oauthParams = [String:String]()
-    var oauthHandler: OAuth1a!
-    let session =  URLSession.shared
-    var o_authtoken: String?
+    private var baseURL = "/belladati/api" // /belladati/api /api
+    private var relativeAccessTokenURL = "/belladati/oauth/accessToken" // /belladati/oauth/accessToken /oauth/accessToken
+    private var oauth_consumer_key = "apikey" //apikey frameworkforms
+    private var scheme:String = "http" //BellaDati server protocol
+    private var host:String = "BellaDatiMac.local" //BellaDati server address
+    private var port:NSNumber = 8082 //BellaDati server port
+    private var x_auth_username: String = "yourusername@belladati.com" //BellaDati server username
+    private var x_auth_password: String = "yourpassword" //BellaDati server user password
+    
+    private var oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
+    private var oauth_nonce = NSUUID().uuidString
+    private let encoding = String.Encoding.utf8
+    private var oauthParams = [String:String]()
+    private var oauthHandler: OAuth1a!
+    private let session =  URLSession.shared
+    private var o_authtoken: String?
     
     
     let  settings = UserDefaults.standard
     var  OAuthTokenCompletionHandler:((_ error:NSError?,String?) -> Void)?
     
     
-    /* We have only one BellaDati API to interact with. So let's make APIClient as sigleton */
+    /** 
+        - We have only one BellaDati API to interact with. APIClient is available as sigleton trough sharedInstance constant
+        - From your app you can get access to methods of APIClient class by using APIClient.sharedInstance
+     */
     
     public static let sharedInstance = APIClient()
     
@@ -51,13 +67,42 @@ public class APIClient {
         
     }
     
-    
-    /*
-     authenticateBellaDati function takes belladati constructs the OAuth 1.0 x_Auth type of request using parameters. The output is new oAuthAcessToken. Run this method prior
-     to using other APIClient methods. 
+    /**
+      
+     - Before calling authenticateWithBellaDati func user has to setup credentials important for authentication process
+     - authenticateWithBellaDati function will use these credentials
+     
      */
     
-    public func authenticateWithBellaDati(scheme:String = "http",host:String = "BellaDatiMac.local",port:NSNumber = 8082,accessTokenUrlPath: String = "/belladati/oauth/accessToken" , oauth_consumer_key: String = "apikey", x_auth_username: String = "yourusername@belladati.com",x_auth_password: String = "yourpassword", completionBlock: ((NSError?) -> Void)?) {
+    
+    public func setAPIClient(scheme:String,host:String,port:NSNumber,relativeAccessTokenUrl:String, oauth_consumer_key: String, x_auth_username: String,x_auth_password: String){
+    
+        self.scheme = scheme
+        self.host = host
+        self.port = port
+        self.relativeAccessTokenURL = relativeAccessTokenUrl
+        self.oauth_consumer_key = oauth_consumer_key
+        self.x_auth_username = x_auth_username
+        self.x_auth_password = x_auth_password
+ 
+ }
+        
+        
+        
+ 
+    
+    
+    /**
+     - authenticateWithBellaDati function takes belladati constructs the OAuth 1.0 x_Auth type of request using parameters. The output is new oAuthAcessToken. Run this method prior
+     to using other APIClient methods. 
+     - authenticateWithBellaDati function is using APIClient private authentication credentials
+     - use setAuthenticationCredentials function to setup values of credentials prior to calling authenticateWithBellaDati
+     - authenticateWithBellaDati can be called by user, but it is also called by function of framework classes (only in case when client is not yet authenticated with BellaDati
+     - for instance in function downloadListOfReports in Reports.swift class func will call authenticateWithBellaDati. Prior to that call you should call setApiClient somewhere in your application to set the right credentials
+     
+     */
+    
+    public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
         
         print("authenticateWithBellaDati:Starting...")
         
@@ -67,7 +112,7 @@ public class APIClient {
         completeAccessTokenUrl.scheme = scheme
         completeAccessTokenUrl.host = host
         completeAccessTokenUrl.port = port
-        completeAccessTokenUrl.path = accessTokenUrlPath
+        completeAccessTokenUrl.path = relativeAccessTokenURL
         
         
         completeAccessTokenUrl.queryItems = [NSURLQueryItem(name: "oauth_consumer_key",value: "\(oauth_consumer_key)") as URLQueryItem,
@@ -168,7 +213,7 @@ public class APIClient {
         
     }
     
-    /* hasOAuthToken check if o_authtoken var in instance of APIClient class already has value of token */
+    /** hasOAuthToken check if o_authtoken var in instance of APIClient class already has value of token */
     
     public func hasOAuthToken() -> Bool{
         
@@ -182,7 +227,7 @@ public class APIClient {
     }
     
     
-    /* hasAccessTokenSaved check if AccessTokenValue is saved in NSUserDefault. If yes we do not have to call authenticateWithBellaDati */
+    /** hasAccessTokenSaved check if AccessTokenValue is saved in NSUserDefault. If yes we do not have to call authenticateWithBellaDati */
     
     public func hasAccessTokenSaved() -> Bool{
         
@@ -197,7 +242,7 @@ public class APIClient {
     
     
     
-    /* parseAccessToken parses oAuthAccessToken from joined accessToken&accessToken string that we received as response from BellaDati service */
+    /** parseAccessToken parses oAuthAccessToken from joined accessToken&accessToken string that we received as response from BellaDati service */
     
     func parseAccessToken(oauthTokenAndSecret:NSData?) -> String {
         
@@ -210,7 +255,7 @@ public class APIClient {
         return String(accessToken)
     }
     
-    /* OAuth Token secret is not used in current Authentication process. But good to have this handy method */
+    /** Currently only xAuth is supported.OAuth Token secret is not used in current Authentication process */
     
     func parseAccessTokenSecret(oauthTokenAndSecret:NSData?) -> String {
         
@@ -224,7 +269,7 @@ public class APIClient {
     
     
     
-    /*
+    /**
      
      This function does actual API Request. It calls OAuth signing and verification of response data. Explanation of parameters
      
@@ -411,7 +456,7 @@ public class APIClient {
     
     
     
-    /*
+    /**
      
      urlSuffix: has nil as default value. So we do not have to provide nil parameters. For instance when we would be calling only root service like /api/reports
      id: for example call /api/reports/:id includes number and id of the report. However some calls do not include id. So id is by default nil
@@ -577,7 +622,7 @@ public class APIClient {
     
     
     
-    /* BellaDati REST API is using GET and POST methods*/
+    /** BellaDati REST API is using GET and POST methods*/
     
     public enum  APIMethod {
         case GET,POST
@@ -596,7 +641,7 @@ public class APIClient {
         }
     }
     
-    /* BellaDati list of API services */
+    /** BellaDati list of API services */
     
     public enum APIService {
         
@@ -605,6 +650,7 @@ public class APIClient {
         case USER
         case DATASETS
         case REPORTS
+        case VIEWS
         
         
         func toString() -> String {
@@ -618,6 +664,7 @@ public class APIClient {
             case .USER:service = "users"
             case .DATASETS:service = "dataSets"
             case .REPORTS:service = "reports"
+            case .VIEWS:service = "reports/views"
             }
             
             return service
@@ -673,7 +720,7 @@ public class APIClient {
     
     
     
-    /* handleErrorResponse function handle error response codes send by BellaDati service */
+    /** handleErrorResponse function handle error response codes send by BellaDati service */
     
     public func handleErrorResponse (code: Int, and body:NSString) -> String{
         
@@ -749,7 +796,7 @@ public class APIClient {
         return errorMessage!
     }
     
-    /* handleNetworkConnectivity method uses extension of NSError to produce string of exception */
+    /** handleNetworkConnectivity method uses extension of NSError to produce string of exception */
     
     public func handleNetworkConnectivityError(error:NSError) -> String
     {

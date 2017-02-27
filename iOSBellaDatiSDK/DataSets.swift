@@ -24,6 +24,9 @@ public class DataSets{
     public var size:Int?
     public var filter:String?
     
+    public init () {
+        
+    }
     
     /* Only for testing now */
     
