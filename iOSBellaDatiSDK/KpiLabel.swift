@@ -357,6 +357,13 @@ public class KpiLabel:View {
                 
                 kpiLabelValue.color = UIColor(red: CGFloat(parsedstylevalues.color.red/255) , green: CGFloat(parsedstylevalues.color.green/255), blue:CGFloat(parsedstylevalues.color.blue/255) , alpha: 1.0)
                 
+                
+                
+                
+                kpiLabelValue.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red/255) , green: CGFloat(parsedstylevalues.backgroundcolor.green/255), blue:CGFloat(parsedstylevalues.backgroundcolor.blue/255) , alpha: 1.0)
+                
+                kpiLabelValue.fontweight = parsedstylevalues.fontweight
+                
                 self.values?.append(kpiLabelValue)
                 
             }

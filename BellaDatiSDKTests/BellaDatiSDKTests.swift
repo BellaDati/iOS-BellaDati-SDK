@@ -15,11 +15,14 @@ class BellaDatiSDKTests: XCTestCase {
     var reports = Reports()
     var chart = Chart()
     var kpilabel = KpiLabel()
+    var table = Table()
     
     
      // Put setup code here. This method is called before the invocation of each test method in the class.
     override func setUp() {
         super.setUp()
+        
+        /* APIClient is singleton. First step is. Prior to the APIClient.sharedInstance.authenticateWithBellaDati(). User has to set the credentials */
         
         APIClient.sharedInstance.setAPIClient(scheme:"http",host:"BellaDatiMac.local",port:8082,relativeAccessTokenUrl:"/belladati/oauth/accessToken", oauth_consumer_key:"apikey", x_auth_username:"your.username@belladati.com" ,x_auth_password: "Yourpassword1")
         
@@ -30,8 +33,7 @@ class BellaDatiSDKTests: XCTestCase {
         super.tearDown()
     }
     
-    /*This method is automatically called in Reports method download list of reports. But it is important to have right setup
-     of credentials via APIClient.sharedInstance.setAPIClient */
+    /* Next step is to call APIClient.sharedInstance.authenticateWithBellaDati. However This method is automatically called in Reports method downloadListOfReports. But it is important to have right setup of credentials via APIClient.sharedInstance.setAPIClient */
     
     func AuthenticateWithBellaDati() {
         // This is an example of a functional test case.
@@ -73,6 +75,9 @@ class BellaDatiSDKTests: XCTestCase {
         
         
     }
+    
+    
+    /*How to load the reports test. Reports must be loaded prior to loading Views (Tabels,KPILabel,Charts)*/
     
     func OfReports(){
         
@@ -117,9 +122,9 @@ class BellaDatiSDKTests: XCTestCase {
     
 }
     
-    /* On BellaDati server has to exist 1 report named KPILabel Test and has to have 1 View to keep same results for test */
+    /* How to load the KPI Label. On BellaDati server has to exist 1 report named KPILabel Test and has to have 1 View to keep same results for test */
     
-    func testOfKpiLabel(){
+    func OfKpiLabel(){
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
@@ -181,25 +186,85 @@ class BellaDatiSDKTests: XCTestCase {
         
     }
     
-    func OfStyleParsing(){
     
-        var stylestring = " color:rgb(117, 206, 0);  background-color:rgb(25, 82, 125);  font-weight:bold; "
-        
-        var stylestring2 = " color: #343434; background-color: #e5e5e5;"
     
-        kpilabel.parseValueStyle(style: stylestring2)
-    }
+    /*How to get data from cells in table.From header and from body. How to identify header cells in body rows*/
     
-    func UploadSavedCharts() {
+    func testOfTables(){
         
-        chart.uploadSavedCharts()
         
-        print(chart.elements?[0].type)
-        print(chart.xAxis!.steps)
+        let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
-        XCTAssertEqual(chart.xAxis!.steps!, Double(0))
         
-      
+        reports.downloadListOfReports(filter: "TableTestDrillDown", offset: nil, size: nil) { () -> () in
+            
+            
+            for report in self.reports.reportDetails! {
+                
+                report.downloadReportDetail(completion: {
+                    print(report.name)
+                    print("This is name of View:" + report.views![0].viewName!)
+                    print("This is id of TabelView:" + String(report.views![0].viewId!))
+                    self.table.viewId = report.views![0].viewId! // keep 1 view per report to make tests easy
+                    
+                    self.table.downloadOnLineTabel(completion: {
+                        
+                        
+                        print("Values in Table header:")
+                        
+                        for row in self.table.header {
+                            
+                            for cell in row.row {
+                                
+                                print(cell.value!)
+                                print(cell.colspan)
+                                print(cell.rowspan)
+                                print(cell.index) // position of cell in the row
+                                print(cell.drillDownLevel) //should you plus sign for drilldown, ddLevel  = 0 as default
+                                print(cell.color)
+                                print(cell.backgroundcolor)
+                                
+                            }
+                        }
+                        
+                        print("Values in Table body:")
+                        
+                        for row in self.table.body {
+                            
+                            for cell in row.row {
+                                print(cell.value)
+                                print(cell.type) // is this header cell in the row. should render apply special treatment
+                            }
+                        }
+                        
+                        
+
+
+                        
+                        
+                      expect.fulfill()
+                        
+                    })
+                    
+                    
+                    
+                })
+                
+                
+            }
+        }
+        
+        self.waitForExpectations(timeout: 15.0) { error in
+            let token = APIClient.sharedInstance.hasAccessTokenSaved()
+            XCTAssertTrue(token == true,"Token should be received from BellaServ and stored on device.")
+        }
+
+        
+            }
+    
+    func ofCleaning(){
+        
+        /*table.cleanCellValue(value: "<a class=\"tableDrillDown\" href=\"belladati://drilldown-menu/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B3%B8%EB%B6%80%EB%B3%B8%EA%B4%80%7D%5D%5BL_TAG_NAME%3D%7B%EC%9C%A0%ED%9A%A8%EC%A0%84%EB%A0%A5%EB%9F%89%7D%5D&amp;tableElementId=307-Wc5DrMKju4.h.0\"></a>유효전력량")*/
         
     }
     
