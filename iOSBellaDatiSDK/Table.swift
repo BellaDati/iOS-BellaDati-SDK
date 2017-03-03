@@ -85,7 +85,7 @@ public class Table:View {
     
     public class Row {
         
-        var row = [Cell]()
+        var cells = [Cell]()
         
         public init(){
             
@@ -405,7 +405,7 @@ public class Table:View {
                     
                     }
                     
-                    rowobject.row.append(cellobject)
+                    rowobject.cells.append(cellobject)
                     
                         }
                   self.header.append(rowobject)
@@ -447,7 +447,7 @@ public class Table:View {
                         
                     }
                     
-                    rowobject.row.append(cellobject)
+                    rowobject.cells.append(cellobject)
                     
                 }
                 self.body.append(rowobject)

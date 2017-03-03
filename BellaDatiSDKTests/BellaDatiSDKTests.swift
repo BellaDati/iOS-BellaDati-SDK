@@ -214,7 +214,7 @@ class BellaDatiSDKTests: XCTestCase {
                         
                         for row in self.table.header {
                             
-                            for cell in row.row {
+                            for cell in row.cells {
                                 
                                 print(cell.value!)
                                 print(cell.colspan)
@@ -231,7 +231,7 @@ class BellaDatiSDKTests: XCTestCase {
                         
                         for row in self.table.body {
                             
-                            for cell in row.row {
+                            for cell in row.cells {
                                 print(cell.value)
                                 print(cell.type) // is this header cell in the row. should render apply special treatment
                             }
