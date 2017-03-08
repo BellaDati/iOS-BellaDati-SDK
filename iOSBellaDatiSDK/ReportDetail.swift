@@ -82,8 +82,8 @@ public class ReportDetail {
                 do{
                     
                     let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                    print("Report detail:" , jsonstring)
+                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
+                    print("Report detail:" , jsonstring ?? "nil")
                     if let dictionary = jsonObject as? [String:AnyObject] {
                         self.readJSONObject (object: dictionary)
                         print("Setting JSON")
@@ -109,8 +109,8 @@ public class ReportDetail {
     public func uploadComment(reportid:Int,comment:String,completion: (() -> ())? = nil){
         
         
-        var readyComment = "text="+comment
-        var commentData = readyComment.data(using: String.Encoding.utf8)!
+        let readyComment = "text="+comment
+        let commentData = readyComment.data(using: String.Encoding.utf8)!
         
         let loadInitialData =
             
@@ -135,8 +135,8 @@ public class ReportDetail {
                 do{
                     
                     let jsonObject = try JSONSerialization.jsonObject(with: responseData! as Data, options: .allowFragments)
-                    let jsonstring = NSString(data: responseData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                    print("Comment detail:" , jsonstring)
+                    let jsonstring = NSString(data: responseData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
+                    print("Comment detail:" , jsonstring ?? "nil")
                     if let dictionary = jsonObject as? [String:AnyObject] {
                         self.readJSONObject (object: dictionary)
                         print("Setting JSON")
@@ -217,8 +217,8 @@ public class ReportDetail {
                     do{
                         
                         let jsonObject = try JSONSerialization.jsonObject(with: responseData! as Data, options: .allowFragments)
-                        let jsonstring = NSString(data: responseData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                        print("Report detail:" , jsonstring)
+                        let jsonstring = NSString(data: responseData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
+                        print("Report detail:" , jsonstring ?? "nil")
                         if let dictionary = jsonObject as? [String:AnyObject] {
                             self.readJSONObject (object: dictionary)
                             print("Setting JSON")
@@ -411,13 +411,13 @@ public class ReportDetail {
         if datasetdrilldownAttributes != nil {
         
         for attribute in datasetdrilldownAttributes!{
-            print(attribute["id"])
+            print(attribute["id"] ?? "nil")
         self.dataSet?.attributes?.append(Attribute(id: attribute["id"], name: attribute["name"], code: attribute["code"]!, type: attribute["type"]))
             
             }
         }
         
-        print (self.dataSet?.attributes?[0].name)
+        print (self.dataSet?.attributes?[0].name ?? "nil")
         
         /*Trying to load View's JSON property object values*/
         
@@ -454,7 +454,7 @@ public class ReportDetail {
             
             var localizations = [String:String]() // localizations of view
             
-            print (view["type"])
+            print (view["type"] ?? "nil")
             
             if let viewLocalizations = view["localization"] as? LocalizationsArray {
                 
@@ -631,7 +631,7 @@ public class ReportDetail {
                 
             }
             
-           print (dateTimeDefinitionObject.dateInterval?.interval) //Test
+           print (dateTimeDefinitionObject.dateInterval?.interval ?? "nil") //Test
            viewObject.dateTimeDefinition = dateTimeDefinitionObject //Assigning assembled dateTimeDefinitionObject to viewObject
             }
             
@@ -696,7 +696,7 @@ public class ReportDetail {
         
         
         for item in views! {
-            print(item.viewName)
+            print(item.viewName ?? "nil")
         }
         
         
