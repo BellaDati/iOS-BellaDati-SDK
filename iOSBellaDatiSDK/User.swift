@@ -99,8 +99,8 @@ import UIKit
             do{
                 
                 let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                print("User:" , jsonstring)
+                let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
+                print("User:" , jsonstring ?? "nil")
                 if let dictionary = jsonObject as? [String:AnyObject] {
                     self.readJSONObject (user: dictionary)
                 }
@@ -288,7 +288,7 @@ import UIKit
                 
                 // if items json object field is empty will continue to process next json element object
                 
-                var roleObject = Role(role: userrole)
+                let roleObject = Role(role: userrole)
                     self.roles.append(roleObject)
                     
         }
@@ -306,7 +306,7 @@ import UIKit
             
             // if items json object field is empty will continue to process next json element object
 
-            var groupObject = Group(id: id, name: name)
+            let groupObject = Group(id: id, name: name)
             self.group.append(groupObject)
             
         }

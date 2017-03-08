@@ -181,7 +181,7 @@ public class Table:View {
         
         var color = (red:Int(),green:Int(),blue:Int())
         var backgroundcolor = (red:Int(),green:Int(),blue:Int())
-        var fontweight = String()
+        let fontweight = String()
         var charfield =  [Character]()
         
         for character in (style?.characters)! {

@@ -96,8 +96,8 @@ public class DataSets{
                 do{
                     
                     let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                    print("Datasets:" , jsonstring)
+                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
+                    print("Datasets:" , jsonstring ?? "nil")
                     if let dictionary = jsonObject as? [String:AnyObject] {
                         self.readJSONObject (object: dictionary)
                         print("Setting JSON")

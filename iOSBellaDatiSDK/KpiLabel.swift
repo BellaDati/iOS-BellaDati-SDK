@@ -132,7 +132,7 @@ public class KpiLabel:View {
         
         var color = (red:Int(),green:Int(),blue:Int())
         var backgroundcolor = (red:Int(),green:Int(),blue:Int())
-        var fontweight = String()
+        let fontweight = String()
         var charfield =  [Character]()
         
         for character in (style?.characters)! {
@@ -352,7 +352,7 @@ public class KpiLabel:View {
                 kpiLabelValue.style = style
                 kpiLabelValue.numberValue = numberValue
                 
-                var parsedstylevalues = self.parseValueStyle(style: style)
+                let parsedstylevalues = self.parseValueStyle(style: style)
                 
                 
                 kpiLabelValue.color = UIColor(red: CGFloat(parsedstylevalues.color.red/255) , green: CGFloat(parsedstylevalues.color.green/255), blue:CGFloat(parsedstylevalues.color.blue/255) , alpha: 1.0)

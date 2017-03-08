@@ -96,8 +96,8 @@ public class Attribute {
                 do{
                     
                     let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as? String
-                    print("Attributes:" , jsonstring)
+                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
+                    print("Attributes:" , jsonstring ?? "nil")
                     if let dictionary = jsonObject as? [String:AnyObject] {
                         self.readJSONObject (object: dictionary)
                         print("Setting JSON")
