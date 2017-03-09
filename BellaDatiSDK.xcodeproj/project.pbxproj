@@ -11,8 +11,6 @@
 		B308C27C1E55FA9B008251BD /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C27B1E55FA9B008251BD /* Table.swift */; };
 		B308C27F1E572FE8008251BD /* X_Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C27E1E572FE8008251BD /* X_Axis.swift */; };
 		B308C2811E573015008251BD /* Y_Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C2801E573015008251BD /* Y_Axis.swift */; };
-		B308C2841E5A4164008251BD /* myjson.json in Resources */ = {isa = PBXBuildFile; fileRef = B308C2821E5A3EE4008251BD /* myjson.json */; };
-		B308C2871E5B3374008251BD /* myjson.json in Resources */ = {isa = PBXBuildFile; fileRef = B308C2821E5A3EE4008251BD /* myjson.json */; };
 		B35980FA1DE346F300DA7119 /* iOSBellaDatiSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B359810A1DE398B900DA7119 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35981091DE398B900DA7119 /* APIClient.swift */; };
 		B359810C1DE398DB00DA7119 /* OAuth1a.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359810B1DE398DB00DA7119 /* OAuth1a.swift */; };
@@ -47,7 +45,6 @@
 		B308C27B1E55FA9B008251BD /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		B308C27E1E572FE8008251BD /* X_Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X_Axis.swift; sourceTree = "<group>"; };
 		B308C2801E573015008251BD /* Y_Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Y_Axis.swift; sourceTree = "<group>"; };
-		B308C2821E5A3EE4008251BD /* myjson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = myjson.json; sourceTree = "<group>"; };
 		B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BellaDatiSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSBellaDatiSDK.h; sourceTree = "<group>"; };
 		B35981091DE398B900DA7119 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 			children = (
 				B3FFCA3F1DEDCB16004D323C /* README.md */,
 				B3FFCA3D1DEDC80B004D323C /* .gitignore */,
-				B308C2821E5A3EE4008251BD /* myjson.json */,
 				B35980F71DE346F300DA7119 /* iOSBellaDatiSDK */,
 				B37FB0E41E518EA3009AF908 /* BellaDatiSDKTests */,
 				B35980F61DE346F300DA7119 /* Products */,
@@ -299,7 +295,6 @@
 			files = (
 				B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */,
 				B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */,
-				B308C2841E5A4164008251BD /* myjson.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +302,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B308C2871E5B3374008251BD /* myjson.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +461,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = iOSBellaDatiSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belladati.com.iOSBellaDatiSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -488,6 +483,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = iOSBellaDatiSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.belladati.com.iOSBellaDatiSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";

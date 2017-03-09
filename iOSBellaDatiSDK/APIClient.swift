@@ -58,7 +58,7 @@ public class APIClient {
             
             o_authtoken = savedAcessToken
             
-            print("APIClient Singletone Message: I have found access token stored on device:\(o_authtoken).Let's build requests!")
+            print("APIClient Singletone Message: I have found access token stored on device:\(o_authtoken ?? "nil").Let's build requests!")
             
         } else {
             
@@ -158,7 +158,7 @@ public class APIClient {
                 
                 return
             }
-            let responseBody =  NSString(data: data!, encoding: self.encoding.rawValue) as! String
+            let responseBody =  NSString(data: data!, encoding: self.encoding.rawValue)! as String
             
             
             let httpResponse = response as! HTTPURLResponse
@@ -174,7 +174,7 @@ public class APIClient {
                 
                 self.settings.set(self.o_authtoken, forKey: "AccessToken")
                 
-                print("authenticateWithBellaDati message: Access Token \(self.o_authtoken) has been stored on device into NSUserDefaults")
+                print("authenticateWithBellaDati message: Access Token \(self.o_authtoken ?? "nil") has been stored on device into NSUserDefaults")
                 
                 self.oauthParams = ["oauth_consumer_key":self.oauth_consumer_key, "oauth_token": self.o_authtoken!]
                 
@@ -410,7 +410,7 @@ public class APIClient {
             
             if error != nil
             {
-                print("error=\(error)")
+                print("error=\(error!)")
                 return
             }
             
@@ -438,8 +438,8 @@ public class APIClient {
                 if let completionHandler = callback {
                     
                     completionHandler(data as NSData?,error as NSError?)
-                    let jsonstring = NSString(data: data!, encoding: String.Encoding.utf8.rawValue ) as? String
-                    print("Response:" , jsonstring)
+                    let jsonstring = NSString(data: data!, encoding: String.Encoding.utf8.rawValue ) as String?
+                    print("Response:" , jsonstring ?? "nil")
                     
                 }
                 
@@ -619,7 +619,7 @@ public class APIClient {
         fullData.append(lineNine.data(
             using: String.Encoding.utf8,
             allowLossyConversion: false)!)
-        print(String(data:fullData,encoding:String.Encoding.utf8))
+        print(String(data:fullData,encoding:String.Encoding.utf8) ?? "nil")
         return fullData
     }
     
