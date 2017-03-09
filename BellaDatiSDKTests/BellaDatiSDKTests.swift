@@ -24,7 +24,7 @@ class BellaDatiSDKTests: XCTestCase {
         
         /* APIClient is singleton. First step is. Prior to the APIClient.sharedInstance.authenticateWithBellaDati(). User has to set the credentials */
         
-        APIClient.sharedInstance.setAPIClient(scheme:"http",host:"BellaDatiMac.local",port:8082,relativeAccessTokenUrl:"/belladati/oauth/accessToken", oauth_consumer_key:"apikey", x_auth_username:"your.username@belladati.com" ,x_auth_password: "Yourpassword1")
+        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"apikey4", x_auth_username:"martin.driver@belladati.com" ,x_auth_password: "Yourpassword1")
         
     }
     
@@ -35,7 +35,7 @@ class BellaDatiSDKTests: XCTestCase {
     
     /* Next step is to call APIClient.sharedInstance.authenticateWithBellaDati. However This method is automatically called in Reports method downloadListOfReports. But it is important to have right setup of credentials via APIClient.sharedInstance.setAPIClient */
     
-    func AuthenticateWithBellaDati() {
+    func testAuthenticateWithBellaDati() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
@@ -55,7 +55,7 @@ class BellaDatiSDKTests: XCTestCase {
                
             }
             
-            self.waitForExpectations(timeout: 7.0) { error in
+            self.waitForExpectations(timeout: 60.0) { error in
             let token = APIClient.sharedInstance.hasAccessTokenSaved()
             XCTAssertTrue(token == true,"Token should be received from BellaServ and stored on device.")
             }
@@ -84,7 +84,7 @@ class BellaDatiSDKTests: XCTestCase {
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "JSON CHART REPORT", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "TabelTestDrillDown", offset: nil, size: nil) { () -> () in
             
             
             for report in self.reports.reportDetails! {
@@ -135,7 +135,8 @@ class BellaDatiSDKTests: XCTestCase {
             for report in self.reports.reportDetails! {
                 
                 report.downloadReportDetail(completion: {
-                    print(report.name)
+                    
+                    
                     print("This is name of View:" + report.views![0].viewName!)
                     print("This is id of KPILabelView:" + String(report.views![0].viewId!))
                     self.kpilabel.viewId = report.views![0].viewId!
@@ -196,7 +197,7 @@ class BellaDatiSDKTests: XCTestCase {
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "TableTestDrillDown", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "TabelTestDrillDown", offset: nil, size: nil) { () -> () in
             
             
             for report in self.reports.reportDetails! {
