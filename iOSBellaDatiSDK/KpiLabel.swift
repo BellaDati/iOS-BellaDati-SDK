@@ -185,7 +185,6 @@ public class KpiLabel:View {
                         colorrgbcharfield = [Character]()
                         whichcolorindex += 1
                         }
-                        
                 
                         
                     }
@@ -227,7 +226,7 @@ public class KpiLabel:View {
                     var bgcolorrgbcharfield = [Character]()
                     
                     
-                    let range = bgcolorrgb.startIndex..<bgcolorrgb.index(bgcolorrgb.startIndex, offsetBy: 21)
+                    let range = bgcolorrgb.startIndex..<bgcolorrgb.index(bgcolorrgb.startIndex, offsetBy: 20)
                     
                     
                     bgcolorrgb.removeSubrange(range)

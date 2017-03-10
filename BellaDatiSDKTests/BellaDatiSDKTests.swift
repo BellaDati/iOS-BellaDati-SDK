@@ -16,6 +16,7 @@ class BellaDatiSDKTests: XCTestCase {
     var chart = Chart()
     var kpilabel = KpiLabel()
     var table = Table()
+    var datasetdetail:DataSetDetail?
     
     
      // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -24,7 +25,7 @@ class BellaDatiSDKTests: XCTestCase {
         
         /* APIClient is singleton. First step is. Prior to the APIClient.sharedInstance.authenticateWithBellaDati(). User has to set the credentials */
         
-        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"apikey4", x_auth_username:"martin.driver@belladati.com" ,x_auth_password: "Yourpassword1")
+        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"apikey", x_auth_username:"" ,x_auth_password: "")
         
     }
     
@@ -124,12 +125,12 @@ class BellaDatiSDKTests: XCTestCase {
     
     /* How to load the KPI Label. On BellaDati server has to exist 1 report named KPILabel Test and has to have 1 View to keep same results for test */
     
-    func OfKpiLabel(){
+    func testOfKpiLabel(){
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "KPILabel Test", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "Pay How You Drive - Driver Overview - NEW", offset: nil, size: nil) { () -> () in
             
             
             for report in self.reports.reportDetails! {
@@ -139,7 +140,7 @@ class BellaDatiSDKTests: XCTestCase {
                     
                     print("This is name of View:" + report.views![0].viewName!)
                     print("This is id of KPILabelView:" + String(report.views![0].viewId!))
-                    self.kpilabel.viewId = report.views![0].viewId!
+                    self.kpilabel.viewId = "48328-rCtBF5PraV" //report.views![0].viewId!
                     
                     self.kpilabel.downloadOnLineKpiLabel(completion: {
                         
@@ -191,13 +192,13 @@ class BellaDatiSDKTests: XCTestCase {
     
     /*How to get data from cells in table.From header and from body. How to identify header cells in body rows*/
     
-    func testOfTables(){
+    func OfTables(){
         
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "TabelTestDrillDown", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { () -> () in
             
             
             for report in self.reports.reportDetails! {
@@ -208,7 +209,7 @@ class BellaDatiSDKTests: XCTestCase {
                     print("This is id of TabelView:" + String(report.views![0].viewId!))
                     self.table.viewId = report.views![0].viewId! // keep 1 view per report to make tests easy
                     
-                    self.table.downloadOnLineTabel(completion: {
+                    self.table.downloadOnLineTable(completion: {
                         
                         
                         print("Values in Table header:")
@@ -263,9 +264,57 @@ class BellaDatiSDKTests: XCTestCase {
         
             }
     
-    func ofCleaning(){
+    /*How get the datasets attributes using dataset id from report*/
+    
+    func ofDataSets(){
         
-        /*table.cleanCellValue(value: "<a class=\"tableDrillDown\" href=\"belladati://drilldown-menu/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B3%B8%EB%B6%80%EB%B3%B8%EA%B4%80%7D%5D%5BL_TAG_NAME%3D%7B%EC%9C%A0%ED%9A%A8%EC%A0%84%EB%A0%A5%EB%9F%89%7D%5D&amp;tableElementId=307-Wc5DrMKju4.h.0\"></a>유효전력량")*/
+        let expect = self.expectation(description: "Expected number of reports should be downloaded")
+        
+        
+        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { () -> () in
+            
+            
+            for report in self.reports.reportDetails! {
+                
+                report.downloadReportDetail(completion: {
+                    
+                    
+            var datasetid = String(describing:report.dataSet?.id)
+            print("This is id of dataset used by report:" + datasetid)
+                    
+            self.datasetdetail = DataSetDetail(id: (report.dataSet?.id)!)
+                    
+                    
+                    self.datasetdetail?.downloadDataSetDetail(id: (report.dataSet?.id)!,completion: {
+                        
+                        
+                        for attribute in (self.datasetdetail?.attributes)! {
+                            
+                           print(attribute.code)
+                        }
+                        
+                        
+                        
+                        
+                        
+                        expect.fulfill()
+                    })
+                    
+                    
+                    
+                })
+                
+                
+            }
+            
+        }
+        
+        
+        self.waitForExpectations(timeout: 7.0) { error in
+            let token = APIClient.sharedInstance.hasAccessTokenSaved()
+            XCTAssertTrue(token == true,"Token should be received from BellaServ and stored on device.")
+        }
+       
         
     }
     

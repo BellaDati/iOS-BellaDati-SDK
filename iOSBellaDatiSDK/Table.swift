@@ -119,7 +119,7 @@ public class Table:View {
     
     /* Downloads JSON definition of Chart object including Chart data */
     
-    public func downloadOnLineTabel(completion:(() -> ())? = nil) {
+    public func downloadOnLineTable(completion:(() -> ())? = nil) {
         
         
         let getData =
