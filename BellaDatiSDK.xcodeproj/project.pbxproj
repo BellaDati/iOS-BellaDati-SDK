@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B308C27A1E55FA5D008251BD /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C2791E55FA5D008251BD /* Chart.swift */; };
 		B308C27C1E55FA9B008251BD /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C27B1E55FA9B008251BD /* Table.swift */; };
 		B308C27F1E572FE8008251BD /* X_Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C27E1E572FE8008251BD /* X_Axis.swift */; };
 		B308C2811E573015008251BD /* Y_Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B308C2801E573015008251BD /* Y_Axis.swift */; };
@@ -25,6 +24,10 @@
 		B37FB0E61E518EA3009AF908 /* BellaDatiSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37FB0E51E518EA3009AF908 /* BellaDatiSDKTests.swift */; };
 		B37FB0E81E518EA3009AF908 /* BellaDatiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35980F51DE346F300DA7119 /* BellaDatiSDK.framework */; };
 		B38399AE1E607A3E0062B111 /* KpiLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38399AD1E607A3E0062B111 /* KpiLabel.swift */; };
+		B39D73131E7726B800C617DF /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D730F1E7726B800C617DF /* LineChart.swift */; };
+		B39D73141E7726B800C617DF /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D73101E7726B800C617DF /* PieChart.swift */; };
+		B39D73151E7726B800C617DF /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D73111E7726B800C617DF /* Domain.swift */; };
+		B39D73161E7726B800C617DF /* DataSetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D73121E7726B800C617DF /* DataSetData.swift */; };
 		B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3F4CD421DE39F9400EFE847 /* Info.plist */; };
 		B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B3FFCA3D1DEDC80B004D323C /* .gitignore */; };
 		B3FFCA401DEDCB16004D323C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B3FFCA3F1DEDCB16004D323C /* README.md */; };
@@ -41,7 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B308C2791E55FA5D008251BD /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		B308C27B1E55FA9B008251BD /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		B308C27E1E572FE8008251BD /* X_Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X_Axis.swift; sourceTree = "<group>"; };
 		B308C2801E573015008251BD /* Y_Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Y_Axis.swift; sourceTree = "<group>"; };
@@ -61,6 +63,10 @@
 		B37FB0E51E518EA3009AF908 /* BellaDatiSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellaDatiSDKTests.swift; sourceTree = "<group>"; };
 		B37FB0E71E518EA3009AF908 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B38399AD1E607A3E0062B111 /* KpiLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KpiLabel.swift; sourceTree = "<group>"; };
+		B39D730F1E7726B800C617DF /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		B39D73101E7726B800C617DF /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
+		B39D73111E7726B800C617DF /* Domain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
+		B39D73121E7726B800C617DF /* DataSetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSetData.swift; sourceTree = "<group>"; };
 		B3F4CD421DE39F9400EFE847 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		B3FFCA3D1DEDC80B004D323C /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B3FFCA3F1DEDCB16004D323C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -88,7 +94,8 @@
 		B308C27D1E5646C2008251BD /* Charts */ = {
 			isa = PBXGroup;
 			children = (
-				B308C2791E55FA5D008251BD /* Chart.swift */,
+				B39D730F1E7726B800C617DF /* LineChart.swift */,
+				B39D73101E7726B800C617DF /* PieChart.swift */,
 				B308C27E1E572FE8008251BD /* X_Axis.swift */,
 				B308C2801E573015008251BD /* Y_Axis.swift */,
 			);
@@ -120,6 +127,7 @@
 			children = (
 				B35980F81DE346F300DA7119 /* iOSBellaDatiSDK.h */,
 				B3F4CD421DE39F9400EFE847 /* Info.plist */,
+				B39D73171E7726FB00C617DF /* Domains */,
 				B35981081DE3988000DA7119 /* Users */,
 				B35981071DE3986600DA7119 /* Views */,
 				B35981051DE397B700DA7119 /* Import */,
@@ -162,6 +170,7 @@
 				B35981131DE3993A00DA7119 /* Attribute.swift */,
 				B35981151DE3995100DA7119 /* DataSets.swift */,
 				B35981171DE3995D00DA7119 /* DataSetDetail.swift */,
+				B39D73121E7726B800C617DF /* DataSetData.swift */,
 			);
 			name = Datasets;
 			sourceTree = "<group>";
@@ -192,6 +201,14 @@
 				B37FB0E71E518EA3009AF908 /* Info.plist */,
 			);
 			path = BellaDatiSDKTests;
+			sourceTree = "<group>";
+		};
+		B39D73171E7726FB00C617DF /* Domains */ = {
+			isa = PBXGroup;
+			children = (
+				B39D73111E7726B800C617DF /* Domain.swift */,
+			);
+			name = Domains;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,21 +330,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				B308C2811E573015008251BD /* Y_Axis.swift in Sources */,
+				B39D73141E7726B800C617DF /* PieChart.swift in Sources */,
 				B35981161DE3995100DA7119 /* DataSets.swift in Sources */,
 				B35981141DE3993A00DA7119 /* Attribute.swift in Sources */,
 				B35981101DE3990800DA7119 /* ReportDetail.swift in Sources */,
+				B39D73131E7726B800C617DF /* LineChart.swift in Sources */,
 				B359810A1DE398B900DA7119 /* APIClient.swift in Sources */,
 				B35981121DE3991B00DA7119 /* ImportForms.swift in Sources */,
 				B308C27F1E572FE8008251BD /* X_Axis.swift in Sources */,
 				B359811A1DE3997A00DA7119 /* View.swift in Sources */,
 				B359810C1DE398DB00DA7119 /* OAuth1a.swift in Sources */,
 				B359810E1DE398F400DA7119 /* Reports.swift in Sources */,
-				B308C27A1E55FA5D008251BD /* Chart.swift in Sources */,
 				B308C27C1E55FA9B008251BD /* Table.swift in Sources */,
 				B359811C1DE3998800DA7119 /* User.swift in Sources */,
+				B39D73161E7726B800C617DF /* DataSetData.swift in Sources */,
 				B38399AE1E607A3E0062B111 /* KpiLabel.swift in Sources */,
 				B3FFCA401DEDCB16004D323C /* README.md in Sources */,
 				B35981181DE3995D00DA7119 /* DataSetDetail.swift in Sources */,
+				B39D73151E7726B800C617DF /* Domain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

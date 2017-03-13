@@ -46,6 +46,7 @@ public class DataSetDetail{
         public var name:String
         public var code:String
         public var type:String
+        public var values:[(rowid:Int,value:Int)]?
         
         public init (id:String,name:String,code:String,type:String){
             
@@ -53,11 +54,24 @@ public class DataSetDetail{
             self.name = name
             self.code = code
             self.type = type
+            self.values = [(rowid:Int,value:Int)]() //inicialize empty array of Indicator values
         }
-
-        
         
     }
+    
+    
+    /*Definition of DataSetRow datatype. 1 row has unique id and has multiple attributes and multiple indicators
+        
+        public class RowData {
+            
+            public var attributes:[(attribute_code:String,attribute_value:String)]?
+            public var indicator:(String,Int)?
+            
+        }
+*/
+        
+        
+    
     
     /*Only for testing now */
     
@@ -106,7 +120,7 @@ public class DataSetDetail{
                     
                     let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
                     let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
-                    print("Datasets:" , jsonstring ?? "nil")
+                    print("DatasetDetail:" , jsonstring ?? "nil")
                     if let dictionary = jsonObject as? [String:AnyObject] {
                         self.readJSONObject (object: dictionary)
                         print("Setting JSON")
@@ -126,6 +140,11 @@ public class DataSetDetail{
         
         
     }
+    
+    
+    
+    
+    
 
     
     
@@ -152,6 +171,8 @@ public class DataSetDetail{
         
         
         /* Getting DatasetDetail must have values */
+        
+        
             
             guard let id = object["id"] as? String,
                 
@@ -209,6 +230,10 @@ public class DataSetDetail{
                 let type = attribute["type"] as? String else {continue}
             
             attributeObject = Attribute(id: id, name: name, code: code, type: type)
+            
+            
+            
+            
             self.attributes?.append(attributeObject)
         }
         
@@ -227,6 +252,9 @@ public class DataSetDetail{
                 let type = indicator["type"] as? String else {continue}
             
             indicatorObject = Indicator(id: id, name: name, code: code, type: type)
+            
+            
+            
             self.indicators?.append(indicatorObject)
         }
         

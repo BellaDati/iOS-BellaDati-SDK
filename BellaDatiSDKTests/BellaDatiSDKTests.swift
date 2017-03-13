@@ -13,9 +13,13 @@ import XCTest
 class BellaDatiSDKTests: XCTestCase {
     
     var reports = Reports()
-    var chart = Chart()
+    var chart = LineChart()
+    var piechart = PieChart()
     var kpilabel = KpiLabel()
     var table = Table()
+    var datasetdetail:DataSetDetail?
+    var datasetData:DataSetData?
+    var domain = Domain()
     
     
      // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -24,7 +28,7 @@ class BellaDatiSDKTests: XCTestCase {
         
         /* APIClient is singleton. First step is. Prior to the APIClient.sharedInstance.authenticateWithBellaDati(). User has to set the credentials */
         
-        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"apikey4", x_auth_username:"martin.driver@belladati.com" ,x_auth_password: "Yourpassword1")
+        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"apikey", x_auth_username:"" ,x_auth_password: "")
         
     }
     
@@ -95,7 +99,7 @@ class BellaDatiSDKTests: XCTestCase {
                     print("This is id of ChartView:" + String(report.views![0].viewId!))
                     self.chart.viewId = report.views![0].viewId!
                     
-                    self.chart.downloadOnLineCharts(completion: {
+                    self.chart.downloadOnLineChart(completion: {
                         
                         print("Color of tooltip is:" + self.chart.tooltip.background)
                         print("Color of chart background is:" + self.chart.bg_color!)
@@ -129,7 +133,7 @@ class BellaDatiSDKTests: XCTestCase {
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "KPILabel Test", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "Pay How You Drive - Driver Overview - NEW", offset: nil, size: nil) { () -> () in
             
             
             for report in self.reports.reportDetails! {
@@ -139,7 +143,7 @@ class BellaDatiSDKTests: XCTestCase {
                     
                     print("This is name of View:" + report.views![0].viewName!)
                     print("This is id of KPILabelView:" + String(report.views![0].viewId!))
-                    self.kpilabel.viewId = report.views![0].viewId!
+                    self.kpilabel.viewId = "48328-rCtBF5PraV" //report.views![0].viewId!
                     
                     self.kpilabel.downloadOnLineKpiLabel(completion: {
                         
@@ -191,13 +195,13 @@ class BellaDatiSDKTests: XCTestCase {
     
     /*How to get data from cells in table.From header and from body. How to identify header cells in body rows*/
     
-    func testOfTables(){
+    func OfTables(){
         
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "TabelTestDrillDown", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { () -> () in
             
             
             for report in self.reports.reportDetails! {
@@ -208,7 +212,7 @@ class BellaDatiSDKTests: XCTestCase {
                     print("This is id of TabelView:" + String(report.views![0].viewId!))
                     self.table.viewId = report.views![0].viewId! // keep 1 view per report to make tests easy
                     
-                    self.table.downloadOnLineTabel(completion: {
+                    self.table.downloadOnLineTable(completion: {
                         
                         
                         print("Values in Table header:")
@@ -263,10 +267,137 @@ class BellaDatiSDKTests: XCTestCase {
         
             }
     
-    func ofCleaning(){
+    /*How get the datasets attributes using dataset id from report*/
+    
+    func ofDataSets(){
         
-        /*table.cleanCellValue(value: "<a class=\"tableDrillDown\" href=\"belladati://drilldown-menu/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B3%B8%EB%B6%80%EB%B3%B8%EA%B4%80%7D%5D%5BL_TAG_NAME%3D%7B%EC%9C%A0%ED%9A%A8%EC%A0%84%EB%A0%A5%EB%9F%89%7D%5D&amp;tableElementId=307-Wc5DrMKju4.h.0\"></a>유효전력량")*/
+        let expect = self.expectation(description: "Expected number of reports should be downloaded")
+        
+        
+        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { () -> () in
+            
+            
+            for report in self.reports.reportDetails! {
+                
+                report.downloadReportDetail(completion: {
+                    
+                    
+            var datasetid = String(describing:report.dataSet?.id)
+            print("This is id of dataset used by report:" + datasetid)
+                    
+            self.datasetdetail = DataSetDetail(id: (report.dataSet?.id)!)
+                    
+                    
+                    self.datasetdetail?.downloadDataSetDetail(id: (report.dataSet?.id)!,completion: {
+                        
+                        
+                        for attribute in (self.datasetdetail?.attributes)! {
+                            
+                           print(attribute.code)
+                        }
+                        
+                        
+                        
+                        
+                        
+                        expect.fulfill()
+                    })
+                    
+                    
+                    
+                })
+                
+                
+            }
+            
+        }
+        
+        
+        self.waitForExpectations(timeout: 7.0) { error in
+            let token = APIClient.sharedInstance.hasAccessTokenSaved()
+            XCTAssertTrue(token == true,"Token should be received from BellaServ and stored on device.")
+        }
+       
         
     }
     
+    /*How to load L_ATTRIBUTE and M_INDICATOR data from dataSet. Assumption = DATA SET ID is already known*/
+    
+    func testOfDataSetData() {
+        
+        let expect = self.expectation(description: "Expected number of reports should be downloaded")
+        
+        self.datasetData = DataSetData()
+        datasetData?.downloadData(id:32949,filter:nil,offset:nil,size:"4",order:"M_DISTANCE desc",completion: {
+          
+            for row in (self.datasetData?.rows)!{
+                
+                
+                if let value = row["M_BREAKING"] {
+                    print("M_BREAKING VALUE IS:" + value)
+                }
+                
+            }
+            
+            expect.fulfill()
+
+        })
+        
+        self.waitForExpectations(timeout: 50.0) { error in
+            let token = APIClient.sharedInstance.hasAccessTokenSaved()
+            XCTAssertTrue(token == true,"Token should be received from BellaServ and stored on device.")
+        
+    }
+    }
+    
+    func OfPieChart(){
+        
+        let expect = self.expectation(description: "Expected number of reports should be downloaded")
+        
+        piechart.viewId = "48326-GE0lbAxZOu"
+        piechart.downloadOnLineChart { 
+            for element in self.piechart.elements! {
+                
+                for item in element.values {
+                    
+                    print("Slice value:" + String(item.value))
+                    print("Tip value:" + String(item.tip))
+                }
+                
+                for colorofslice in element.colors!{
+                    
+                    print("Slicecolor:" + colorofslice)
+                }
+            }
+            expect.fulfill()
+        }
+        
+        self.waitForExpectations(timeout: 50.0) { error in
+            let token = APIClient.sharedInstance.hasAccessTokenSaved()
+            XCTAssertTrue(token == true,"Token should be received from BellaServ and stored on device.")
+        
+    }
+    
+    
+}
+    /*How to get info about domain and parameters of domain. Direct domain ID insertion*/ 
+ 
+    func OfDomain(){
+        let expect = self.expectation(description: "Expected number of reports should be downloaded")
+        
+        domain.downloadInfo(domainId:"8333") {
+            
+            for (value,key) in self.domain.parameters! {
+                
+                print(value,key)
+            }
+            
+           expect.fulfill()
+        }
+        self.waitForExpectations(timeout: 50.0) { error in
+            let token = APIClient.sharedInstance.hasAccessTokenSaved()
+            XCTAssertTrue(token == true,"Token should be received from BellaServ and stored on device.")
+
+    }
+    }
 }

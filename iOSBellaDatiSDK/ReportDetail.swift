@@ -649,7 +649,7 @@ public class ReportDetail {
                     
                     let attributeCode = drilldownProperty.key
                     let attribute = Attribute(code:attributeCode)
-                    attribute.attributeValues = [(value:String,label:String)]()
+                    attribute.attributeValues = [(value:String,label:String?,rowindex:Int?)]()
                     
                     if let attributeCodeProperty = drilldownProperty.value as? [String:AnyObject] {
                         
@@ -662,7 +662,7 @@ public class ReportDetail {
                                 
                                 for value in values {
                                     
-                                    attribute.attributeValues?.append((value:value,label:String()))
+                                    attribute.attributeValues?.append((value:value,label:String(),rowindex:nil))
                                     
                                 }
                                 

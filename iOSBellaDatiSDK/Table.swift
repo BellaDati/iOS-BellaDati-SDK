@@ -31,8 +31,8 @@ public class Table:View {
         public var value  = String("")
         public var type = "cell" // value for regular cells
         public var style = String() // style available for cells of type="cell" otherwise empty String object
-        public var color = UIColor()
-        public var backgroundcolor = UIColor()
+        public var color = UIColor.black
+        public var backgroundcolor = UIColor.clear
         
         public init(){
             
@@ -85,7 +85,7 @@ public class Table:View {
     
     public class Row {
         
-        var cells = [Cell]()
+        public var cells = [Cell]()
         
         public init(){
             
@@ -119,7 +119,7 @@ public class Table:View {
     
     /* Downloads JSON definition of Chart object including Chart data */
     
-    public func downloadOnLineTabel(completion:(() -> ())? = nil) {
+    public func downloadOnLineTable(completion:(() -> ())? = nil) {
         
         
         let getData =
@@ -398,11 +398,11 @@ public class Table:View {
                         let parsedstylevalues = self.parseValueStyle(style: style)
                         
                         
-                        cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red/255) , green: CGFloat(parsedstylevalues.color.green/255), blue:CGFloat(parsedstylevalues.color.blue/255) , alpha: 1.0)
-                        
-                        cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red/255) , green: CGFloat(parsedstylevalues.backgroundcolor.green/255), blue:CGFloat(parsedstylevalues.backgroundcolor.blue/255) , alpha: 1.0)
-                    
-                    
+						cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red) / 255.0, green: CGFloat(parsedstylevalues.color.green) / 255.0, blue: CGFloat(parsedstylevalues.color.blue) / 255.0, alpha: 1.0)
+						
+						cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red) / 255.0, green: CGFloat(parsedstylevalues.backgroundcolor.green) / 255.0, blue: CGFloat(parsedstylevalues.backgroundcolor.blue) / 255.0, alpha: 1.0)
+						
+						
                     }
                     
                     rowobject.cells.append(cellobject)
@@ -438,10 +438,10 @@ public class Table:View {
                         let parsedstylevalues = self.parseValueStyle(style: style)
                         
                         
-                        cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red/255) , green: CGFloat(parsedstylevalues.color.green/255), blue:CGFloat(parsedstylevalues.color.blue/255) , alpha: 1.0)
+                        cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red) / 255.0, green: CGFloat(parsedstylevalues.color.green) / 255.0, blue: CGFloat(parsedstylevalues.color.blue) / 255.0, alpha: 1.0)
                         
-                        cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red/255) , green: CGFloat(parsedstylevalues.backgroundcolor.green/255), blue:CGFloat(parsedstylevalues.backgroundcolor.blue/255) , alpha: 1.0)
-                        
+						cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red) / 255.0, green: CGFloat(parsedstylevalues.backgroundcolor.green) / 255.0, blue: CGFloat(parsedstylevalues.backgroundcolor.blue) / 255.0, alpha: 1.0)
+						
                         
                         
                         

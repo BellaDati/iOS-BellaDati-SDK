@@ -17,7 +17,7 @@ public class Attribute {
         public var type:String?
         public var op:String? // Used in getReportDetail JSON serialization
     
-        public typealias AttributeValue = (value:String,label:String)
+    public typealias AttributeValue = (value:String,label:String?,rowindex:Int?)
     public var attributeValues:[AttributeValue]?
         
         
@@ -28,6 +28,7 @@ public class Attribute {
             self.name = name
             self.code = code
             self.type = type
+            self.attributeValues = [AttributeValue]() // Inicialize empty array of AttributeValues
             
             
     }
@@ -117,6 +118,8 @@ public class Attribute {
         
         
     }
+    
+    
 
 
     
@@ -153,7 +156,7 @@ public class Attribute {
                 let label = attributeValue["label"] as? String
                  else {continue}
             
-            attributeValueObject = (value,label)
+            attributeValueObject = (value,label,nil)
     
             self.attributeValues?.append(attributeValueObject!)
         }

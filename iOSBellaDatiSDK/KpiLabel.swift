@@ -32,8 +32,8 @@ public class KpiLabel:View {
         public var caption = String()
         public var style = String()
         public var numberValue = String()
-        public var color = UIColor()
-        public var backgroundcolor = UIColor()
+        public var color = UIColor.black
+        public var backgroundcolor = UIColor.clear
         public var fontweight = String()
         
     
@@ -185,7 +185,6 @@ public class KpiLabel:View {
                         colorrgbcharfield = [Character]()
                         whichcolorindex += 1
                         }
-                        
                 
                         
                     }
@@ -227,7 +226,7 @@ public class KpiLabel:View {
                     var bgcolorrgbcharfield = [Character]()
                     
                     
-                    let range = bgcolorrgb.startIndex..<bgcolorrgb.index(bgcolorrgb.startIndex, offsetBy: 21)
+                    let range = bgcolorrgb.startIndex..<bgcolorrgb.index(bgcolorrgb.startIndex, offsetBy: 20)
                     
                     
                     bgcolorrgb.removeSubrange(range)
@@ -355,13 +354,10 @@ public class KpiLabel:View {
                 let parsedstylevalues = self.parseValueStyle(style: style)
                 
                 
-                kpiLabelValue.color = UIColor(red: CGFloat(parsedstylevalues.color.red/255) , green: CGFloat(parsedstylevalues.color.green/255), blue:CGFloat(parsedstylevalues.color.blue/255) , alpha: 1.0)
+                kpiLabelValue.color = UIColor(red: CGFloat(parsedstylevalues.color.red) / 255.0, green: CGFloat(parsedstylevalues.color.green) / 255.0, blue: CGFloat(parsedstylevalues.color.blue) / 255.0, alpha: 1.0)
                 
-                
-                
-                
-                kpiLabelValue.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red/255) , green: CGFloat(parsedstylevalues.backgroundcolor.green/255), blue:CGFloat(parsedstylevalues.backgroundcolor.blue/255) , alpha: 1.0)
-                
+				kpiLabelValue.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red) / 255.0, green: CGFloat(parsedstylevalues.backgroundcolor.green) / 255.0, blue: CGFloat(parsedstylevalues.backgroundcolor.blue) / 255.0, alpha: 1.0)
+				
                 kpiLabelValue.fontweight = parsedstylevalues.fontweight
                 
                 self.values?.append(kpiLabelValue)
