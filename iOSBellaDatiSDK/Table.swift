@@ -31,8 +31,8 @@ public class Table:View {
         public var value  = String("")
         public var type = "cell" // value for regular cells
         public var style = String() // style available for cells of type="cell" otherwise empty String object
-        public var color = UIColor()
-        public var backgroundcolor = UIColor()
+        public var color = UIColor.black
+        public var backgroundcolor = UIColor.clear
         
         public init(){
             
@@ -85,7 +85,7 @@ public class Table:View {
     
     public class Row {
         
-        var cells = [Cell]()
+        public var cells = [Cell]()
         
         public init(){
             

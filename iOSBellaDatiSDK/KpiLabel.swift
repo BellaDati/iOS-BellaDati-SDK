@@ -32,8 +32,8 @@ public class KpiLabel:View {
         public var caption = String()
         public var style = String()
         public var numberValue = String()
-        public var color = UIColor()
-        public var backgroundcolor = UIColor()
+        public var color = UIColor.black
+        public var backgroundcolor = UIColor.clear
         public var fontweight = String()
         
     
