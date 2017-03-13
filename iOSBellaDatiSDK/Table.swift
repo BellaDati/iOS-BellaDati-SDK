@@ -398,11 +398,11 @@ public class Table:View {
                         let parsedstylevalues = self.parseValueStyle(style: style)
                         
                         
-                        cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red/255) , green: CGFloat(parsedstylevalues.color.green/255), blue:CGFloat(parsedstylevalues.color.blue/255) , alpha: 1.0)
-                        
-                        cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red/255) , green: CGFloat(parsedstylevalues.backgroundcolor.green/255), blue:CGFloat(parsedstylevalues.backgroundcolor.blue/255) , alpha: 1.0)
-                    
-                    
+						cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red) / 255.0, green: CGFloat(parsedstylevalues.color.green) / 255.0, blue: CGFloat(parsedstylevalues.color.blue) / 255.0, alpha: 1.0)
+						
+						cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red) / 255.0, green: CGFloat(parsedstylevalues.backgroundcolor.green) / 255.0, blue: CGFloat(parsedstylevalues.backgroundcolor.blue) / 255.0, alpha: 1.0)
+						
+						
                     }
                     
                     rowobject.cells.append(cellobject)
@@ -438,10 +438,10 @@ public class Table:View {
                         let parsedstylevalues = self.parseValueStyle(style: style)
                         
                         
-                        cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red/255) , green: CGFloat(parsedstylevalues.color.green/255), blue:CGFloat(parsedstylevalues.color.blue/255) , alpha: 1.0)
+                        cellobject.color = UIColor(red: CGFloat(parsedstylevalues.color.red) / 255.0, green: CGFloat(parsedstylevalues.color.green) / 255.0, blue: CGFloat(parsedstylevalues.color.blue) / 255.0, alpha: 1.0)
                         
-                        cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red/255) , green: CGFloat(parsedstylevalues.backgroundcolor.green/255), blue:CGFloat(parsedstylevalues.backgroundcolor.blue/255) , alpha: 1.0)
-                        
+						cellobject.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red) / 255.0, green: CGFloat(parsedstylevalues.backgroundcolor.green) / 255.0, blue: CGFloat(parsedstylevalues.backgroundcolor.blue) / 255.0, alpha: 1.0)
+						
                         
                         
                         
