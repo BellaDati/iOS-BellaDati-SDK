@@ -1,0 +1,1137 @@
+{
+    "rowsCount": 26,
+    "name": "Effective Power, Effective Power Quantity, Power Factor Table ( HQ buliding, Department building etc) ",
+    "header": [
+               [
+                {
+                "colspan": 2,
+                "i": 0,
+                "type": "header",
+                "value": ""
+                },
+                {
+                "rowspan": 2,
+                "i": 2,
+                "type": "header",
+                "value": "22"
+                },
+                {
+                "rowspan": 2,
+                "i": 3,
+                "type": "header",
+                "value": "23"
+                },
+                {
+                "rowspan": 2,
+                "i": 4,
+                "type": "header",
+                "value": "24"
+                },
+                {
+                "rowspan": 2,
+                "i": 5,
+                "type": "header",
+                "value": "25"
+                },
+                {
+                "rowspan": 2,
+                "i": 6,
+                "type": "header",
+                "value": "26"
+                },
+                {
+                "rowspan": 2,
+                "i": 7,
+                "type": "header",
+                "value": "27"
+                },
+                {
+                "rowspan": 2,
+                "i": 8,
+                "type": "header",
+                "value": "28"
+                }
+                ],
+               [
+                {
+                "i": 0,
+                "type": "header",
+                "value": "﻿DEVICE_NAME"
+                },
+                {
+                "i": 1,
+                "type": "header",
+                "value": ""
+                }
+                ]
+               ],
+    "body": [
+             [
+              {
+              "ddLevel": 0,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillUp\" href=\"belladati://drillup/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B3%B8%EB%B6%80%EB%B3%B8%EA%B4%80%7D%5D\"></a>Main Office"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.87"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "100"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.96"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.4"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.58"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.86"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.92"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "199.51"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "98.05"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "142.55"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "42.7"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "49.7"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "114.02"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "155.86"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "157019.9"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "83933.92"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "130446.43"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "44719.56"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "91206.87"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "47604.68"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "1326266.43"
+              }
+              ],
+             [
+              {
+              "ddLevel": 1,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillDown\" href=\"belladati://drilldown-menu/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B3%B8%EB%B6%80%EB%B3%B8%EA%B4%80%7D%5D%5BL_TAG_NAME%3D%7B%EC%97%AD%EB%A5%A0%7D%5D&tableElementId=307-Wc5DrMKju4.h.0\"></a>역률"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.87"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "100"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.96"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.4"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.58"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.86"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "99.92"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              }
+              ],
+             [
+              {
+              "ddLevel": 1,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillDown\" href=\"belladati://drilldown-menu/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B3%B8%EB%B6%80%EB%B3%B8%EA%B4%80%7D%5D%5BL_TAG_NAME%3D%7B%EC%9C%A0%ED%9A%A8%EC%A0%84%EB%A0%A5%7D%5D&tableElementId=307-Wc5DrMKju4.h.0\"></a>유효전력"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "199.51"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "98.05"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "142.55"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "42.7"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "49.7"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "114.02"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "155.86"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              }
+              ],
+             [
+              {
+              "ddLevel": 1,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillDown\" href=\"belladati://drilldown-menu/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B3%B8%EB%B6%80%EB%B3%B8%EA%B4%80%7D%5D%5BL_TAG_NAME%3D%7B%EC%9C%A0%ED%9A%A8%EC%A0%84%EB%A0%A5%EB%9F%89%7D%5D&tableElementId=307-Wc5DrMKju4.h.0\"></a>유효전력량"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": " "
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "157019.9"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "83933.92"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "130446.43"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "44719.56"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "91206.87"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "47604.68"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(25, 82, 125); ",
+              "value": "1326266.43"
+              }
+              ],
+             [
+              {
+              "ddLevel": 0,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillDown\" href=\"belladati://drilldown/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EA%B1%B4%EC%B6%95%EA%B4%80%7D%5D\"></a>Building Pipe"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "95.32"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "95.01"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "90.32"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "90.25"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "84.2"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "91.77"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "84.97"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "66.95"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "46.23"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "45.69"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "36.3"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "26"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "26.15"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "74311.69"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "52876.03"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "107461.63"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "56110.59"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "58088.19"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": " "
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(196, 16, 25); ",
+              "value": "855588.08"
+              }
+              ],
+             [
+              {
+              "ddLevel": 0,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillDown\" href=\"belladati://drilldown/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EA%B8%B0%EA%B3%84%EA%B4%80%7D%5D\"></a>Pipe Machine"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "99.48"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "97.73"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "98.3"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "98.44"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "99.84"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "99.51"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "99.32"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "186.98"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "97.67"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "94.02"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "81.97"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "85.06"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "107.06"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "136.05"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "248227.34"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "198916.14"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "542086.26"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "138927.58"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "144217.06"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "223278.69"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 184, 0); ",
+              "value": "1998323.51"
+              }
+              ],
+             [
+              {
+              "ddLevel": 0,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillDown\" href=\"belladati://drilldown/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%ED%99%94%EA%B3%B5%EA%B4%80%7D%5D\"></a>Museum"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "98.98"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "98.69"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "98.98"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "98.62"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "99.2"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "98.9"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "99.13"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "214.3"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "183.62"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "164.27"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "142.04"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "138.5"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "153.13"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "159.65"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "255895.51"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "273070.52"
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "464469.64"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "191783.6"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": " "
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "309906.08"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(0, 150, 145); ",
+              "value": "2799522.42"
+              }
+              ],
+             [
+              {
+              "ddLevel": 0,
+              "rowspan": 3,
+              "i": 0,
+              "type": "header",
+              "value": "<a class=\"tableDrillDown\" href=\"belladati://drilldown/?identifierQuery=%5BL_DEVICE_NAME%3D%7B%EB%B0%95%EB%AC%BC%EA%B4%80%7D%5D\"></a>Screen"
+              },
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - power factor"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "96.54"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "94.87"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": " "
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "90.39"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "94.79"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "93.79"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power "
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "67.47"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "61.59"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "42.04"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "45.33"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "56.26"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "55.88"
+              }
+              ],
+             [
+              {
+              "i": 1,
+              "type": "header",
+              "value": "전력 - effective power quantity"
+              },
+              {
+              "i": 2,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "109617.41"
+              },
+              {
+              "i": 3,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": " "
+              },
+              {
+              "i": 4,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "120789.58"
+              },
+              {
+              "i": 5,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "30971.87"
+              },
+              {
+              "i": 6,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "97219.53"
+              },
+              {
+              "i": 7,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "33107.24"
+              },
+              {
+              "i": 8,
+              "style": " color:rgb(254, 254, 254) !important ;  background-color:rgb(244, 69, 0); ",
+              "value": "1002039.89"
+              }
+              ]
+             ],
+    "cleverTitle": "",
+    "name": "Effective Power, Effective Power Quantity, Power Factor Table ( HQ buliding, Department building etc) ",
+    "type": "table"
+}

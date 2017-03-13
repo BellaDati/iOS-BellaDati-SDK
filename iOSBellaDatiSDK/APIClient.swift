@@ -28,7 +28,7 @@ public class APIClient {
     private var oauth_consumer_key = "apikey" //apikey frameworkforms
     private var scheme:String = "http" //BellaDati server protocol
     private var host:String = "BellaDatiMac.local" //BellaDati server address
-    private var port:NSNumber = 8082 //BellaDati server port
+    private var port:NSNumber = 443 //BellaDati server port
     private var x_auth_username: String = "yourusername@belladati.com" //BellaDati server username
     private var x_auth_password: String = "yourpassword" //BellaDati server user password
     
@@ -75,7 +75,7 @@ public class APIClient {
      */
     
     
-    public func setAPIClient(scheme:String,host:String,port:NSNumber,relativeAccessTokenUrl:String, oauth_consumer_key: String, x_auth_username: String,x_auth_password: String){
+    public func setAPIClient(scheme:String,host:String,port:NSNumber,base_url: String,relativeAccessTokenUrl:String, oauth_consumer_key: String, x_auth_username: String,x_auth_password: String){
     
         self.scheme = scheme
         self.host = host
@@ -84,6 +84,7 @@ public class APIClient {
         self.oauth_consumer_key = oauth_consumer_key
         self.x_auth_username = x_auth_username
         self.x_auth_password = x_auth_password
+        self.baseURL = base_url
  
  }
         
@@ -284,10 +285,12 @@ public class APIClient {
         //Compose the base URL
         
         let restServiceURL = NSURLComponents()
-        restServiceURL.scheme = "http" //https
-        restServiceURL.host = "BellaDatiMac.local" //BellaDatiMac.local service.belladati.com
-        restServiceURL.port = 8082 //80
+        restServiceURL.scheme = scheme
+        restServiceURL.host = host
+        restServiceURL.port = port
         restServiceURL.path = baseURL + "/"
+        
+
         
         
         

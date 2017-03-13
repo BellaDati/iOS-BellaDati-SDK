@@ -18,6 +18,7 @@ public class DataSetDetail{
        public var lastChange: String?
        public var attributes: [Attribute]?
        public var indicators:[Indicator]?
+       //public var data:[Integer:RowData]?
        public var reports:[ReportDetail]?
        public var timeSupported: Bool?
        public var dateSupported: Bool?
@@ -54,10 +55,22 @@ public class DataSetDetail{
             self.code = code
             self.type = type
         }
+        
+    }
+    
+    
+    /*Definition of DataSetRow datatype. 1 row has unique id and has multiple attributes and multiple indicators
+        
+        public class RowData {
+            
+            public var attribute:(String,String)
+            public var indicator:(String,Integer)
+            
+        }*/
 
         
         
-    }
+    
     
     /*Only for testing now */
     
