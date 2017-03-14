@@ -33,6 +33,12 @@ public class DataSetData{
     public func downloadData(id:Int,filter:String?,offset:String? = nil,size:String? = nil,order:String? = nil,completion:(() -> ())? = nil) {
         
         var paramsarray = [NSURLQueryItem]()
+        
+        if let filter = filter {
+            
+            paramsarray.append(NSURLQueryItem(name: "filter",value: filter))
+            
+        }
 
         
         if let offset = offset {
@@ -52,6 +58,9 @@ public class DataSetData{
             paramsarray.append(NSURLQueryItem(name: "order",value: order))
             
         }
+        
+        
+
 
         
         
@@ -183,54 +192,40 @@ public class DataSetData{
     }
     
     
-    /*Builds JSON for filter query - not yet finished*/
+    /*Builds JSON for filter query. For codeop,dateop and typeop values please see BellaDati API doc 
+     http://support.belladati.com/techdoc/Types+and+enumerations#Typesandenumerations-Filteroperationtype  */
     
-    func buildFilter (code:String,codeop:String,codevalue:String,attributetypes:[String],typesop:String,dateop:String) -> String {
+    
+    public func prepareFilter (code:String,codeop:String,codevalue:String,typevalues:[String],typeop:String,dateop:String) -> String {
         
         
-        //Building drillDown object
+        let filterObject: [String:[String:Dictionary]] = ["drilldown":[
+            code:["op": codeop, "value": codevalue],
+            "L_TYPE":["op": typeop, "values": typevalues],
+            "L_DATE":["op": dateop]
+            ]]
         
-        var filterObject = [String:AnyObject]()
-        var drillDown = [String:AnyObject]()
-        var attributecode = [String:String]()
-        var attributetype = [String:AnyObject]()
+        let prettyPrinted = false
         
-        var attributetypes = [String]()
-        var date = [String:String]()
-        
-        
+        let options = prettyPrinted ? JSONSerialization.WritingOptions.prettyPrinted : JSONSerialization.WritingOptions(rawValue: 0)
         
         
-        
-        attributecode.updateValue(codeop, forKey: "op")
-        attributecode.updateValue(codevalue, forKey: "value")
-        
-        
-        attributetype.updateValue(typesop as AnyObject, forKey: "op")
-        attributetype.updateValue(attributetypes as AnyObject, forKey: "values")
-        
-        filterObject.updateValue(drillDown as AnyObject, forKey: "drilldown")
-        drillDown.updateValue(attributecode as AnyObject, forKey: code)
-        
-        
-        
-        
-        
-        var jsonDictionary = [String:String]()
-        var jsonString = String()
-        
-        
-        if JSONSerialization.isValidJSONObject(jsonDictionary) { // True
-            do {
-                //rawData = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
-                //jsonString = "data=" + (String(data: rawData as Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))! as String)
-                            } catch {
-                // Handle Error
+        if JSONSerialization.isValidJSONObject(filterObject) {
+            
+            do{
+                let data = try JSONSerialization.data(withJSONObject: filterObject, options: options)
+                if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                    return string as String
+                }
+            }catch {
+                
+                print("error")
+                //Access error here
             }
+            
         }
-        
-        
-        return jsonString
+        return ""
+      
     }
 
     

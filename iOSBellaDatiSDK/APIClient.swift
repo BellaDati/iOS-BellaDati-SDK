@@ -686,62 +686,7 @@ public class APIClient {
         
     }
     
-    /*List of filter operation types used for instance in DataSetDetail filter option*/
     
-    /** BellaDati list of API services */
-    
-    public enum FilterType {
-        
-        case EQUAL
-        case NOTEQUAL
-        case GREATERTHAN
-        case GREATERTHANOREQUALTO
-        case LOWERTHAN
-        case LOWERTHANOREQUALTO
-        case CONTAINS
-        case DOESNOTCONTAIN
-        case EMPTY
-        case NOTEMPTY
-        case BETWEEN
-        case COUNT
-        case INCREASEOFMORETHAN
-        case DECREASEOFMORETHAN
-        case GREATERBYXPERCENT
-        case LOWERBYXPERCENT
-        
-        
-        func toString() -> String {
-            
-            var filtertype: String!
-            
-            switch self {
-                
-            case .EQUAL: filtertype = "EQ"
-            case .NOTEQUAL: filtertype = "NEQ"
-            case .GREATERTHAN: filtertype = "GT"
-            case .GREATERTHANOREQUALTO: filtertype = "GTE"
-            case .LOWERTHAN: filtertype = "LT"
-            case .LOWERTHANOREQUALTO: filtertype = "LTE"
-            case .CONTAINS: filtertype = "IN"
-            case .DOESNOTCONTAIN: filtertype = "NOT_IN"
-            case .EMPTY: filtertype = "NULL"
-            case .NOTEMPTY: filtertype = "NOT_NULL"
-            case .BETWEEN: filtertype = "BETWEEN"
-            case .COUNT: filtertype = "COUNT"
-            case .INCREASEOFMORETHAN: filtertype = "GBY"
-            case .DECREASEOFMORETHAN: filtertype = "LBY"
-            case .GREATERBYXPERCENT: filtertype = "PGBY"
-            case .LOWERBYXPERCENT: filtertype = "PLBY"
-                
-                
-            }
-            
-            return filtertype
-        }
-        
-        
-    }
-
     
     
     /* List of BADOAUTHREQUEST errors. These are received in BODY of the response from BellaDati service */

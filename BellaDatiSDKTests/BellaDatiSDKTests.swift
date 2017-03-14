@@ -28,7 +28,7 @@ class BellaDatiSDKTests: XCTestCase {
         
         /* APIClient is singleton. First step is. Prior to the APIClient.sharedInstance.authenticateWithBellaDati(). User has to set the credentials */
         
-        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"apikey", x_auth_username:"" ,x_auth_password: "")
+        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"", x_auth_username:"" ,x_auth_password: "")
         
     }
     
@@ -321,20 +321,57 @@ class BellaDatiSDKTests: XCTestCase {
         
     }
     
-    /*How to load L_ATTRIBUTE and M_INDICATOR data from dataSet. Assumption = DATA SET ID is already known*/
+    /* - How to load L_ATTRIBUTE and M_INDICATOR data from dataSet. Assumption = DATA SET ID is already known
+       - Assumption we know L_ATTRIBUTE value to use in the filter
+       - How to get attribute for filter
+       - How to set filter for downloadData 
+       - For typeop and dateop, codeop values please see http://support.belladati.com/techdoc/Types+and+enumerations#Typesandenumerations-Filteroperationtype
+       */
     
     func testOfDataSetData() {
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         self.datasetData = DataSetData()
-        datasetData?.downloadData(id:32949,filter:nil,offset:nil,size:"4",order:"M_DISTANCE desc",completion: {
+        
+        //Getting typevalues of L_ATTRIBUTE example code
+        
+        self.datasetdetail = DataSetDetail(id:32949)
+        var L_TYPE:String?
+        
+        self.datasetdetail?.downloadDataSetDetail(id:datasetdetail!.id,completion: {
+            
+            
+            for attribute in (self.datasetdetail?.attributes)! {
+                
+                if attribute.code == "L_ID" {
+                    print("Code of attribute:" + attribute.type!)
+                    L_TYPE = attribute.type!
+                }
+                
+               
+                
+                
+            }
+
+        
+        
+            //Preparing filter "L_ATTRIBUTE
+        
+        
+            let dataSetDataFiltr = self.datasetData?.prepareFilter(code: "L_ID", codeop: "EQ", codevalue: "10", typevalues: [L_TYPE!], typeop: "IN", dateop: "NOT_NULL")
+        
+         print ("Filter parameter:" + dataSetDataFiltr!)
+        
+            //Loading data for dataset using filter
+        
+        self.datasetData?.downloadData(id:self.datasetdetail!.id,filter:dataSetDataFiltr!,offset:nil,size:"4",order:nil,completion: {
           
             for row in (self.datasetData?.rows)!{
                 
                 
-                if let value = row["M_BREAKING"] {
-                    print("M_BREAKING VALUE IS:" + value)
+                if let value = row["L_ID"] {
+                    print("L_ID VALUE IS:" + value)
                 }
                 
             }
@@ -342,6 +379,8 @@ class BellaDatiSDKTests: XCTestCase {
             expect.fulfill()
 
         })
+        })
+
         
         self.waitForExpectations(timeout: 50.0) { error in
             let token = APIClient.sharedInstance.hasAccessTokenSaved()
@@ -349,6 +388,9 @@ class BellaDatiSDKTests: XCTestCase {
         
     }
     }
+    
+    
+    /*How to load PIE Chart data*/
     
     func OfPieChart(){
         
