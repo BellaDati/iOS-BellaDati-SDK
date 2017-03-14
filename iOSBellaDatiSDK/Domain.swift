@@ -20,7 +20,9 @@ public class Domain {
     public var parameters:[String:String]?
     
     
-    
+    public init() {
+      
+    }
     
     
     
