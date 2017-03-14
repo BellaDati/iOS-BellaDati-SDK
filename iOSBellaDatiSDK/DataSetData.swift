@@ -23,7 +23,9 @@ public class DataSetData{
     public var lastChange: String?
     
     
-    
+    public init() {
+      
+    }
     
     
     /* Downloads DataSetInfo and Data for Attributes and Indicators. Including Row unique number*/
