@@ -199,7 +199,7 @@ public class DataSetData{
     public func prepareFilter (code:String,codeop:String,codevalue:String,typevalues:[String],typeop:String,dateop:String) -> String {
         
         
-        let filterObject: [String:[String:Dictionary]] = ["drilldown":[
+        let filterObject: [String:[String:[String:Any]] = ["drilldown":[
             code:["op": codeop, "value": codevalue],
             "L_TYPE":["op": typeop, "values": typevalues],
             "L_DATE":["op": dateop]
