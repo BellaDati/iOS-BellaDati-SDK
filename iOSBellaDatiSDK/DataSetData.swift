@@ -30,7 +30,7 @@ public class DataSetData{
     
     /* Downloads DataSetInfo and Data for Attributes and Indicators. Including Row unique number*/
     
-    public func downloadData(id:Int,filter:String?,offset:String? = nil,size:String? = nil,order:String? = nil,completion:(() -> ())? = nil) {
+    public func downloadData(id:Int,filter:String? = nil,offset:String? = nil,size:String? = nil,order:String? = nil,completion:(() -> ())? = nil) {
         
         var paramsarray = [NSURLQueryItem]()
         
@@ -199,7 +199,7 @@ public class DataSetData{
     public func prepareFilter (code:String,codeop:String,codevalue:String,typevalues:[String],typeop:String,dateop:String) -> String {
         
         
-        let filterObject: [String:[String:Dictionary]] = ["drilldown":[
+        let filterObject: [String:[String:Any]] = ["drilldown":[
             code:["op": codeop, "value": codevalue],
             "L_TYPE":["op": typeop, "values": typevalues],
             "L_DATE":["op": dateop]

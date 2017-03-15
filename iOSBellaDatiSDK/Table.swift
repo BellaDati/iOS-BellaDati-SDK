@@ -119,13 +119,22 @@ public class Table:View {
     
     /* Downloads JSON definition of Chart object including Chart data */
     
-    public func downloadOnLineTable(completion:(() -> ())? = nil) {
+    public func downloadOnLineTable(filter:String? = nil,completion:(() -> ())? = nil) {
+        
+        var paramsarray = [NSURLQueryItem]()
+        
+        if let filter = filter {
+            
+            paramsarray.append(NSURLQueryItem(name: "filter",value: filter))
+            
+        }
+
         
         
         let getData =
             
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["table","json"]){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["table","json"],params:paramsarray){(getData) in
                     
                     do{
                         

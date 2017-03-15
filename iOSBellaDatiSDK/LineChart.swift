@@ -73,13 +73,21 @@ public class LineChart:View{
     
     /* Downloads JSON definition of Chart object including Chart data */
     
-    public func downloadOnLineChart(completion:(() -> ())? = nil) {
+    public func downloadOnLineChart(filter:String? = nil,completion:(() -> ())? = nil) {
         
+        var paramsarray = [NSURLQueryItem]()
+        
+        if let filter = filter {
+            
+            paramsarray.append(NSURLQueryItem(name: "filter",value: filter))
+            
+        }
+
         
         let getData =
             
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"]){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"],params: paramsarray){(getData) in
                     
                     do{
                         

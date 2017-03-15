@@ -28,7 +28,7 @@ class BellaDatiSDKTests: XCTestCase {
         
         /* APIClient is singleton. First step is. Prior to the APIClient.sharedInstance.authenticateWithBellaDati(). User has to set the credentials */
         
-        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"", x_auth_username:"" ,x_auth_password: "")
+        APIClient.sharedInstance.setAPIClient(scheme:"https",host:"service.belladati.com",port:443,base_url:"/api",relativeAccessTokenUrl:"/oauth/accessToken", oauth_consumer_key:"apiKey", x_auth_username:"" ,x_auth_password: "")
         
     }
     
@@ -328,7 +328,7 @@ class BellaDatiSDKTests: XCTestCase {
        - For typeop and dateop, codeop values please see http://support.belladati.com/techdoc/Types+and+enumerations#Typesandenumerations-Filteroperationtype
        */
     
-    func testOfDataSetData() {
+    func OfDataSetData() {
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
@@ -390,15 +390,28 @@ class BellaDatiSDKTests: XCTestCase {
     }
     
     
-    /*How to load PIE Chart data*/
+    /* - How to load PIE Chart data 
+       - How to filter PIE Chart data using filter query param*/
     
-    func OfPieChart(){
+    func testOfPieChart(){
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
+        //Preparing filter "L_ATTRIBUTE
+        
+        var L_TYPE:String? = "Text" // can be fetched dynamically from related Dataset in exp. DSDongle Template3. See examples above in DataSetData func
+
+        
+        let dataSetDataFiltr = self.piechart.prepareFilter(code: "L_SENSOR_ID", codeop: "EQ", codevalue: "UMS Android 1A4 - Summary", typevalues: [L_TYPE!], typeop: "IN", dateop: "NOT_NULL")
+
+        
         piechart.viewId = "48326-GE0lbAxZOu"
-        piechart.downloadOnLineChart { 
+        piechart.downloadOnLineChart(filter:dataSetDataFiltr) {
+            
+            
+            
             for element in self.piechart.elements! {
+                
                 
                 for item in element.values {
                     
