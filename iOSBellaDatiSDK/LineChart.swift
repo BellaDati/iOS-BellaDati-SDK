@@ -87,7 +87,7 @@ public class LineChart:View{
         let getData =
             
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"],params: paramsarray){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"],params: paramsarray){(getData,getError) in
                     
                     do{
                         

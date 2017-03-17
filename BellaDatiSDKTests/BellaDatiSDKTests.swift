@@ -81,39 +81,49 @@ class BellaDatiSDKTests: XCTestCase {
     }
     
     
-    /*How to load the reports test. Reports must be loaded prior to loading Views (Tabels,KPILabel,Charts)*/
+    /*How to load the reports test. Reports must be loaded prior to loading Views (Tabels,KPILabel,Charts). Response on filtered Reports is never empty.*/
     
     func OfReports(){
         
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "TabelTestDrillDown", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "TabelTestDrillDown", offset: nil, size: nil) { (error) -> () in
             
+            if (error != nil) {
+                
+                print("Error message is:" + String(describing: error?.code) + (error?.domain)! + (error?.localizedDescription)!)
+            } else {
             
             for report in self.reports.reportDetails! {
                 
-                report.downloadReportDetail(completion: {
+                report.downloadReportDetail { (error) -> () in
+                    
+                    if (error != nil) {
+                        
+                        print("Error message is:" + String(describing: error?.code) + (error?.domain)! + (error?.localizedDescription)!)
+                    } else {
                     print(report.name)
                     print("This is name of Chart:" + report.views![0].viewName!)
                     print("This is id of ChartView:" + String(report.views![0].viewId!))
                     self.chart.viewId = report.views![0].viewId!
                     
-                    self.chart.downloadOnLineChart(completion: {
+                    self.chart.downloadOnLineChart { (error) -> () in
                         
                         print("Color of tooltip is:" + self.chart.tooltip.background)
                         print("Color of chart background is:" + self.chart.bg_color!)
                         
                         expect.fulfill()
-                    })
+                    }
                     
-                  
+                    }
 
-                })
+                }
                 
                 
             }
-            
+        }
+        
                      }
 
 
@@ -133,19 +143,19 @@ class BellaDatiSDKTests: XCTestCase {
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "Pay How You Drive - Driver Overview - NEW", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "Pay How You Drive - Driver Overview - NEW", offset: nil, size: nil) { (error) -> () in
             
             
             for report in self.reports.reportDetails! {
                 
-                report.downloadReportDetail(completion: {
+                report.downloadReportDetail { (error) -> () in
                     
                     
                     print("This is name of View:" + report.views![0].viewName!)
                     print("This is id of KPILabelView:" + String(report.views![0].viewId!))
                     self.kpilabel.viewId = "48328-rCtBF5PraV" //report.views![0].viewId!
                     
-                    self.kpilabel.downloadOnLineKpiLabel(completion: {
+                    self.kpilabel.downloadOnLineKpiLabel { (error) -> () in
                         
                         print("These are values of KPILabels:")
                         
@@ -158,8 +168,8 @@ class BellaDatiSDKTests: XCTestCase {
                             print("Font weight:"+" "+value.fontweight)
                             
                             
-                            var backgroundcolor = String(describing: value.backgroundcolor)
-                            var color = String(describing: value.backgroundcolor)
+                            let backgroundcolor = String(describing: value.backgroundcolor)
+                            let color = String(describing: value.backgroundcolor)
                             
                             print("Background UIColor:"+" "+backgroundcolor)
                             print("Color UIColor:"+" "+color)
@@ -170,11 +180,11 @@ class BellaDatiSDKTests: XCTestCase {
                         
                         
                         expect.fulfill()
-                    })
+                    }
                     
                     
                     
-                })
+                }
                 
                 
             }
@@ -201,18 +211,18 @@ class BellaDatiSDKTests: XCTestCase {
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { (error) -> () in
             
             
             for report in self.reports.reportDetails! {
                 
-                report.downloadReportDetail(completion: {
+                report.downloadReportDetail() {(error) -> () in
                     print(report.name)
                     print("This is name of View:" + report.views![0].viewName!)
                     print("This is id of TabelView:" + String(report.views![0].viewId!))
                     self.table.viewId = report.views![0].viewId! // keep 1 view per report to make tests easy
                     
-                    self.table.downloadOnLineTable(completion: {
+                    self.table.downloadOnLineTable { (error) -> () in
                         
                         
                         print("Values in Table header:")
@@ -249,11 +259,11 @@ class BellaDatiSDKTests: XCTestCase {
                         
                       expect.fulfill()
                         
-                    })
+                    }
                     
                     
                     
-                })
+                }
                 
                 
             }
@@ -274,21 +284,21 @@ class BellaDatiSDKTests: XCTestCase {
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
         
-        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { () -> () in
+        reports.downloadListOfReports(filter: "Crash Data Set Overview", offset: nil, size: nil) { (error) -> () in
             
             
             for report in self.reports.reportDetails! {
                 
-                report.downloadReportDetail(completion: {
+                report.downloadReportDetail { (error) -> () in
                     
                     
-            var datasetid = String(describing:report.dataSet?.id)
+            let datasetid = String(describing:report.dataSet?.id)
             print("This is id of dataset used by report:" + datasetid)
                     
             self.datasetdetail = DataSetDetail(id: (report.dataSet?.id)!)
                     
                     
-                    self.datasetdetail?.downloadDataSetDetail(id: (report.dataSet?.id)!,completion: {
+                    self.datasetdetail?.downloadDataSetDetail(id: (report.dataSet?.id)!) {(error) -> () in
                         
                         
                         for attribute in (self.datasetdetail?.attributes)! {
@@ -301,11 +311,11 @@ class BellaDatiSDKTests: XCTestCase {
                         
                         
                         expect.fulfill()
-                    })
+                    }
                     
                     
                     
-                })
+                }
                 
                 
             }
@@ -339,7 +349,7 @@ class BellaDatiSDKTests: XCTestCase {
         self.datasetdetail = DataSetDetail(id:32949)
         var L_TYPE:String?
         
-        self.datasetdetail?.downloadDataSetDetail(id:datasetdetail!.id,completion: {
+        self.datasetdetail?.downloadDataSetDetail(id:datasetdetail!.id) { (error) -> () in
             
             
             for attribute in (self.datasetdetail?.attributes)! {
@@ -365,7 +375,7 @@ class BellaDatiSDKTests: XCTestCase {
         
             //Loading data for dataset using filter
         
-        self.datasetData?.downloadData(id:self.datasetdetail!.id,filter:dataSetDataFiltr!,offset:nil,size:"4",order:nil,completion: {
+        self.datasetData?.downloadData(id:self.datasetdetail!.id,filter:dataSetDataFiltr!,offset:nil,size:"4",order:nil) { (error) -> () in
           
             for row in (self.datasetData?.rows)!{
                 
@@ -378,8 +388,8 @@ class BellaDatiSDKTests: XCTestCase {
             
             expect.fulfill()
 
-        })
-        })
+        }
+        }
 
         
         self.waitForExpectations(timeout: 50.0) { error in
@@ -391,7 +401,10 @@ class BellaDatiSDKTests: XCTestCase {
     
     
     /* - How to load PIE Chart data 
-       - How to filter PIE Chart data using filter query param*/
+       - How to filter PIE Chart data using filter query param
+       - How to read the result of the request - Error if any to notify UI and other functions
+       - To fill the error object. Try to change dataSetFilter = "" for instance
+     */
     
     func testOfPieChart(){
         
@@ -406,11 +419,20 @@ class BellaDatiSDKTests: XCTestCase {
 
         
         piechart.viewId = "48326-GE0lbAxZOu"
-        piechart.downloadOnLineChart(filter:dataSetDataFiltr) {
+        piechart.downloadOnLineChart (filter: dataSetDataFiltr, completion: { (error) in
             
             
+            if (error != nil) {
             
-            for element in self.piechart.elements! {
+            print ("Error message is:" + String(describing: error?.code) + (error?.domain)! + (error?.localizedDescription)!)
+                
+            } else {
+            
+            // No errors. Request was successful. You can safely read items. UI components can be notified if (error != nil) condition is false
+            
+            let elements = self.piechart.elements!
+            
+            for element in elements {
                 
                 
                 for item in element.values {
@@ -423,9 +445,14 @@ class BellaDatiSDKTests: XCTestCase {
                     
                     print("Slicecolor:" + colorofslice)
                 }
+                
+                
             }
+            
             expect.fulfill()
-        }
+            }
+
+        })
         
         self.waitForExpectations(timeout: 50.0) { error in
             let token = APIClient.sharedInstance.hasAccessTokenSaved()
@@ -440,7 +467,7 @@ class BellaDatiSDKTests: XCTestCase {
     func OfDomain(){
         let expect = self.expectation(description: "Expected number of reports should be downloaded")
         
-        domain.downloadInfo(domainId:"8333") {
+        domain.downloadInfo(domainId:"8333") { (error) -> () in
             
             for (value,key) in self.domain.parameters! {
                 

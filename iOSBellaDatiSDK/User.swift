@@ -94,7 +94,7 @@ import UIKit
             
             {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.USERDETAIL,id: username){(getData) in
+            APIClient.sharedInstance.getData(service: APIClient.APIService.USERDETAIL,id: username){(getData,getError) in
             
             do{
                 
@@ -157,7 +157,7 @@ import UIKit
         let getData =
         
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.USER,id: String(userid),urlSuffix: ["image"]){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.USER,id: String(userid),urlSuffix: ["image"]){(getData,getError) in
                     
                     self.userphoto = getData
                     

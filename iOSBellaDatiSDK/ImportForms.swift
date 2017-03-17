@@ -102,13 +102,13 @@ public class ImportForms{
      finished completion handler of type (() -> ())? is called. By default this parameter is nil. It means callee does not have to use it. Into the completion handler user can include ImportForms
      func such as filterById or filterByName */
     
-    public func downloadOnLineForms(completion:(() -> ())? = nil) {
+    public func downloadOnLineForms(completion:((_ error:NSError?) -> ())? = nil) {
         
         
         let getData =
         
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.IMPORTFORMS){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.IMPORTFORMS){(getData,getError) in
                     
                     do{
                         
@@ -120,11 +120,14 @@ public class ImportForms{
                         
                         
                         if let completionHandler = completion{
-                            completionHandler()
+                            completionHandler(getError)
                         }
                         
                     } catch {
-                        
+                        if let completionHandler = completion{
+                            completionHandler(getError)
+                            
+                        }
                     }
                     
                 }

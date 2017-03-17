@@ -43,7 +43,7 @@ public class Reports {
     /*downloadListOfReports func will authenticate client automatically if APIClient func hasAccessTokenSave returns false.
      Once this async call is finished.It will try to download list of reports available for authenticated user  */
     
-    public func downloadListOfReports(filter:String?,offset:String?,size:String?,completion:(() -> ())? = nil) {
+    public func downloadListOfReports(filter:String?,offset:String?,size:String?,completion:((_ error:NSError?) -> ())? = nil) {
         
         var paramsarray = [NSURLQueryItem]()
         
@@ -70,7 +70,7 @@ public class Reports {
         let getData =
             
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,params:paramsarray){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,params:paramsarray){(getData,getError) in
             
             do{
                 
@@ -84,11 +84,14 @@ public class Reports {
                 
                 
                 if let completionHandler = completion{
-                    completionHandler()
+                    completionHandler(getError)
                 }
                 
             } catch {
-                
+                if let completionHandler = completion{
+                    completionHandler(getError)
+                    
+                }
             }
             
         }

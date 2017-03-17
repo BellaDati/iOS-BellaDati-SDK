@@ -49,7 +49,7 @@ public class DataSets{
     }
 
     
-    public func downloadListOfDatasets(filter:String?,offset:String?,size:String?,completion:(() -> ())? = nil) {
+    public func downloadListOfDatasets(filter:String?,offset:String?,size:String?,completion:((_ error:NSError?) -> ())? = nil) {
         
         var paramsarray = [NSURLQueryItem]()
         
@@ -91,7 +91,7 @@ public class DataSets{
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS,params:paramsarray){(getData) in
+            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS,params:paramsarray){(getData,getError) in
                 
                 do{
                     
@@ -105,11 +105,14 @@ public class DataSets{
                     
                     
                     if let completionHandler = completion{
-                        completionHandler()
-                    }
+                        completionHandler(getError)
+                                            }
                     
                 } catch {
-                    
+                    if let completionHandler = completion{
+                        completionHandler(getError)
+                        
+                    }
                 }
                 
             }

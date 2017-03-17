@@ -54,7 +54,7 @@ public class ReportDetail {
     
     /* Downloads ReportDetail of Report*/
     
-    public func downloadReportDetail(completion:(() -> ())? = nil) {
+    public func downloadReportDetail(completion:((_ error:NSError?) -> ())? = nil) {
         
         
         
@@ -77,7 +77,7 @@ public class ReportDetail {
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,id:String(id)){(getData) in
+            APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,id:String(id)){(getData,getError) in
                 
                 do{
                     
@@ -91,11 +91,15 @@ public class ReportDetail {
                     
                     
                     if let completionHandler = completion{
-                        completionHandler()
+                                  completionHandler(getError)
                     }
                     
                 } catch {
-                    
+                    if let completionHandler = completion{
+                        completionHandler(getError)
+                        
+                    }
+
                 }
                 
             }
@@ -266,7 +270,7 @@ public class ReportDetail {
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,id: String(reportid),urlSuffix: ["thumbnail"]){(getData) in
+            APIClient.sharedInstance.getData(service: APIClient.APIService.REPORTS,id: String(reportid),urlSuffix: ["thumbnail"]){(getData,getError) in
                 
                 self.reportThumbnail = getData
                 

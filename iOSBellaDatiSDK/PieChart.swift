@@ -70,9 +70,10 @@ public class PieChart:View{
         }
     }
     
-    /* Downloads JSON definition of Chart object including Chart data */
+    /* Downloads JSON definition of Chart object including Chart data. NSError object in func
+       signature contains Network Connection related error or server response error code, domain and localized message.If there is no error. NSError object is empty optional. This param can be for instance used to notify UI components about result of the function. */
     
-    public func downloadOnLineChart(filter:String? = nil,completion:(() -> ())? = nil) {
+    public func downloadOnLineChart(filter:String? = nil,completion:((_ error:NSError?) -> ())? = nil) {
         
         var paramsarray = [NSURLQueryItem]()
         
@@ -86,7 +87,7 @@ public class PieChart:View{
         let getData =
             
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"],params: paramsarray){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"],params: paramsarray){(getData,getError) in
                     
                     do{
                         
@@ -98,13 +99,19 @@ public class PieChart:View{
                         
                         
                         if let completionHandler = completion{
-                            completionHandler()
-                        }
+                            completionHandler(getError)
+                        } else {
+                            
+                                                }
                         
                     } catch {
-                        
-                    }
+                        if let completionHandler = completion{
+                            completionHandler(getError)
                     
+                        }
+
+                    }
+    
                 }
                 
         }

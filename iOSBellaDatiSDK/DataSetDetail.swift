@@ -93,7 +93,7 @@ public class DataSetDetail{
         }
     }
 
-    public func downloadDataSetDetail(id:Int,completion:(() -> ())? = nil) {
+    public func downloadDataSetDetail(id:Int,completion:((_ error:NSError?) -> ())? = nil) {
         
         
         let loadInitialData =
@@ -114,7 +114,7 @@ public class DataSetDetail{
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS,id:String(id)){(getData) in
+            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS,id:String(id)){(getData,getError) in
                 
                 do{
                     
@@ -128,11 +128,15 @@ public class DataSetDetail{
                     
                     
                     if let completionHandler = completion{
-                        completionHandler()
-                    }
+                        completionHandler(getError)
+                                            }
                     
                 } catch {
-                    
+                    if let completionHandler = completion{
+                        completionHandler(getError)
+                        
+                    }
+
                 }
                 
             }

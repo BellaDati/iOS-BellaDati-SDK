@@ -418,28 +418,62 @@ public class APIClient {
             
             if error != nil
             {
-                print("error=\(error!)")
+                
+                if let completionHandler = callback {
+                    let connectionError = NSError(domain: "Network Error", code: error!._code, userInfo: [NSLocalizedDescriptionKey : self.handleNetworkConnectivityError(error: error! as NSError)])
+                    
+                    
+                    
+                    
+                    completionHandler(data as NSData?,connectionError)
+                }
+
+                
                 return
             }
             
             //Here we implemented some of the error codes, that BellaDati returns during the HTTP response-request process
             
+            let responseBody =  NSString(data: data!, encoding: self.encoding.rawValue)! as String
+
+            
             let httpResponse = response as! HTTPURLResponse
             let statusCode = httpResponse.statusCode
             
             
-            if (statusCode >= 400 && statusCode <= 500){
+            if (statusCode >= 400 && statusCode < 500){
                 
-                switch (statusCode) {
-                case 403:
-                    return print("Error")
-                default: break
+                if let completionHandler = callback {
+                let responsemsg = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
                     
+                let apiServiceError = NSError(domain: "Api Service Error", code: statusCode, userInfo: [NSLocalizedDescriptionKey : "Unable to receive data"])
+
+                    
+                    completionHandler(data as NSData?,apiServiceError as NSError?)
                 }
+    
+                
+                
+                
             }
             if (statusCode >= 500) {
+                
+                if let completionHandler = callback {
+                 let responsemsg  = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
+                 
+                    let apiServiceError = NSError(domain: "Api Service Error", code: statusCode, userInfo: [NSLocalizedDescriptionKey : "Unable to receive data"])
+                    
+                    
+                    
+                    completionHandler(data as NSData?,apiServiceError as NSError?)
+                }
+
+                
+                
                 print (("Server error:"+"\(statusCode)"))
             }
+            
+            // Request response code 200 means success. Error object is kept as empty Optional
             
             if (statusCode == 200){
                 
@@ -474,21 +508,21 @@ public class APIClient {
      
      */
     
-    public func getData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]!=[],callback: ((NSData?) -> ())?) {
+    public func getData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]!=[],callback: ((_ data:NSData?,_ error:NSError?) -> ())?) {
         
         
       
-        self.apiRequest(service: service, method: APIMethod.GET, id: id, urlSuffix: urlSuffix, urlQueryParams:params) {(responseData, resposeError) -> Void in
+        self.apiRequest(service: service, method: APIMethod.GET, id: id, urlSuffix: urlSuffix, urlQueryParams:params) {(responseData, responseError) -> Void in
             
-            if (resposeError != nil) {
-                print(resposeError!.description)
+            if (responseError != nil) {
+                print(responseError!.description)
             }
                 
             else {
                 
                 if let completionHandler = callback {
                     
-                    completionHandler(responseData)
+                    completionHandler(responseData,responseError)
                     
                     
                 }
@@ -522,7 +556,7 @@ public class APIClient {
     public func postData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]!=[], httpBodyData:Data? = nil, multipartFormParams:[String:String]? = nil, callback: ((NSData?) -> ())?){
         
         
-        self.apiRequest(service: service, method: APIMethod.POST, id: id, urlSuffix: urlSuffix, urlQueryParams: params,httpBodyData: httpBodyData,multipartformParams: multipartFormParams) {(responseData: NSData?, resposeError: NSError?) -> Void in
+        self.apiRequest(service: service, method: APIMethod.POST, id: id, urlSuffix: urlSuffix, urlQueryParams: params,httpBodyData: httpBodyData,multipartformParams: multipartFormParams) {(responseData, resposeError) -> Void in
             
             if (resposeError != nil) {
                 print(resposeError!.description)
@@ -755,18 +789,18 @@ public class APIClient {
             }
             if noencodingbody.contains(BadOAuthRequest.USER_LOGIN_FAILD){
                 
-                errorMessage = "Wrong password)"
+                errorMessage = "Wrong password"
                 print("Wrong password")
                 
             }
             if noencodingbody.contains(BadOAuthRequest.INVALID_CONSUMER_KEY){
-                
+                errorMessage = "Authentication failure"
                 print("Invalid consumer key")
                 
             }
             
             if noencodingbody.contains(BadOAuthRequest.TOO_MANY_LOGIN_FAILURES){
-                
+                errorMessage = "Too many login failures"
                 print("Too many login failures")
                 
             }
@@ -781,14 +815,15 @@ public class APIClient {
         if (code >= APIServiceError.BADINPUTPARAMETER && code < APIServiceError.SERVERERROR ){
             
             switch (code) {
-            case APIServiceError.BADINPUTPARAMETER: print ("Client error:"+"\(code)"+" \(body)")
-            case APIServiceError.BADOREXPIREDTOKEN: print ("Client error:"+"\(code)"+" \(body)")
-            case APIServiceError.FILEFOLDERNOTFOUND: print ("Client error:"+"\(code)"+" \(body)")
-            case APIServiceError.UNEXPECTEREQUESTMETHOD: print ("Client error:"+"\(code)"+" \(body)")
+            case APIServiceError.BADINPUTPARAMETER: print ("Client error:"+"\(code)"+" \(body)");errorMessage = "Unable to receive data"
+            case APIServiceError.BADOREXPIREDTOKEN: print ("Client error:"+"\(code)"+" \(body)");errorMessage = "Unable to receive data"
+            case APIServiceError.FILEFOLDERNOTFOUND: print ("Client error:"+"\(code)"+" \(body)");errorMessage = "Unable to receive data"
+            case APIServiceError.UNEXPECTEREQUESTMETHOD: print ("Client error:"+"\(code)"+" \(body)");errorMessage = "Unable to receive data"
             case APIServiceError.BADOAUTHREQUEST: investigateBadOAuthRequest(body)
-            case APIServiceError.APPTOOMANYREQUESTS: print ("Your app is sending too many requests")
+            
+            case APIServiceError.APPTOOMANYREQUESTS: print ("Your app is sending too many requests");errorMessage = "Unable to receive data"
                 
-            default: break
+            default:errorMessage = "Unable to receive data"
                 
             }
             
@@ -796,8 +831,8 @@ public class APIClient {
             
             if (code >= APIServiceError.SERVERERROR ){
                 switch (code) {
-                case APIServiceError.APPTOOMANYREQUESTS: print ("Your app is sending too many requests")
-                default: print ("Server error:"+"\(code)")
+                case APIServiceError.APPTOOMANYREQUESTS: print ("Your app is sending too many requests");errorMessage = "Unable to receive data"
+                default:errorMessage = "Unable to receive data"; print ("Server error:"+"\(code)")
                 }
                 
             }

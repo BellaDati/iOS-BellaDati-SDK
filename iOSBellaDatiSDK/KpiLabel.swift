@@ -69,7 +69,7 @@ public class KpiLabel:View {
 
     /* Downloads JSON definition of Chart object including Chart data */
     
-    public func downloadOnLineKpiLabel(filter:String? = nil,completion:(() -> ())? = nil) {
+    public func downloadOnLineKpiLabel(filter:String? = nil,completion:((_ error:NSError?) -> ())? = nil) {
         
         var paramsarray = [NSURLQueryItem]()
         
@@ -83,7 +83,7 @@ public class KpiLabel:View {
         let getData =
             
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["kpi"],params: paramsarray){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["kpi"],params: paramsarray){(getData,getError) in
                     
                     do{
                         
@@ -95,11 +95,15 @@ public class KpiLabel:View {
                         
                         
                         if let completionHandler = completion{
-                            completionHandler()
+                            completionHandler(getError)
                         }
                         
                     } catch {
                         
+                        if let completionHandler = completion{
+                            completionHandler(getError)
+                            
+                        }
                     }
                     
                 }

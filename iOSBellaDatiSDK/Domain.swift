@@ -50,13 +50,13 @@ public class Domain {
     /* In case user using this method is authenticated as single domain admin. Function will
      build array with information about single domain. In case user is BellaDati global admin, array will include information about all domains.*/
     
-    public func downloadInfo(domainId:String,completion:(() -> ())? = nil) {
+    public func downloadInfo(domainId:String,completion:((_ error:NSError?) -> ())? = nil) {
         
         
         let getData =
             
             {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.DOMAIN,id:domainId){(getData) in
+                APIClient.sharedInstance.getData(service: APIClient.APIService.DOMAIN,id:domainId){(getData,getError) in
                     
                     do{
                         
@@ -68,11 +68,13 @@ public class Domain {
                         
                         
                         if let completionHandler = completion{
-                            completionHandler()
+                            completionHandler(getError)
                         }
                         
                     } catch {
-                        
+                        if let completionHandler = completion{
+                            completionHandler(getError)
+                        }
                     }
                     
                 }

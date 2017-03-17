@@ -30,7 +30,7 @@ public class DataSetData{
     
     /* Downloads DataSetInfo and Data for Attributes and Indicators. Including Row unique number*/
     
-    public func downloadData(id:Int,filter:String? = nil,offset:String? = nil,size:String? = nil,order:String? = nil,completion:(() -> ())? = nil) {
+    public func downloadData(id:Int,filter:String? = nil,offset:String? = nil,size:String? = nil,order:String? = nil,completion:((_ error:NSError?) -> ())? = nil) {
         
         var paramsarray = [NSURLQueryItem]()
         
@@ -83,11 +83,11 @@ public class DataSetData{
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS,id:String(id),urlSuffix: ["data"],params: paramsarray){(getData) in
+            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS,id:String(id),urlSuffix: ["data"],params: paramsarray){(getData,getError) in
                 
                 do{
                     
-                    let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
+                    let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data , options: .allowFragments)
                     let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
                     print("DatasetDetailWithData:" , jsonstring ?? "nil")
                     if let dictionary = jsonObject as? [String:AnyObject] {
@@ -97,11 +97,15 @@ public class DataSetData{
                     
                     
                     if let completionHandler = completion{
-                        completionHandler()
+                        completionHandler(getError)
                     }
                     
                 } catch {
-                    
+                    if let completionHandler = completion{
+                        completionHandler(getError)
+                        
+                    }
+
                 }
                 
             }
