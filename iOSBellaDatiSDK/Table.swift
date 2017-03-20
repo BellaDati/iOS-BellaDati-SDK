@@ -309,7 +309,7 @@ public class Table:View {
                                 
                             case 0: backgroundcolor.red = Int(String(bgcolorrgbcharfield))!
                             case 1: backgroundcolor.green = Int(String(bgcolorrgbcharfield))!
-                            case 2: backgroundcolor.green = Int(String(bgcolorrgbcharfield))!
+                            case 2: backgroundcolor.blue = Int(String(bgcolorrgbcharfield))!
                             default: break
                                 
                             }
