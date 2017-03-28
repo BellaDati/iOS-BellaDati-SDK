@@ -37,7 +37,7 @@ public class APIClient {
     private let encoding = String.Encoding.utf8
     private var oauthParams = [String:String]()
     private var oauthHandler: OAuth1a!
-    private let session =  URLSession.shared
+    private let session =  URLSession(configuration: URLSessionConfiguration.ephemeral)
     private var o_authtoken: String?
     
     
