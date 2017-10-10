@@ -111,9 +111,7 @@ public class Domain {
         
         guard let id = domain["id"] as? String,
               let name = domain["name"] as? String,
-              let active = domain["active"] as? Bool,
-              let dateFormat = domain["dateFormat"] as? String,
-            let timeFormat = domain["timeFormat"] as? String else {return}
+              let active = domain["active"] as? Bool else {return}
         
         if let description = domain["description"] as? String {
             
@@ -134,9 +132,9 @@ public class Domain {
         self.id = id
         self.name = name
         self.active = active
-        self.dateFormat = dateFormat
-        self.timeFormat = timeFormat
-        
+        self.dateFormat = domain["dateFormat"] as? String
+        self.timeFormat = domain["timeFormat"] as? String
+
         if let parameters = domain["parameters"] as? [[String:String]]{
             
             self.parameters = [String:String]()
