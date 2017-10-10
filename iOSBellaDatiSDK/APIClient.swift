@@ -848,20 +848,12 @@ public class APIClient {
     
     /** handleNetworkConnectivity method uses extension of NSError to produce string of exception */
     
-    public func handleNetworkConnectivityError(error:NSError) -> String
-    {
-        
-        var networkError: String?
-        
-        if (error.isNetworkConnectionError()){
-            
-            
-            
-            networkError = "Network Connectivity Issue"
-            
-            
-        }
-        return networkError!
+    public func handleNetworkConnectivityError(error:NSError) -> String {
+        if error.isNetworkConnectionError() {
+            return "Network Connectivity Issue"
+		      } else {
+			         return "Unkown network issue."
+		      }
     }
 }
 
