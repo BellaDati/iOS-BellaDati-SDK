@@ -287,6 +287,11 @@ public class APIClient {
     
     func apiRequest (service: APIService, method: APIMethod, id: String!, urlSuffix: [String]?,urlQueryParams:[NSURLQueryItem] = [],httpBodyData:Data? = nil,multipartformParams:[String:String]? = nil, callback: ((_ responseData:NSData?, _ resposeError: NSError?) -> Void)?){
         
+        guard let oAuthToken = self.o_authtoken else {
+            callback?(nil, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Not authenticated."]))
+            return
+        }
+     
         //Compose the base URL
         
         let restServiceURL = NSURLComponents()
@@ -329,7 +334,7 @@ public class APIClient {
         
         
         request.url = restServiceURL.url
-        self.oauthParams = ["oauth_consumer_key":self.oauth_consumer_key, "oauth_token": self.o_authtoken!]
+        self.oauthParams = ["oauth_consumer_key":self.oauth_consumer_key, "oauth_token": oAuthToken]
         
         
         /* Here JSON data serialized into the NSObject are set into the HTTBody. Actual implementation is
