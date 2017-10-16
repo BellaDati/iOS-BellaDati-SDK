@@ -124,10 +124,15 @@ import UIKit
             {
                 APIClient.sharedInstance.authenticateWithBellaDati(){(error) -> Void in
                     print("handlin stuff")
-                    if let receivedError = error
-                    {
+                                                                     
+                    // We have encountered an error, do not load any additional data
+                    // as we failed to authenticate.
+                    if let receivedError = error {
                         print(receivedError)
+                    				completion?()
+                    				return
                     }
+
                     
                     getData()
                     
