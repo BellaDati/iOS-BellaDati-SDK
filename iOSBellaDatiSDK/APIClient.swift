@@ -443,8 +443,12 @@ public class APIClient {
             }
             
             //Here we implemented some of the error codes, that BellaDati returns during the HTTP response-request process
-            
-            let responseBody =  NSString(data: data!, encoding: self.encoding.rawValue)! as String
+            guard let bodyData = data, let responseBody = String(data: bodyData, encoding: self.encoding) else {
+                // Either data is nil, or we can't use this encoding for reading the data into string.
+                callback?(data as NSData?, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Received invalid data."]))
+                return
+            }
+
 
             
             let httpResponse = response as! HTTPURLResponse
