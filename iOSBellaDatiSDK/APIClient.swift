@@ -523,27 +523,15 @@ public class APIClient {
      */
     
     public func getData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]!=[],callback: ((_ data:NSData?,_ error:NSError?) -> ())?) {
-        
-        
-      
-        self.apiRequest(service: service, method: APIMethod.GET, id: id, urlSuffix: urlSuffix, urlQueryParams:params) {(responseData, responseError) -> Void in
+        self.apiRequest(service: service, method: APIMethod.GET, id: id, urlSuffix: urlSuffix, urlQueryParams: params) { (responseData, responseError) -> Void in
             
-            if (responseError != nil) {
-                print(responseError!.description)
+            if let error = responseError {
+                print(error.description)
+                callback?(nil, error)
+            } else {
+                callback?(responseData, responseError)
             }
-                
-            else {
-                
-                if let completionHandler = callback {
-                    
-                    completionHandler(responseData,responseError)
-                    
-                    
-                }
-            }
-            
-                  }
-        
+       }
     }
     
     
