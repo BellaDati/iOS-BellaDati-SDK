@@ -83,31 +83,28 @@ public class DataSetData{
             
         } else {
             
-            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS,id:String(id),urlSuffix: ["data"],params: paramsarray){(getData,getError) in
-                
-                do{
-                    
-                    let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data , options: .allowFragments)
-                    let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
-                    print("DatasetDetailWithData:" , jsonstring ?? "nil")
-                    if let dictionary = jsonObject as? [String:AnyObject] {
-                        self.readJSONObject (object: dictionary)
+            APIClient.sharedInstance.getData(service: APIClient.APIService.DATASETS, id: String(id), urlSuffix: ["data"], params: paramsarray) { (getData,getError) in
+                guard let data = getData else {
+					completion?(getError)
+					return
+				}
+				
+                do {
+                    let jsonObject = try JSONSerialization.jsonObject(with: data as Data, options: .allowFragments)
+                    let jsonstring = String(data: data as Data, encoding: .utf8)
+					
+					print("DatasetDetailWithData:", jsonstring ?? "nil")
+					
+					if let dictionary = jsonObject as? [String : AnyObject] {
+                        self.readJSONObject(object: dictionary)
                         print("Setting JSON")
                     }
                     
-                    
-                    if let completionHandler = completion{
-                        completionHandler(getError)
-                    }
-                    
-                } catch {
-                    if let completionHandler = completion{
-                        completionHandler(getError)
-                        
-                    }
-
+                    completion?(getError)
+                } catch let error as NSError {
+                    completion?(error)
                 }
-                
+
             }
         }
         
