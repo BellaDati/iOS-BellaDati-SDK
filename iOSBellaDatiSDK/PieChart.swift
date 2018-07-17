@@ -84,37 +84,29 @@ public class PieChart:View{
         }
 
         
-        let getData =
-            
-            {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"],params: paramsarray){(getData,getError) in
-                    
-                    do{
-                        
-                        let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                        
-                        if let dictionary = jsonObject as? [String:AnyObject] {
-                            self.readJSONObject (content: dictionary)
+        let getData = {
+                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["chart"],params: paramsarray) { (getData, getError) in
+					guard let data = getData as Data? else {
+						completion?(getError)
+						return
+					}
+					
+                    do {
+                        let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                        guard let dictionary = jsonObject as? [String : AnyObject] else {
+							completion?(NSError(domain: "BellaDatiDeserializationErrorDomain", code: 0, userInfo: [
+								NSLocalizedFailureReasonErrorKey: "Failed to deserialize response."
+							]))
+							return
                         }
-                        
-                        
-                        if let completionHandler = completion{
-                            completionHandler(getError)
-                        } else {
-                            
-                                                }
-                        
+						
+                        self.readJSONObject(content: dictionary)
+                        completion?(nil)
                     } catch {
-                        if let completionHandler = completion{
-                            completionHandler(getError)
-                    
-                        }
-
+                        completion?(error as NSError)
                     }
-    
                 }
-                
-        }
+			}
         
         let loadInitialData =
             
