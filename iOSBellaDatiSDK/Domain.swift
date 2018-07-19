@@ -50,36 +50,32 @@ public class Domain {
     /* In case user using this method is authenticated as single domain admin. Function will
      build array with information about single domain. In case user is BellaDati global admin, array will include information about all domains.*/
     
-    public func downloadInfo(domainId:String,completion:((_ error:NSError?) -> ())? = nil) {
-        
-        
-        let getData =
-            
-            {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.DOMAIN,id:domainId){(getData,getError) in
-                    
-                    do{
-                        
-                        let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                        
-                        if let dictionary = jsonObject as? [String:AnyObject] {
-                            self.readJSONObject (domain: dictionary)
-                        }
-                        
-                        
-                        if let completionHandler = completion{
-                            completionHandler(getError)
-                        }
-                        
-                    } catch {
-                        if let completionHandler = completion{
-                            completionHandler(getError)
-                        }
-                    }
-                    
-                }
-                
-        }
+    public func downloadInfo(domainId: String, completion: ((NSError?) -> ())? = nil) {
+		
+		let getData = {
+			APIClient.sharedInstance.getData(service: .DOMAIN, id: domainId) { (getData, getError) in
+				guard let data = getData as Data? else {
+					completion?(getError)
+					return
+				}
+				
+				do {
+					let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+					guard let dictionary = jsonObject as? [String : AnyObject] else {
+						completion?(NSError(domain: "BellaDatiDeserializationErrorDomain", code: 0, userInfo: [
+							NSLocalizedFailureReasonErrorKey: "Failed to deserialize response."
+							]))
+						return
+					}
+					
+					self.readJSONObject(domain: dictionary)
+					completion?(nil)
+				} catch {
+					completion?(error as NSError)
+				}
+			}
+		}
+
         
         let loadInitialData =
             
