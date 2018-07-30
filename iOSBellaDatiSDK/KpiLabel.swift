@@ -80,35 +80,32 @@ public class KpiLabel:View {
         }
 
         
-        let getData =
-            
-            {
-                APIClient.sharedInstance.getData(service: APIClient.APIService.VIEWS, id: String(self.viewId!), urlSuffix: ["kpi"],params: paramsarray){(getData,getError) in
-                    
-                    do{
-                        
-                        let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                        
-                        if let dictionary = jsonObject as? [String:AnyObject] {
-                            self.readJSONObject (kpilabel: dictionary)
-                        }
-                        
-                        
-                        if let completionHandler = completion{
-                            completionHandler(getError)
-                        }
-                        
-                    } catch {
-                        
-                        if let completionHandler = completion{
-                            completionHandler(getError)
-                            
-                        }
-                    }
-                    
+        let getData = {
+            APIClient.sharedInstance.getData(service: .VIEWS, id: self.viewId!, urlSuffix: ["kpi"], params: paramsarray) { (getData, getError) in
+                guard let data = getData as Data?, getError == nil else {
+                    completion?(getError)
+                    return
                 }
                 
+                
+                do {
+                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+                    guard let dictionary = jsonObject as? [String : AnyObject] else {
+                        completion?(NSError(domain: "BellaDatiDeserializationErrorDomain", code: 0, userInfo: [
+                            NSLocalizedFailureReasonErrorKey: "Failed to deserialize response."
+                            ]))
+                        return
+                    }
+                    
+                    self.readJSONObject(kpilabel: dictionary)
+                    completion?(nil) // No error.
+                } catch {
+                    completion?(error as NSError)
+                }
+                
+            }
         }
+
         
         let loadInitialData =
             
@@ -325,61 +322,43 @@ public class KpiLabel:View {
        return (color,backgroundcolor,fontweight)
     }
 
-    /* reads JSON object and creates final Chart object */
-    
-    func readJSONObject(kpilabel:[String:AnyObject]) {
+    /* reads JSON object and creates final KPI Label object */
+    func readJSONObject(kpilabel: [String : Any]) {
+        self.cleverTitle = kpilabel["cleverTitle"] as? String ?? ""
+        self.name =  kpilabel["name"] as? String ?? ""
+        self.type =  kpilabel["type"] as? String ?? ""
         
-        
-        var kpiLabelValue:KPILabelValue
-        
-        
-        if let cleverTitle = kpilabel["cleverTitle"] as? String { self.cleverTitle = cleverTitle }
-        else { self.cleverTitle = ""}
-        
-        if let name = kpilabel["name"] as? String { self.name = name } else { self.name = ""}
-        
-        if let type = kpilabel["type"] as? String { self.type = type } else { self.type = ""}
-       
-    
-        
-        
-        if let kpiLabelValues = kpilabel["values"] as? [[String:AnyObject]] {
-            
-            
-            self.values = [KPILabelValue]()
-            
-            for kpilabelitem in kpiLabelValues {
-                
-                kpiLabelValue = KPILabelValue()
-                
-                if let symbol = kpilabelitem["symbol"] as? String { kpiLabelValue.symbol = symbol}
-                if let symbolValue = kpilabelitem["symbolValue"] as? String { kpiLabelValue.symbolValue = symbolValue}
-                
-                guard let caption = kpilabelitem["caption"] as? String,
-                let style = kpilabelitem["style"] as? String,
-                    let numberValue = kpilabelitem["numberValue"] as? String else { continue }
-                
-                kpiLabelValue.caption = caption
-                kpiLabelValue.style = style
-                kpiLabelValue.numberValue = numberValue
-                
-                let parsedstylevalues = self.parseValueStyle(style: style)
-                
-                
-                kpiLabelValue.color = UIColor(red: CGFloat(parsedstylevalues.color.red) / 255.0, green: CGFloat(parsedstylevalues.color.green) / 255.0, blue: CGFloat(parsedstylevalues.color.blue) / 255.0, alpha: 1.0)
-                
-				kpiLabelValue.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red) / 255.0, green: CGFloat(parsedstylevalues.backgroundcolor.green) / 255.0, blue: CGFloat(parsedstylevalues.backgroundcolor.blue) / 255.0, alpha: 1.0)
-				
-                kpiLabelValue.fontweight = parsedstylevalues.fontweight
-                
-                self.values?.append(kpiLabelValue)
-                
-            }
-            
-            
+        guard let kpiLabelValues = kpilabel["values"] as? [[String : Any]] else {
+            return
         }
         
-        
+        self.values = kpiLabelValues.compactMap { (kpilabelitem) -> KPILabelValue? in
+            let kpiLabelValue = KPILabelValue()
+            
+            kpiLabelValue.symbol = kpilabelitem["symbol"] as? String ?? ""
+            kpiLabelValue.symbolValue = kpilabelitem["symbolValue"] as? String ?? ""
+            
+            guard
+                let caption = kpilabelitem["caption"] as? String,
+                let style = kpilabelitem["style"] as? String
+            else {
+                print("**** DESERIALIZATION ISSUE: Missing required value uin \(kpilabelitem)")
+                return nil
+            }
+            
+            kpiLabelValue.caption = caption
+            kpiLabelValue.style = style
+            kpiLabelValue.numberValue = kpilabelitem["numberValue"] as? String ?? "0"
+            
+            let parsedstylevalues = self.parseValueStyle(style: style)
+            kpiLabelValue.color = UIColor(red: CGFloat(parsedstylevalues.color.red) / 255.0, green: CGFloat(parsedstylevalues.color.green) / 255.0, blue: CGFloat(parsedstylevalues.color.blue) / 255.0, alpha: 1.0)
+            
+            kpiLabelValue.backgroundcolor = UIColor(red: CGFloat(parsedstylevalues.backgroundcolor.red) / 255.0, green: CGFloat(parsedstylevalues.backgroundcolor.green) / 255.0, blue: CGFloat(parsedstylevalues.backgroundcolor.blue) / 255.0, alpha: 1.0)
+            
+            kpiLabelValue.fontweight = parsedstylevalues.fontweight
+            
+            return kpiLabelValue
+        }
     }
     
     
