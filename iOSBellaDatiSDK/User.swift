@@ -84,38 +84,32 @@ import UIKit
     /* downloadUserDetailByUsername calls async task. It downloads userDetail JSON by using BellaDati REST API call /api/users/username/:username.Once async upload is
      finished completion handler of type (() -> ())? is called. By default this parameter is nil. It means callee does not have to use it. Into the completion handler user can include downloadUserPhoto method to get the user picture */
     
-    public func downloadUserDetailByUsername(username:String,completion:(() -> ())? = nil) {
-        
-        
-        
-        
-        
-        let getData =
-            
-            {
-            
-            APIClient.sharedInstance.getData(service: APIClient.APIService.USERDETAIL,id: username){(getData,getError) in
-            
-            do{
-                
-                let jsonObject = try JSONSerialization.jsonObject(with: getData! as Data, options: .allowFragments)
-                let jsonstring = NSString(data: getData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
-                print("User:" , jsonstring ?? "nil")
-                if let dictionary = jsonObject as? [String:AnyObject] {
-                    self.readJSONObject (user: dictionary)
-                }
-                
-                
-                if let completionHandler = completion{
-                    completionHandler()
-                }
-                
-            } catch {
-                
-            }
-            
-        }
+    public func downloadUserDetailByUsername(username: String, completion: (() -> ())? = nil) {
 
+        let getData = {
+            APIClient.sharedInstance.getData(service: .USERDETAIL, id: username) { (getData, getError) in
+                guard let data = getData as Data? else {
+                    completion?(/* getError */)
+                    return
+                }
+                
+                do {
+                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+                    
+                    let jsonstring = String(data: data, encoding: .utf8)
+                    print("User:" , jsonstring ?? "nil")
+                    
+                    guard let dictionary = jsonObject as? [String : AnyObject] else {
+                        completion?(/* Error */)
+                        return
+                    }
+                    
+                    self.readJSONObject(user: dictionary)
+                    completion?()
+                } catch {
+                    completion?(/* error */)
+                }
+            }
         }
         
         
