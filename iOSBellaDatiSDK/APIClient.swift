@@ -35,11 +35,14 @@ public class APIClient {
     private var oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
     private var oauth_nonce = NSUUID().uuidString
     private let encoding = String.Encoding.utf8
-    private var oauthParams = [String:String]()
     private var oauthHandler: OAuth1a!
     private let session =  URLSession(configuration: URLSessionConfiguration.ephemeral)
     private var o_authtoken: String?
-    
+	
+	/// Locale the APIClient loads everything in. The client automatically appends
+	/// the locale identifier as the lang parameter to all requests. If you want
+	/// to force a different locale, change this parameter.
+	public var locale: Locale = Locale.autoupdatingCurrent
     
     let  settings = UserDefaults.standard
     var  OAuthTokenCompletionHandler:((_ error:NSError?,String?) -> Void)?
@@ -158,13 +161,14 @@ public class APIClient {
                 
                 return
             }
+			
+			guard let bodyData = data, let responseBody = String(data: bodyData, encoding: self.encoding) else {
+				// Either data is nil, or we can't use this encoding for reading
+				// the data into string.
+				completionBlock?(NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Received invalid data."]))
+				return
+			}
             
-            guard let bodyData = data, let responseBody = String(data: bodyData, encoding: self.encoding) else {
-            				// Either data is nil, or we can't use this encoding for reading
-            				// the data into string.
-            				completionBlock?(NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Received invalid data."]))
-            				return
-            }
             
             let httpResponse = response as! HTTPURLResponse
             let statusCode = httpResponse.statusCode
@@ -181,10 +185,7 @@ public class APIClient {
                 
                 print("authenticateWithBellaDati message: Access Token \(self.o_authtoken ?? "nil") has been stored on device into NSUserDefaults")
                 
-                self.oauthParams = ["oauth_consumer_key":self.oauth_consumer_key, "oauth_token": self.o_authtoken!]
-                
-                self.oauthHandler = OAuth1a(oauthParams: self.oauthParams)
-                
+                self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: self.o_authtoken!)
             }
             
             /* If we have token already. Handler will receive nil. No errors. Otherwise*/
@@ -272,241 +273,147 @@ public class APIClient {
     }
     
     
-    
-    
-    
-    /**
-     
-     This function does actual API Request. It calls OAuth signing and verification of response data. Explanation of parameters
-     
-     service: decides which API service we use, for instance /api/reports
-     method: GET or POST method.
-     urlSuffix: includes URL that leads to right service resources.Example /api/reports service is defined in APIService parameter and urlSuffix adds comments component to form /api/reports/comments service call
-     
-     */
-    
-    func apiRequest (service: APIService, method: APIMethod, id: String!, urlSuffix: [String]?,urlQueryParams:[NSURLQueryItem] = [],httpBodyData:Data? = nil,multipartformParams:[String:String]? = nil, callback: ((_ responseData:NSData?, _ resposeError: NSError?) -> Void)?){
-        
-        guard let oAuthToken = self.o_authtoken else {
-            callback?(nil, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Not authenticated."]))
-            return
-        }
-     
-        //Compose the base URL
-        
-        let restServiceURL = NSURLComponents()
+    /// This function does actual API Request. It calls OAuth signing and verification
+	/// of response data.
+    ///
+    /// - Parameters:
+    ///   - service: decides which API service we use, for instance /api/reports
+    ///   - method: GET or POST method.
+    ///   - id: id
+	///   - urlSuffix: includes URL that leads to right service resources. Example:
+	///					/api/reports service is defined in APIService parameter and
+	///					urlSuffix adds comments component to form /api/reports/comments
+	///					service call
+    func apiRequest(service: APIService, method: APIMethod, id: String!, urlSuffix: [String]?, urlQueryParams: [NSURLQueryItem] = [], httpBodyData: Data? = nil, multipartformParams:[String : String]? = nil, callback: ((_ responseData: NSData?, _ resposeError: NSError?) -> Void)?) {
+		
+		guard let oAuthToken = self.o_authtoken else {
+			callback?(nil, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Not authenticated."]))
+			return
+		}
+		
+        // Compose the base URL
+        var restServiceURL = URLComponents()
         restServiceURL.scheme = scheme
         restServiceURL.host = host
-        restServiceURL.port = port
-        restServiceURL.path = baseURL + "/"
-        
-
-        
-        
-        
-        restServiceURL.path?.append(service.toString())
-        
+        restServiceURL.port = port.intValue
+        restServiceURL.path = baseURL + "/" + service.toString()
+		
         if id != nil && !id.isEmpty {
-            
-            restServiceURL.path?.append("/" + id)
+            restServiceURL.path.append("/" + id)
         }
-        
-        let request = NSMutableURLRequest()
+		
+		// urlSuffix array contains components that we use to build final URL.
+		// For example api/users/:id/status should be final call. So "status"
+		// will be stored in urlSuffix. While "users" is service take from
+		// service param and ":id" is take from id param
+		
+		if let suffixComponents = urlSuffix, !suffixComponents.isEmpty {
+			print("URLSuffix: \(suffixComponents)")
+			restServiceURL.path.append("/" + suffixComponents.joined(separator: "/"))
+			print("URLComponents: \(restServiceURL)")
+		}
+		
+
+		// Add a language parameter.
+		var queryItems = urlQueryParams as [URLQueryItem]
+		queryItems.append(URLQueryItem(name: "lang", value: self.locale.identifier))
+		
+		restServiceURL.queryItems = queryItems
+		print("REQUEST URL (query items):" + restServiceURL.description)
+		
+		guard let url = restServiceURL.url else {
+			print("**** Invalid URL: \(restServiceURL)")
+			callback?(nil, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL."]))
+			return
+		}
+		
+        var request = URLRequest(url: url)
         request.httpMethod = method.toString()
         request.httpShouldHandleCookies = false
-        
-        
-        
-        /*
-         urlSuffix array contains components that we use to build final URL.
-         For example api/users/:id/status should be final call. So "status"
-         will be stored in urlSuffix. While "users" is service take from
-         service param and ":id" is take from id param
-         */
-        
-        if let urlSuffix = urlSuffix {
-            print ("URLSuffix:" + String(describing:urlSuffix))
-        if (urlSuffix.count) > 0 {
-            restServiceURL.path?.append("/" + urlSuffix.joined(separator: "/"))
-            print ("URLComponents:" + String(describing: restServiceURL))
-        }
-        }
-        
-        
-        request.url = restServiceURL.url
-        self.oauthParams = ["oauth_consumer_key":self.oauth_consumer_key, "oauth_token": oAuthToken]
-        
-        
-        /* Here JSON data serialized into the NSObject are set into the HTTBody. Actual implementation is
-        done in classes, that post some data/pictures for example ReportDetail.swift, DataSets.swift etc.*/
-        
-       
- 
-        if httpBodyData != nil {
-    
-            var fullData = httpBodyData
+		
+        // Here JSON data serialized into the NSObject are set into the HTTBody.
+		// Actual implementation is done in classes, that post some data/pictures
+		// for example ReportDetail.swift, DataSets.swift etc.
+        if var fullData = httpBodyData {
+            // In case we are sending picture attached to an value of the attribute
+			// using DATASETS service. We are using forms with binary content multipart/form-data
             
-            /* In case we are sending picture attached to an value of the attribute using DATASETS service. We are using forms with binary content multipart/form-data */
-            
-            if (service == APIService.DATASETS && method == APIMethod.POST || service == APIService.REPORTS && method == APIMethod.POST) {
+            if (service == APIService.DATASETS && method == APIMethod.POST) || (service == APIService.REPORTS && method == APIMethod.POST) {
                 
-                if let urlSuffix = urlSuffix?[0]{
-                    
-                    if urlSuffix != "comments" {
-                        
-                    
+                if urlSuffix?.first != "comments" {
+					let boundary = generateBoundaryString()
+					fullData = photoDataToFormData(data: httpBodyData!,boundary:boundary,fileName:(multipartformParams?["filename"]!)!,viewName:(multipartformParams?["viewName"]!)!)
+					
+					request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+					request.addValue(String(describing: httpBodyData?.count), forHTTPHeaderField: "Content-Length")
 
-                        let boundary = generateBoundaryString()
-                        fullData = photoDataToFormData(data: httpBodyData!,boundary:boundary,fileName:(multipartformParams?["filename"]!)!,viewName:(multipartformParams?["viewName"]!)!)
-                        
-                        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-                        request.addValue(String(describing: httpBodyData?.count), forHTTPHeaderField: "Content-Length")
-                        request.httpBody = fullData
-                        /*print(fullData) -- solved in ReportDetail class and respective other classes that upload pictures*/
-                        print("Done with file")
-                    }
+					print("Done with file")
                 }
-                
-                    
-            
-            
-            
-        
-        }
-            request.httpBody = fullData
+			}
+			
+			request.httpBody = fullData
         }
         
-        
-        self.oauthHandler = OAuth1a(oauthParams: self.oauthParams)
-        oauthHandler.signRequest(request: request)
-        if !urlQueryParams.isEmpty {
-            restServiceURL.queryItems = urlQueryParams as [URLQueryItem]?
-            
-            for a in restServiceURL.queryItems!{
-                    
-                    print(a.value)
-                    print(a.name)
-                }
-            request.url = restServiceURL.url
-
-            print("REQUEST URL (query items):" + String(describing: request.url!))
-            
-        }
-        
-        /* In case we are dealing with forms we have to add value to the request - for IPORTFORMS */
-        
-        if (service == APIService.IMPORTFORMS && method == APIMethod.POST) {
-            
+        self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: oAuthToken)
+        self.oauthHandler.signRequest(request: &request)
+		
+		
+        // In case we are dealing with forms we have to add value to the request
+		// - for IPORTFORMS
+        if service == APIService.IMPORTFORMS && method == APIMethod.POST {
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            
         }
             
-        /* In case we are dealing with forms we have to add value to the request -  for REPORTS sending comments */
-        
-        if (service == APIService.REPORTS && method == APIMethod.POST ) {
-            
-            
-            if let urlSuffix = urlSuffix?[0]{
-                
-                if urlSuffix == "comments" {
-                    request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-                }
-            }
+        // In case we are dealing with forms we have to add value to the request
+		// - for REPORTS sending comments
+        if service == APIService.REPORTS, method == APIMethod.POST, urlSuffix?.first == "comments" {
+			request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         }
-        
-            
-        
-        
-        
-        
-        
-        
-        //Now we can make the request.Ask NSURLSessionObject for NSSessionTask Object. Once task is finished run the closure and set data for callback closure.
+		
+        // Now we can make the request. Ask NSURLSessionObject for NSSessionTask Object.
+		// Once task is finished run the closure and set data for callback closure.
         
         print ("Preparing to send request")
-        let apiRequestTask = session.dataTask(with: request as URLRequest) { (data: Data?, response: URLResponse?, error: Error?) in
+		
+        let apiRequestTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             
-            if error != nil
-            {
-                
-                if let completionHandler = callback {
-                    let connectionError = NSError(domain: "Network Error", code: error!._code, userInfo: [NSLocalizedDescriptionKey : self.handleNetworkConnectivityError(error: error! as NSError)])
-                    
-                    
-                    
-                    
-                    completionHandler(data as NSData?,connectionError)
-                }
-
-                
+            if let error = error {
+				let connectionError = NSError(domain: "Network Error", code: error._code, userInfo: [
+					NSLocalizedDescriptionKey: self.handleNetworkConnectivityError(error: error as NSError)
+				])
+				
+                callback?(data as NSData?, connectionError)
                 return
             }
+			
             
-            //Here we implemented some of the error codes, that BellaDati returns during the HTTP response-request process
-            guard let bodyData = data, let responseBody = String(data: bodyData, encoding: self.encoding) else {
-                // Either data is nil, or we can't use this encoding for reading the data into string.
-                callback?(data as NSData?, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Received invalid data."]))
-                return
-            }
+            // Here we implemented some of the error codes, that BellaDati returns
+			// during the HTTP response-request process
+			guard let bodyData = data, let responseBody = String(data: bodyData, encoding: self.encoding), let httpResponse = response as? HTTPURLResponse else {
+				// Either data is nil, or we can't use this encoding for reading
+				// the data into string.
+				callback?(data as NSData?, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Received invalid data."]))
+				return
+			}
 
-
-            
-            let httpResponse = response as! HTTPURLResponse
+			
             let statusCode = httpResponse.statusCode
-            
-            
-            if (statusCode >= 400 && statusCode < 500){
-                
-                if let completionHandler = callback {
-                let responsemsg = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
-                    
-                let apiServiceError = NSError(domain: "Api Service Error", code: statusCode, userInfo: [NSLocalizedDescriptionKey : "Unable to receive data"])
-
-                    
-                    completionHandler(data as NSData?,apiServiceError as NSError?)
-                }
-    
-                
-                
-                
-            }
-            if (statusCode >= 500) {
-                
-                if let completionHandler = callback {
-                 let responsemsg  = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
-                 
-                    let apiServiceError = NSError(domain: "Api Service Error", code: statusCode, userInfo: [NSLocalizedDescriptionKey : "Unable to receive data"])
-                    
-                    
-                    
-                    completionHandler(data as NSData?,apiServiceError as NSError?)
-                }
-
-                
-                
-                print (("Server error:"+"\(statusCode)"))
-            }
-            
-            // Request response code 200 means success. Error object is kept as empty Optional
-            
-            if (statusCode == 200){
-                
-                if let completionHandler = callback {
-                    
-                    completionHandler(data as NSData?,error as NSError?)
-                    let jsonstring = NSString(data: data!, encoding: String.Encoding.utf8.rawValue ) as String?
-                    print("Response:" , jsonstring ?? "nil")
-                    
-                }
-                
-                //callback (responseData: data, resposeError: error)
-                
-                // let jsonstring = NSString(data: data!, encoding: self.encoding) as? String
-                // print("Forms:" , jsonstring)
-                
-            }
-            
-            
+			switch statusCode {
+			case 200:
+				// Request response code 200 means success. Error object is kept
+				// as empty Optional.
+				callback?(bodyData as NSData, error as NSError?)
+				print("Response:" , String(data: bodyData, encoding: .utf8) ?? "nil")
+			case 400 ..< 500:
+				let responsemsg = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
+				let apiServiceError = NSError(domain: "Api Service Error", code: statusCode, userInfo: [NSLocalizedDescriptionKey : "Unable to receive data - " + responsemsg])
+				callback?(bodyData as NSData, apiServiceError as NSError)
+			default:
+				let responsemsg  = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
+				let apiServiceError = NSError(domain: "Api Service Error", code: statusCode, userInfo: [NSLocalizedDescriptionKey : "Unable to receive data - " + responsemsg])
+				callback?(bodyData as NSData, apiServiceError as NSError)
+				print("Server error: \(statusCode)")
+			}
         }
         
         apiRequestTask.resume()
@@ -522,16 +429,15 @@ public class APIClient {
      
      */
     
-    public func getData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]!=[],callback: ((_ data:NSData?,_ error:NSError?) -> ())?) {
-        self.apiRequest(service: service, method: APIMethod.GET, id: id, urlSuffix: urlSuffix, urlQueryParams: params) { (responseData, responseError) -> Void in
-            
-            if let error = responseError {
-                print(error.description)
-                callback?(nil, error)
+    public func getData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]! = [],callback: ((_ data:NSData?,_ error:NSError?) -> ())?) {
+        self.apiRequest(service: service, method: APIMethod.GET, id: id, urlSuffix: urlSuffix, urlQueryParams:params) {(responseData, responseError) -> Void in
+            if let error = responseError  {
+                print(error)
+				callback?(nil, error)
             } else {
                 callback?(responseData, responseError)
             }
-       }
+		}
     }
     
     
@@ -853,9 +759,9 @@ public class APIClient {
     public func handleNetworkConnectivityError(error:NSError) -> String {
         if error.isNetworkConnectionError() {
             return "Network Connectivity Issue"
-		      } else {
-			         return "Unkown network issue."
-		      }
+		} else {
+			return "Unkown network issue."
+		}
     }
 }
 
