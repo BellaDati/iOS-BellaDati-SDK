@@ -18,31 +18,31 @@ struct OAuth1a {
     
     var oauthConsumerKey: String
     var oauthToken: String
-	
-	init(oauthConsumerKey: String, oauthToken: String){
+    
+    init(oauthConsumerKey: String, oauthToken: String){
         self.oauthConsumerKey = oauthConsumerKey
-		self.oauthToken = oauthToken
+        self.oauthToken = oauthToken
     }
     
     /// Signed signiture in BellaDati is only PLAINTEXT.request string. It contains
-	/// for instance http://service.belladati.com/api/reports/:id and Query part
-	/// is http:/service.belladati.com/api/reports/:id?width=10,height=10 and
-	/// oAuth parameters in request header are in the header
+    /// for instance http://service.belladati.com/api/reports/:id and Query part
+    /// is http:/service.belladati.com/api/reports/:id?width=10,height=10 and
+    /// oAuth parameters in request header are in the header
     func signRequest(request: inout URLRequest, urlQueryParameters: [NSURLQueryItem] = []){
-
-		let baseUrl = request.url!.absoluteString
-		let oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
+        
+        let baseUrl = request.url!.absoluteString
+        let oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
         let oauth_nonce = UUID().uuidString
-		
+        
         print("REQUEST URL: " + baseUrl)
         print("TIMESTAMP: " + oauth_timestamp)
         print("NONCE: " + oauth_nonce)
         
         
         // BellaDati implements PLAINTEXT signature. No encoding or encrypting
-		// is neccessary by consumer (consumer is our app). In this step we will
-		// populate OAuth1Header.class with oauth params. Exact order of parameters
-		// is not important!
+        // is neccessary by consumer (consumer is our app). In this step we will
+        // populate OAuth1Header.class with oauth params. Exact order of parameters
+        // is not important!
         var headerParameters = OAuth1Header(name: "OAuth")
         headerParameters.add(key: "oauth_consumer_key", value: self.oauthConsumerKey)
         headerParameters.add(key: "oauth_nonce", value: oauth_nonce)
@@ -51,7 +51,7 @@ struct OAuth1a {
         
         
         // In this step we will add oAuthHeader to the header of each request
-		// object that we have from APIClient class
+        // object that we have from APIClient class
         request.addValue(headerParameters.asString(), forHTTPHeaderField: "Authorization")
     }
     
@@ -70,7 +70,7 @@ struct OAuth1Header {
         self.hName = name
     }
     
-	mutating func add(key: String, value: String) {
+    mutating func add(key: String, value: String) {
         self.params.append(key + "=\"" + value.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)! + "\"")//(.URLHostAllowedCharacterSet())! + "\"")
     }
     
@@ -78,7 +78,7 @@ struct OAuth1Header {
         let hParams = params.joined(separator: ",")
         return hName + " " + hParams
     }
-	
+    
 }
 
 
