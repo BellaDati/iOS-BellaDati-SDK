@@ -316,7 +316,11 @@ public class APIClient {
         
         // Add a language parameter.
         var queryItems = urlQueryParams as [URLQueryItem]
-        queryItems.append(URLQueryItem(name: "lang", value: self.locale.identifier))
+        
+        // We need to add the locale language code.
+        if let language = self.locale.languageCode {
+            queryItems.append(URLQueryItem(name: "lang", value: language))
+        }
         
         restServiceURL.queryItems = queryItems
         print("REQUEST URL (query items):" + restServiceURL.description)
@@ -608,18 +612,22 @@ public class APIClient {
         
         
         func toString() -> String {
-            
-            var service: String!
-            
+            let service: String
             switch self {
-                
-            case .IMPORTFORMS: service = "import/forms"
-            case .USERDETAIL:service = "users/username"
-            case .USER:service = "users"
-            case .DOMAIN: service = "domains"
-            case .DATASETS:service = "dataSets"
-            case .REPORTS:service = "reports"
-            case .VIEWS:service = "reports/views"
+            case .IMPORTFORMS:
+                service = "import/forms"
+            case .USERDETAIL:
+                service = "users/username"
+            case .USER:
+                service = "users"
+            case .DOMAIN:
+                service = "domains"
+            case .DATASETS:
+                service = "dataSets"
+            case .REPORTS:
+                service = "reports"
+            case .VIEWS:
+                service = "reports/views"
             }
             
             return service
