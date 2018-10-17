@@ -28,8 +28,6 @@
 		B39D73141E7726B800C617DF /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D73101E7726B800C617DF /* PieChart.swift */; };
 		B39D73151E7726B800C617DF /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D73111E7726B800C617DF /* Domain.swift */; };
 		B39D73161E7726B800C617DF /* DataSetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D73121E7726B800C617DF /* DataSetData.swift */; };
-		B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3F4CD421DE39F9400EFE847 /* Info.plist */; };
-		B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B3FFCA3D1DEDC80B004D323C /* .gitignore */; };
 		B3FFCA401DEDCB16004D323C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B3FFCA3F1DEDCB16004D323C /* README.md */; };
 /* End PBXBuildFile section */
 
@@ -310,8 +308,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3FFCA3E1DEDC80B004D323C /* .gitignore in Resources */,
-				B3F4CD431DE39F9400EFE847 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
