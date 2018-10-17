@@ -284,19 +284,13 @@ public class APIClient {
     ///					/api/reports service is defined in APIService parameter and
     ///					urlSuffix adds comments component to form /api/reports/comments
     ///					service call
-    func apiRequest(service: APIService, method: APIMethod, id: String!, urlSuffix: [String]?, urlQueryParams: [NSURLQueryItem] = [], httpBodyData: Data? = nil, multipartformParams:[String : String]? = nil, callback: ((_ responseData: NSData?, _ resposeError: NSError?) -> Void)?) {
-        
-        guard let oAuthToken = self.o_authtoken else {
-            callback?(nil, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Not authenticated."]))
-            return
-        }
-        
+    func apiRequest(service: APIService, method: APIMethod, id: String!, urlSuffix: [String]?, urlQueryParams: [NSURLQueryItem] = [], httpBodyData: Data? = nil, multipartformParams: [String : String]? = nil, callback: ((_ responseData: NSData?, _ resposeError: NSError?) -> Void)?) {
         // Compose the base URL
         var restServiceURL = URLComponents()
-        restServiceURL.scheme = scheme
-        restServiceURL.host = host
-        restServiceURL.port = port.intValue
-        restServiceURL.path = baseURL + "/" + service.toString()
+        restServiceURL.scheme = self.scheme
+        restServiceURL.host = self.host
+        restServiceURL.port = self.port.intValue
+        restServiceURL.path = self.baseURL + "/" + service.toString()
         
         if id != nil && !id.isEmpty {
             restServiceURL.path.append("/" + id)
@@ -358,10 +352,6 @@ public class APIClient {
             request.httpBody = fullData
         }
         
-        self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: oAuthToken)
-        self.oauthHandler.signRequest(request: &request)
-        
-        
         // In case we are dealing with forms we have to add value to the request
         // - for IPORTFORMS
         if service == APIService.IMPORTFORMS && method == APIMethod.POST {
@@ -374,7 +364,29 @@ public class APIClient {
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         }
         
-        // Now we can make the request. Ask NSURLSessionObject for NSSessionTask Object.
+        
+        self.apiRequest(with: request, callback: callback)
+    }
+    
+    /// This function performs an actual API Request. It calls OAuth signing and
+    /// verification of response data.
+    ///
+    /// - Parameters:
+    ///   - url: URL to perform the request with.
+    ///   - method: GET or POST method.
+    ///	  - httpBodyData: optionally, HTTP body of the request.
+    public func apiRequest(with originalRequest: URLRequest, callback: ((_ responseData: NSData?, _ resposeError: NSError?) -> Void)?) {
+        guard let oAuthToken = self.o_authtoken else {
+            callback?(nil, NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Not authenticated."]))
+            return
+        }
+        
+        var request = originalRequest
+        
+        self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: oAuthToken)
+        self.oauthHandler.signRequest(request: &request)
+        
+        // Now we can make the request. Ask URLSession for URLSessionDataTask object.
         // Once task is finished run the closure and set data for callback closure.
         
         print ("Preparing to send request")
@@ -421,9 +433,7 @@ public class APIClient {
         }
         
         apiRequestTask.resume()
-        
     }
-    
     
     
     /**

@@ -110,6 +110,7 @@
 				B35980F61DE346F300DA7119 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		B35980F61DE346F300DA7119 /* Products */ = {
 			isa = PBXGroup;
