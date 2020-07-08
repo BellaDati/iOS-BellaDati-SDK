@@ -8,4 +8,4 @@ Please visit support.belladati.com
 
 ### Prerequisites
 
-Swift 3
+Swift 5

@@ -706,7 +706,7 @@ public class APIClient {
         let investigateBadOAuthRequest =  {(body:NSString) in
             
             let noencodingbody = body.removingPercentEncoding!
-            var comment: [String] = noencodingbody.components(separatedBy: "=")
+            let comment: [String] = noencodingbody.components(separatedBy: "=")
             if noencodingbody.contains(BadOAuthRequest.USER_NOT_FOUND) {
                 
                 errorMessage = "Wrong user name:\(comment[2])"

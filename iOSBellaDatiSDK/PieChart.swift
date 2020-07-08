@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 /*Supported charts are: LineChart */
 
 public class PieChart:View{
@@ -52,7 +50,7 @@ public class PieChart:View{
     func uploadSavedCharts() {
         
         
-        let testBundle = Bundle (for: type(of:self))
+        let testBundle = Bundle(for: type(of:self))
         let s = testBundle.url(forResource: "myjson", withExtension: "json")
         let data = NSData(contentsOf: s!)
         let string = try! String(contentsOf:s!, encoding: String.Encoding.utf8)

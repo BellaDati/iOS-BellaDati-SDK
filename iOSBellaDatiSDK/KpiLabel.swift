@@ -14,7 +14,7 @@ public class KpiLabel:View {
     
     public var cleverTitle:String?
     public var name:String?
-    public var type:String?
+    public var kpiType:String?
     public var values:[KPILabelValue]?
     
     
@@ -47,9 +47,8 @@ public class KpiLabel:View {
     /* Uploads data from default Apps bundle --- only for testing now */
     
     func uploadSavedKpiLabels() {
-        
-        
-        let testBundle = Bundle (for: type(of:self))
+                        
+        let testBundle = Bundle(for: type(of:self))
         let s = testBundle.url(forResource: "myjson", withExtension: "json")
         let data = NSData(contentsOf: s!)
         let string = try! String(contentsOf:s!, encoding: String.Encoding.utf8)
@@ -144,7 +143,7 @@ public class KpiLabel:View {
         let fontweight = String()
         var charfield =  [Character]()
         
-        for character in (style?.characters)! {
+        for character in style! {
             if character != " " && character != "(" && character != ")" && character != "#" {
             
             charfield.append(character)
@@ -173,7 +172,7 @@ public class KpiLabel:View {
                     
                     var whichcolorindex = 0
                     
-                    for colorrgbcharacter in colorrgb.characters {
+                    for colorrgbcharacter in colorrgb {
                         
                         if colorrgbcharacter != "," && colorrgbcharacter != ";"{
                         
@@ -242,7 +241,7 @@ public class KpiLabel:View {
                     
                     var whichcolorindex = 0
                     
-                    for bgcolorrgbcharacter in bgcolorrgb.characters {
+                    for bgcolorrgbcharacter in bgcolorrgb {
                         
                         if bgcolorrgbcharacter != "," && bgcolorrgbcharacter != ";"{
                             
@@ -326,7 +325,7 @@ public class KpiLabel:View {
     func readJSONObject(kpilabel: [String : Any]) {
         self.cleverTitle = kpilabel["cleverTitle"] as? String ?? ""
         self.name =  kpilabel["name"] as? String ?? ""
-        self.type =  kpilabel["type"] as? String ?? ""
+        self.kpiType =  kpilabel["type"] as? String ?? ""
         
         guard let kpiLabelValues = kpilabel["values"] as? [[String : Any]] else {
             return

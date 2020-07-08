@@ -29,7 +29,7 @@ public class Domain {
     func uploadSavedDomainInfo() {
         
         
-        let testBundle = Bundle (for: type(of:self))
+        let testBundle = Bundle(for: type(of:self))
         let s = testBundle.url(forResource: "myjson", withExtension: "json")
         let data = NSData(contentsOf: s!)
         let string = try! String(contentsOf:s!, encoding: String.Encoding.utf8)

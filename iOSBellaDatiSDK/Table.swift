@@ -42,9 +42,7 @@ public class Table:View {
         /* Value of cell returned in JSON can be  also &nbsp; or link information for web based application. We do not need these for native tables. This method will produce only clean value information such as 유효전력량 */
         
         public func cleanCellValue(value:String) -> String {
-            
-            var valuecharfield =  [Character]()
-            
+                        
             var valuetoclean = value
             
             if value == "&nbsp;" {
@@ -56,7 +54,7 @@ public class Table:View {
                 
                 var stop = false
                 
-                for (index,character) in valuetoclean.characters.enumerated() {
+                for (index,character) in valuetoclean.enumerated() {
                     
                     
                     
@@ -98,7 +96,7 @@ public class Table:View {
     public func uploadSavedTabels() {
         
         
-        let testBundle = Bundle (for: type(of:self))
+        let testBundle = Bundle(for: type(of:self))
         let s = testBundle.url(forResource: "myjson", withExtension: "json")
         let data = NSData(contentsOf: s!)
         let string = try! String(contentsOf:s!, encoding: String.Encoding.utf8)
@@ -198,7 +196,7 @@ public class Table:View {
         let fontweight = String()
         var charfield =  [Character]()
         
-        for character in (style?.characters)! {
+        for character in style! {
             if character != " " && character != "(" && character != ")" && character != "#" {
                 
                 charfield.append(character)
@@ -227,7 +225,7 @@ public class Table:View {
                     
                     var whichcolorindex = 0
                     
-                    for colorrgbcharacter in colorrgb.characters {
+                    for colorrgbcharacter in colorrgb {
                         
                         if colorrgbcharacter != "," && colorrgbcharacter != "!"{
                             
@@ -297,7 +295,7 @@ public class Table:View {
                     
                     var whichcolorindex = 0
                     
-                    for bgcolorrgbcharacter in bgcolorrgb.characters {
+                    for bgcolorrgbcharacter in bgcolorrgb {
                         
                         if bgcolorrgbcharacter != "," && bgcolorrgbcharacter != ";"{
                             

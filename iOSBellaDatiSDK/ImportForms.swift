@@ -301,7 +301,7 @@ public class ImportForms{
         
         if self.hasImportFormsUploaded() == true {
             
-            var importform = self.filterByID(applyfilter: [formid])!
+            let importform = self.filterByID(applyfilter: [formid])!
             let formelements = importform[0]?.elements!
             
             for element in formelements! {

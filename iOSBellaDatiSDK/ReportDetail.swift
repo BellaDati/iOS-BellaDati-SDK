@@ -302,25 +302,6 @@ public class ReportDetail {
         typealias DateTimeDefinitionArray = [String:AnyObject]
         typealias FilterArray = [String:AnyObject]
         
-        
-        
-        /* This JSON param is used only when downloading comments*/
-        
-        if let comments = object["comments"] as? [[String:String]] {
-            
-            for comment in comments {
-                
-                var id = comment["id"]
-                var authorId = comment["authorId"]
-                var author = comment["author"]
-                var text = comment["text"]
-                var when = comment["when"]
-                
-            }
-            
-        }
-        
-        
         /*This JSON param is returned only when we are using method uploadImage */
         
         if let viewIDnewPictureView = object["viewId"] as? String {

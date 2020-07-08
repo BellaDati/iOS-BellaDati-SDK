@@ -17,12 +17,12 @@ forms,geomaps,picture analytics, etc.
 
 
   s.license      = "MIT"
-   s.author             = { "BellaDati Inc." => "support@belladati.com" }
-   s.social_media_url   = "http://twitter.com/belladati"
-   s.platform     = :ios, "10.0"
+  s.author             = { "BellaDati Inc." => "support@belladati.com" }
+  s.social_media_url   = "http://twitter.com/belladati"
+  s.platform     = :ios, "10.0"
   s.source       = { :path => "." }
   s.source_files  = "BellaDatiSDK", "iOSBellaDatiSDK/**/*.{h,m,swift}"
-s.pod_target_xcconfig = {'SWIFT_VERSION' => '3'}
+  s.pod_target_xcconfig = {'SWIFT_VERSION' => '5'}
 
 
 
