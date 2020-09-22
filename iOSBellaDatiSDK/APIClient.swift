@@ -233,6 +233,11 @@ public class APIClient {
         return false
     }
     
+    /** resetOAuthToken set the private oAuthToken to nil */
+    
+    public func resetOAuthToken() -> Void{
+        self.o_authtoken = nil
+    }
     
     /** hasAccessTokenSaved check if AccessTokenValue is saved in NSUserDefault. If yes we do not have to call authenticateWithBellaDati */
     
