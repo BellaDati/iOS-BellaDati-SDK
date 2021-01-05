@@ -118,6 +118,9 @@ public class APIClient {
         completeAccessTokenUrl.port = port
         completeAccessTokenUrl.path = relativeAccessTokenURL
         
+        //Prepare new nounce and timestamp
+        oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
+        oauth_nonce = NSUUID().uuidString
         
         completeAccessTokenUrl.queryItems = [NSURLQueryItem(name: "oauth_consumer_key",value: "\(oauth_consumer_key)") as URLQueryItem,
                                              NSURLQueryItem(name: "oauth_nonce",value: "\(oauth_nonce)") as URLQueryItem,
@@ -135,10 +138,6 @@ public class APIClient {
         
         request.httpMethod = "GET"
         
-        //Prepare new nounce and timestamp
-        
-        oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
-        oauth_nonce = NSUUID().uuidString
         
         // Ask NSURLSessionObject for NSSessionTask Object. Once task is finished run responseDataProcessor function
         
