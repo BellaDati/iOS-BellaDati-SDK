@@ -106,118 +106,90 @@ public class APIClient {
      
      */
     
-    public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
-        
-        print("authenticateWithBellaDati:Starting...")
-        
-        //Compose the complete accessTokenURL including Query part
-        
-        let completeAccessTokenUrl = NSURLComponents()
-        completeAccessTokenUrl.scheme = scheme
-        completeAccessTokenUrl.host = host
-        completeAccessTokenUrl.port = port
-        completeAccessTokenUrl.path = relativeAccessTokenURL
-        
-        //Prepare new nounce and timestamp
-        oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
-        oauth_nonce = NSUUID().uuidString
-        
-        completeAccessTokenUrl.queryItems = [NSURLQueryItem(name: "oauth_consumer_key",value: "\(oauth_consumer_key)") as URLQueryItem,
-                                             NSURLQueryItem(name: "oauth_nonce",value: "\(oauth_nonce)") as URLQueryItem,
-                                             NSURLQueryItem(name: "oauth_timestamp",value: "\(oauth_timestamp)") as URLQueryItem,
-                                             NSURLQueryItem(name: "x_auth_username",value: "\(x_auth_username)") as URLQueryItem,
-                                             NSURLQueryItem(name: "x_auth_password",value: "\(x_auth_password)") as URLQueryItem]
-        
-        
-        
-        //Create URL Request object
-        
-        let request = NSMutableURLRequest(url:completeAccessTokenUrl.url!)
-        
-        print("The request is:\(request)")
-        
-        request.httpMethod = "GET"
-        
-        
-        // Ask NSURLSessionObject for NSSessionTask Object. Once task is finished run responseDataProcessor function
-        
-        
-        
-        let startAutheticationTask = session.dataTask(with: request as URLRequest) {(data:Data?,response:URLResponse?,networkError:Error?) in
-            // If there is some kind of network connection problem, we will return controll to the APIClient class
-            if networkError != nil {
-                
-                
-                if let completionHandler = completionBlock {
-                    let connectionError = NSError(domain: "Network Error", code: networkError!._code, userInfo: [NSLocalizedDescriptionKey : self.handleNetworkConnectivityError(error: networkError! as NSError)])
-                    
-                    
-                    
-                    
-                    completionHandler(connectionError)
-                }
-                
-                
-                return
-            }
-            
-            guard let bodyData = data, let responseBody = String(data: bodyData, encoding: self.encoding) else {
-                // Either data is nil, or we can't use this encoding for reading
-                // the data into string.
-                completionBlock?(NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Received invalid data."]))
-                return
-            }
-            
-            
-            let httpResponse = response as! HTTPURLResponse
-            let statusCode = httpResponse.statusCode
-            
-            
-            
-            /*In case of response code 200 parse accessToken from received data and create new oAuthHandler updated with new accessToken value */
-            
-            if (statusCode == 200){
-                
-                self.o_authtoken = self.parseAccessToken(oauthTokenAndSecret: data as NSData?)
-                
-                self.settings.set(self.o_authtoken, forKey: "AccessToken")
-                
-                print("authenticateWithBellaDati message: Access Token \(self.o_authtoken ?? "nil") has been stored on device into NSUserDefaults")
-                
-                self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: self.o_authtoken!)
-            }
-            
-            /* If we have token already. Handler will receive nil. No errors. Otherwise*/
-            
-            if self.hasOAuthToken()
-            {
-                if let completionHandler = completionBlock
-                {
-                    completionHandler(nil)
-                }
-            }
-            else {
-                if let completionHandler = completionBlock {
-                    let responseError = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
-                    let oauthError = NSError(domain: "BellaDati REST API", code: statusCode, userInfo: [NSLocalizedDescriptionKey : responseError])
-                    
-                    
-                    
-                    
-                    completionHandler(oauthError)
-                }
-            }
-        }
-        
-        
-        
-        
-        //NSSessionTask objects are born suspended. resume it
-        
-        startAutheticationTask.resume()
-        
-        
-    }
+public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
+		
+		print("authenticateWithBellaDati:Starting...")
+		
+		// Compose the complete accessTokenURL including Query part
+		
+		var completeAccessTokenURL = URLComponents()
+		completeAccessTokenURL.scheme = scheme
+		completeAccessTokenURL.host = host
+		completeAccessTokenURL.port = port.intValue
+		completeAccessTokenURL.path = relativeAccessTokenURL
+		
+		//Prepare new nounce and timestamp
+		oauth_timestamp = String(Int(Date().timeIntervalSince1970))
+		oauth_nonce = UUID().uuidString
+		
+		completeAccessTokenURL.queryItems = [
+			URLQueryItem(name: "oauth_consumer_key", value: oauth_consumer_key),
+			URLQueryItem(name: "oauth_nonce", value: oauth_nonce),
+			URLQueryItem(name: "oauth_timestamp", value: oauth_timestamp),
+			URLQueryItem(name: "x_auth_password", value: x_auth_password)
+		]
+		
+		// There is an issue with + in the username - the URLQueryItem does not
+		// encode it, but the server interprets + as a space. This means that we
+		// need to manually encode the the + to %2b. Unfortunately, if we do this
+		// directly in the URLQueryItem, the %2b gets encoded to %252b...
+		var encodedUsername = x_auth_username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? x_auth_username
+		encodedUsername = encodedUsername.replacingOccurrences(of: "+", with: "%2b")
+		
+		completeAccessTokenURL.percentEncodedQuery! += "&x_auth_username=\(encodedUsername)"
+		
+		// Create URL Request object
+		var request = URLRequest(url: completeAccessTokenURL.url!)
+		request.httpMethod = "GET"
+		
+		print("The request is: \(request)")
+		
+		// Ask NSURLSessionObject for NSSessionTask Object. Once task is finished run responseDataProcessor function
+		let startAutheticationTask = session.dataTask(with: request) { (data, response, networkError) in
+			// If there is some kind of network connection problem, we will return controll to the APIClient class
+			guard networkError == nil else {
+				let connectionError = NSError(domain: "Network Error", code: networkError!._code, userInfo: [
+												NSLocalizedDescriptionKey : self.handleNetworkConnectivityError(error: networkError! as NSError)
+											])
+					
+				completionBlock?(connectionError)
+				return
+			}
+			
+			guard let bodyData = data, let responseBody = String(data: bodyData, encoding: self.encoding) else {
+				// Either data is nil, or we can't use this encoding for reading
+				// the data into string.
+				completionBlock?(NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "Received invalid data."]))
+				return
+			}
+			
+			
+			let httpResponse = response as! HTTPURLResponse
+			let statusCode = httpResponse.statusCode
+			
+			// In case of response code 200 parse accessToken from received data and create
+			// new oAuthHandler updated with new accessToken value.
+			if statusCode == 200 {
+				self.o_authtoken = self.parseAccessToken(oauthTokenAndSecret: data as NSData?)
+				self.settings.set(self.o_authtoken, forKey: "AccessToken")
+				
+				print("authenticateWithBellaDati message: Access Token \(self.o_authtoken ?? "nil") has been stored on device into NSUserDefaults")
+				self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: self.o_authtoken!)
+			}
+			
+			// If we have token already. Handler will receive nil. No errors.
+			if self.hasOAuthToken() {
+				completionBlock?(nil)
+			} else {
+				let responseError = self.handleErrorResponse(code: statusCode, and: responseBody as NSString)
+				let oauthError = NSError(domain: "BellaDati REST API", code: statusCode, userInfo: [NSLocalizedDescriptionKey : responseError])
+				completionBlock?(oauthError)
+			}
+		}
+		
+		//NSSessionTask objects are born suspended. resume it
+		startAutheticationTask.resume()
+	}
     
     /** hasOAuthToken check if o_authtoken var in instance of APIClient class already has value of token */
     
