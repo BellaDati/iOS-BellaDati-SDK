@@ -42,7 +42,7 @@ public class Table:View {
         /* Value of cell returned in JSON can be  also &nbsp; or link information for web based application. We do not need these for native tables. This method will produce only clean value information such as 유효전력량 */
         
         public func cleanCellValue(value:String) -> String {
-                        
+            
             var valuetoclean = value
             
             if value == "&nbsp;" {
@@ -96,7 +96,7 @@ public class Table:View {
     public func uploadSavedTabels() {
         
         
-        let testBundle = Bundle(for: type(of:self))
+        let testBundle = Bundle (for: type(of:self))
         let s = testBundle.url(forResource: "myjson", withExtension: "json")
         let data = NSData(contentsOf: s!)
         let string = try! String(contentsOf:s!, encoding: String.Encoding.utf8)
@@ -189,14 +189,14 @@ public class Table:View {
     /* input parameter is style item of Cell. It parses color value and backgroundcolor value. It sets
      Cell class color and background color values. These are set as UIColor object.*/
     
-    public func parseValueStyle (style:String?) -> (color:(red:Int,green:Int,blue:Int),backgroundcolor:(red:Int,green:Int,blue:Int),fontweight:String){
+    public func parseValueStyle(style: String) -> (color:(red:Int,green:Int,blue:Int),backgroundcolor:(red:Int,green:Int,blue:Int),fontweight:String){
         
         var color = (red:Int(),green:Int(),blue:Int())
         var backgroundcolor = (red:Int(),green:Int(),blue:Int())
         let fontweight = String()
         var charfield =  [Character]()
         
-        for character in style! {
+        for character in style {
             if character != " " && character != "(" && character != ")" && character != "#" {
                 
                 charfield.append(character)
