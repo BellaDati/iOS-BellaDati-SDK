@@ -212,40 +212,33 @@ public class DataSets{
     /* uploadAttributeValueImage func calls async task. It uploads image to Attribute value in dataset using BellaDati REST API call /api/dataSets/:id/attributes/:code/:value/image. Once async upload is
      finished, completion handler of type (() -> ())? is called. By default this parameter is nil. It means callee does not have to use it.*/
     
-    public func uploadAttributeValueImage(datasetid:Int,attributecode:String,attributevalue:String,fileName:String,imagedata:Data,completion: (() -> ())? = nil){
-        
-        var urlSuffix = [String]()
-               
-        urlSuffix.append("attributes")
-        urlSuffix.append(attributecode)
-        urlSuffix.append(attributevalue)
-        urlSuffix.append("image")
-        
-                let loadInitialData =
-            
-            {
-                APIClient.sharedInstance.authenticateWithBellaDati(){(error) -> Void in
-                    print("handlin stuff")
-                    if let receivedError = error
-                    {
-                        print(receivedError)
-                    }
-                }
-        }
-        
-        if (!APIClient.sharedInstance.hasAccessTokenSaved()){
-            
-            loadInitialData()
-            
-        } else {
-            
-            APIClient.sharedInstance.postData(service: APIClient.APIService.DATASETS,id:String(datasetid),urlSuffix: urlSuffix,httpBodyData:imagedata){(responseData) in
-                
-            }
-            
-        }
-        
-    }
+	public func uploadAttributeValueImage(datasetid:Int,attributecode:String,attributevalue:String,fileName:String,imagedata:Data,completion: (() -> ())? = nil){
+		
+		var urlSuffix = [String]()
+		
+		urlSuffix.append("attributes")
+		urlSuffix.append(attributecode)
+		urlSuffix.append(attributevalue)
+		urlSuffix.append("image")
+		
+		if !APIClient.sharedInstance.hasAccessTokenSaved() {
+			APIClient.sharedInstance.authenticateWithBellaDati { error in
+				print("handlin stuff")
+				
+				if let error {
+					print(error)
+				}
+				
+				// TODO: completion should take a Bool? Retry this after initial load?
+				completion?()
+			}
+		} else {
+			APIClient.sharedInstance.postData(service: .DATASETS, id: String(datasetid), urlSuffix: urlSuffix, httpBodyData: imagedata) { (_, _) in
+				completion?()
+			}
+		}
+		
+	}
 
     
     

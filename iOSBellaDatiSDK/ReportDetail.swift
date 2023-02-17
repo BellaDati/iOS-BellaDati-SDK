@@ -110,7 +110,7 @@ public class ReportDetail {
 
     /* Post comments to report */
     
-    public func uploadComment(reportid:Int,comment:String,completion: (() -> ())? = nil){
+    public func uploadComment(reportid:Int, comment:String, completion: (() -> ())? = nil){
         
         
         let readyComment = "text="+comment
@@ -134,9 +134,9 @@ public class ReportDetail {
             
         } else {
             
-            APIClient.sharedInstance.postData(service: APIClient.APIService.REPORTS,id:String(reportid),urlSuffix: ["comments"], httpBodyData:commentData){(responseData) in
+            APIClient.sharedInstance.postData(service: .REPORTS, id: String(reportid), urlSuffix: ["comments"], httpBodyData: commentData){ responseData, error in
                 
-                do{
+                do {
                     
                     let jsonObject = try JSONSerialization.jsonObject(with: responseData! as Data, options: .allowFragments)
                     let jsonstring = NSString(data: responseData! as Data, encoding: String.Encoding.utf8.rawValue) as String?
@@ -216,7 +216,7 @@ public class ReportDetail {
                 
             } else {
                 
-                APIClient.sharedInstance.postData(service: APIClient.APIService.REPORTS,id:String(reportid),urlSuffix: ["images"],params:paramsarray,httpBodyData:imagedata,multipartFormParams: ["filename":filename,"viewName":imageViewName]){(responseData) in
+                APIClient.sharedInstance.postData(service: APIClient.APIService.REPORTS,id:String(reportid),urlSuffix: ["images"],params:paramsarray,httpBodyData:imagedata,multipartFormParams: ["filename":filename,"viewName":imageViewName]){ (responseData, _) in
                    
                     do{
                         
@@ -301,6 +301,25 @@ public class ReportDetail {
         typealias LocalizationsArray = [String:String]
         typealias DateTimeDefinitionArray = [String:AnyObject]
         typealias FilterArray = [String:AnyObject]
+        
+        
+        
+        /* This JSON param is used only when downloading comments*/
+        
+        if let comments = object["comments"] as? [[String:String]] {
+            
+            for comment in comments {
+                
+                var id = comment["id"]
+                var authorId = comment["authorId"]
+                var author = comment["author"]
+                var text = comment["text"]
+                var when = comment["when"]
+                
+            }
+            
+        }
+        
         
         /*This JSON param is returned only when we are using method uploadImage */
         

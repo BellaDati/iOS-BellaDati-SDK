@@ -430,11 +430,8 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
         }
     }
     
-    
-    
+    @available(*, unavailable, message: "Not implemented yet.")
     func processGETData (service:APIService,id:String!,urlSuffix: NSArray!,params: [NSURLQueryItem]!=[],responseData:NSData!)  {
-        
-        
         /*if service == APIService.IMPORTFORMS {
          
          var forms = ImportForms()
@@ -443,50 +440,30 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
          var i = forms.filterByID(nil)![3]?.name
          print("Id is\(i!)")
          }*/
-        
-        
-        
     }
-    
-    
-    
-    
-    public func postData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]!=[], httpBodyData:Data? = nil, multipartFormParams:[String:String]? = nil, callback: ((NSData?) -> ())?){
         
+    public func postData(service: APIService, id: String? = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem] = [], httpBodyData: Data? = nil, multipartFormParams: [String : String]? = nil, callback: ((NSData?, NSError?) -> ())?){
         
-        self.apiRequest(service: service, method: APIMethod.POST, id: id, urlSuffix: urlSuffix, urlQueryParams: params,httpBodyData: httpBodyData,multipartformParams: multipartFormParams) {(responseData, resposeError) -> Void in
+        self.apiRequest(service: service, method: .POST, id: id, urlSuffix: urlSuffix, urlQueryParams: params, httpBodyData: httpBodyData, multipartformParams: multipartFormParams) { (responseData, resposeError) in
             
-            if (resposeError != nil) {
-                print(resposeError!.description)
-            }
-                
-            else {
-                
-                if let completionHandler = callback {
-                    
-                    completionHandler(responseData)
-                    
-                    
-                }
+            if let resposeError {
+                print(resposeError.description)
             }
             
+            callback?(responseData, resposeError)
         }
-        
     }
     
     
-    
+    @available(*, unavailable, message: "Not implemented yet.")
     func processPOSTData (service:APIService,id:String!,urlSuffix: [String]? = nil,params: [NSURLQueryItem]!=[],responseData:NSData!){
-        
-        
-        //Let's do something with data here
-        
+        // Let's do something with data here
     }
     
-    func convertStringToDictionary(text: String) -> [String:AnyObject]? {
-        if let data = text.data(using: String.Encoding.utf8) {
+    func convertStringToDictionary(text: String) -> [String : Any]? {
+        if let data = text.data(using: .utf8) {
             do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
             } catch let error as NSError {
                 print(error)
             }
