@@ -23,62 +23,51 @@ import Foundation
 public class APIClient {
     
     
-    private var baseURL = "/belladati/api" // /belladati/api /api
-    private var relativeAccessTokenURL = "/belladati/oauth/accessToken" // /belladati/oauth/accessToken /oauth/accessToken
-    private var oauth_consumer_key = "apikey" //apikey frameworkforms
-    private var scheme:String = "http" //BellaDati server protocol
-    private var host:String = "BellaDatiMac.local" //BellaDati server address
-    private var port:NSNumber = 443 //BellaDati server port
+    private var baseURL: String = "/belladati/api" // /belladati/api /api
+    private var relativeAccessTokenURL: String = "/belladati/oauth/accessToken" // /belladati/oauth/accessToken /oauth/accessToken
+	private var oauth_consumer_key: String = "apikey" //apikey frameworkforms
+    private var scheme: String = "http" //BellaDati server protocol
+    private var host: String = "BellaDatiMac.local" //BellaDati server address
+    private var port: NSNumber = 443 // BellaDati server port
     private var x_auth_username: String = "yourusername@belladati.com" //BellaDati server username
     private var x_auth_password: String = "yourpassword" //BellaDati server user password
     
-    private var oauth_timestamp = String(Int(NSDate().timeIntervalSince1970))
-    private var oauth_nonce = NSUUID().uuidString
-    private let encoding = String.Encoding.utf8
+	private var oauth_timestamp: String = String(Int(Date().timeIntervalSince1970))
+	private var oauth_nonce: String = UUID().uuidString
+	private let encoding: String.Encoding = .utf8
     private var oauthHandler: OAuth1a!
-    private let session =  URLSession(configuration: URLSessionConfiguration.ephemeral)
+	private let session: URLSession = URLSession(configuration: .ephemeral)
     private var o_authtoken: String?
     
     /// Locale the APIClient loads everything in. The client automatically appends
     /// the locale identifier as the lang parameter to all requests. If you want
     /// to force a different locale, change this parameter.
-    public var locale: Locale = Locale.autoupdatingCurrent
+    public var locale: Locale = .autoupdatingCurrent
     
-    let  settings = UserDefaults.standard
-    var  OAuthTokenCompletionHandler:((_ error:NSError?,String?) -> Void)?
+    let settings = UserDefaults.standard
+    var OAuthTokenCompletionHandler: ((_ error: NSError?, String?) -> Void)?
     
     
-    /** 
-     - We have only one BellaDati API to interact with. APIClient is available as sigleton trough sharedInstance constant
-     - From your app you can get access to methods of APIClient class by using APIClient.sharedInstance
-     */
-    
-    public static let sharedInstance = APIClient()
+    /// We have only one BellaDati API to interact with. APIClient is available as sigleton
+	/// trough sharedInstance constant.
+	/// From your app you can get access to methods of APIClient class by using APIClient.sharedInstance
+	public static let sharedInstance: APIClient = APIClient()
     
     private init() {
-        
-        if let savedAcessToken = settings.object(forKey: "AccessToken") as? String {
-            
-            o_authtoken = savedAcessToken
-            
-            print("APIClient Singletone Message: I have found access token stored on device:\(o_authtoken ?? "nil").Let's build requests!")
-            
-        } else {
-            
-            print("APIClient Singletone Message: Access Token Value is not yet stored on device.Call my authenticateWithBellaDati func")
+        guard let savedAcessToken = settings.object(forKey: "AccessToken") as? String else {
+            print("APIClient Singletone Message: Access Token Value is not yet stored on device. Call authenticateWithBellaDati method.")
+			return
         }
+		
+		self.o_authtoken = savedAcessToken
+		
+		print("APIClient Singletone Message: I have found access token stored on device: \(savedAcessToken). Let's build requests!")
         
     }
     
-    /**
-     
-     - Before calling authenticateWithBellaDati func user has to setup credentials important for authentication process
-     - authenticateWithBellaDati function will use these credentials
-     
-     */
-    
-    
-    public func setAPIClient(scheme:String,host:String,port:NSNumber,base_url: String,relativeAccessTokenUrl:String, oauth_consumer_key: String, x_auth_username: String,x_auth_password: String){
+    /// Before calling authenticateWithBellaDati func user has to setup credentials important for
+	/// authentication process. `authenticateWithBellaDati` function will use these credentials.
+    public func setAPIClient(scheme: String, host: String, port: NSNumber, base_url: String, relativeAccessTokenUrl: String, oauth_consumer_key: String, x_auth_username: String, x_auth_password: String) {
         
         self.scheme = scheme
         self.host = host
@@ -88,14 +77,8 @@ public class APIClient {
         self.x_auth_username = x_auth_username
         self.x_auth_password = x_auth_password
         self.baseURL = base_url
-        
     }
-    
-    
-    
-    
-    
-    
+        
     /**
      - authenticateWithBellaDati function takes belladati constructs the OAuth 1.0 x_Auth type of request using parameters. The output is new oAuthAcessToken. Run this method prior
      to using other APIClient methods. 
@@ -105,13 +88,11 @@ public class APIClient {
      - for instance in function downloadListOfReports in Reports.swift class func will call authenticateWithBellaDati. Prior to that call you should call setApiClient somewhere in your application to set the right credentials
      
      */
-    
-public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
+	public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
 		
-		print("authenticateWithBellaDati:Starting...")
+		print("authenticateWithBellaDati: Starting...")
 		
 		// Compose the complete accessTokenURL including Query part
-		
 		var completeAccessTokenURL = URLComponents()
 		completeAccessTokenURL.scheme = scheme
 		completeAccessTokenURL.host = host
@@ -122,32 +103,37 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
 		oauth_timestamp = String(Int(Date().timeIntervalSince1970))
 		oauth_nonce = UUID().uuidString
 		
-		completeAccessTokenURL.queryItems = [
-			URLQueryItem(name: "oauth_consumer_key", value: oauth_consumer_key),
-			URLQueryItem(name: "oauth_nonce", value: oauth_nonce),
-			URLQueryItem(name: "oauth_timestamp", value: oauth_timestamp),
-			URLQueryItem(name: "x_auth_password", value: x_auth_password)
+		let bodyValues: [(key: String, value: String)] = [
+			("oauth_consumer_key", oauth_consumer_key),
+			("oauth_nonce", oauth_nonce),
+			("oauth_timestamp", oauth_timestamp),
+			("x_auth_password", x_auth_password),
+			("x_auth_username", x_auth_username)
+
 		]
-		
-		// There is an issue with + in the username - the URLQueryItem does not
+	
+		// There is an issue with + in the username - the system API will not
 		// encode it, but the server interprets + as a space. This means that we
-		// need to manually encode the the + to %2b. Unfortunately, if we do this
-		// directly in the URLQueryItem, the %2b gets encoded to %252b...
-		var encodedUsername = x_auth_username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? x_auth_username
-		encodedUsername = encodedUsername.replacingOccurrences(of: "+", with: "%2b")
-		
-		completeAccessTokenURL.percentEncodedQuery! += "&x_auth_username=\(encodedUsername)"
+		// need to manually encode the the + to %2b.
+		let bodyString = bodyValues.map {
+			var encodedValue = $0.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? $0.value
+			encodedValue = encodedValue.replacingOccurrences(of: "+", with: "%2b")
+			return "\($0.key)=\(encodedValue)"
+		}.joined(separator: "&")
+
 		
 		// Create URL Request object
 		var request = URLRequest(url: completeAccessTokenURL.url!)
-		request.httpMethod = "GET"
+		request.httpMethod = "POST"
+		request.httpBody = bodyString.data(using: .utf8)!
 		
 		print("The request is: \(request)")
 		
-		// Ask NSURLSessionObject for NSSessionTask Object. Once task is finished run responseDataProcessor function
-		let startAutheticationTask = session.dataTask(with: request) { (data, response, networkError) in
+		self.session.dataTask(with: request) { (data, response, networkError) in
 			// If there is some kind of network connection problem, we will return controll to the APIClient class
 			guard networkError == nil else {
+				print("Authentication failed with \(networkError!)")
+				
 				let connectionError = NSError(domain: "Network Error", code: networkError!._code, userInfo: [
 												NSLocalizedDescriptionKey : self.handleNetworkConnectivityError(error: networkError! as NSError)
 											])
@@ -163,18 +149,17 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
 				return
 			}
 			
-			
 			let httpResponse = response as! HTTPURLResponse
 			let statusCode = httpResponse.statusCode
 			
 			// In case of response code 200 parse accessToken from received data and create
 			// new oAuthHandler updated with new accessToken value.
-			if statusCode == 200 {
-				self.o_authtoken = self.parseAccessToken(oauthTokenAndSecret: data as NSData?)
-				self.settings.set(self.o_authtoken, forKey: "AccessToken")
+			if statusCode == 200, let token = self.parseAccessToken(from: bodyData) {
+				self.o_authtoken = token
+				self.settings.set(token, forKey: "AccessToken")
 				
-				print("authenticateWithBellaDati message: Access Token \(self.o_authtoken ?? "nil") has been stored on device into NSUserDefaults")
-				self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: self.o_authtoken!)
+				print("authenticateWithBellaDati message: Access Token \(token) has been stored on device into UserDefaults")
+				self.oauthHandler = OAuth1a(oauthConsumerKey: self.oauth_consumer_key, oauthToken: token)
 			}
 			
 			// If we have token already. Handler will receive nil. No errors.
@@ -185,18 +170,13 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
 				let oauthError = NSError(domain: "BellaDati REST API", code: statusCode, userInfo: [NSLocalizedDescriptionKey : responseError])
 				completionBlock?(oauthError)
 			}
-		}
-		
-		//NSSessionTask objects are born suspended. resume it
-		startAutheticationTask.resume()
+		}.resume()
 	}
     
-    /** hasOAuthToken check if o_authtoken var in instance of APIClient class already has value of token */
-    
-    public func hasOAuthToken() -> Bool{
-        
-        if let token = self.o_authtoken
-        {
+    /// hasOAuthToken check if `o_authtoken` var in instance of APIClient
+	/// class already has value of token.
+    public func hasOAuthToken() -> Bool {
+        if let token = self.o_authtoken {
             let defaults = UserDefaults.standard
             defaults.set(true, forKey: "hasOAuthToken")
             return !token.isEmpty
@@ -204,18 +184,16 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
         return false
     }
     
-    /** resetOAuthToken set the private oAuthToken to nil */
-    
-    public func resetOAuthToken() -> Void{
+    /// `resetOAuthToken` sets the private oAuthToken to nil.
+    public func resetOAuthToken() {
         self.o_authtoken = nil
     }
     
-    /** hasAccessTokenSaved check if AccessTokenValue is saved in NSUserDefault. If yes we do not have to call authenticateWithBellaDati */
-    
-    public func hasAccessTokenSaved() -> Bool{
-        
+    /// `hasAccessTokenSaved` checks if AccessTokenValue is saved in UserDefaults.
+	/// If yes we do not have to call `authenticateWithBellaDati`.
+    public func hasAccessTokenSaved() -> Bool {
         if let token = settings.object(forKey: "AccessToken") as? String {
-            print("APIClient Message:I have found access token stored on device:\(token).You can build requests!")
+            print("APIClient Message: I have found access token stored on device: \(token). You can build requests!")
             return !token.isEmpty
         }
         
@@ -224,30 +202,42 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
     }
     
     
+	private func _parseOAuthValue(at index: Int, from data: Data) -> String? {
+		guard let oauthTokenAndSecret = String(data: data, encoding: self.encoding) else {
+			print("Cannot interpret data \(data) as \(self.encoding)")
+			return nil
+		}
+		
+		let components = oauthTokenAndSecret.components(separatedBy: "&")
+		guard components.count < index else {
+			print("Requesting component at index \(index), but only \(components.count) are available in \(components)")
+			return nil
+		}
+		
+		let value = components[index].components(separatedBy: "=")[1]
+		return value
+	}
     
-    /** parseAccessToken parses oAuthAccessToken from joined accessToken&accessToken string that we received as response from BellaDati service */
+    /// parseAccessToken parses oAuthAccessToken from joined accessToken&accessToken string
+	/// that we received as response from BellaDati service.
+    func parseAccessToken(from oauthTokenAndSecret: Data) -> String? {
+		guard let value = self._parseOAuthValue(at: 0, from: oauthTokenAndSecret) else {
+			return nil
+		}
+		
+		print("BellaDati Service Access Token is: \(value))")
+		return value
+	}
     
-    func parseAccessToken(oauthTokenAndSecret:NSData?) -> String {
-        
-        
-        
-        let oauthTokenAndSecret = NSString(data: oauthTokenAndSecret! as Data, encoding: self.encoding.rawValue)!.components(separatedBy: "&")
-        let accessToken = (oauthTokenAndSecret[0].components(separatedBy:"="))[1]
-        print("BellaDati Service Access Token is:"+" "+accessToken)
-        
-        return String(accessToken)
+    /// Currently only xAuth is supported.OAuth Token secret is not used in current Authentication process.
+    func parseAccessTokenSecret(from oauthTokenAndSecret: Data) -> String? {
+		guard let value = self._parseOAuthValue(at: 1, from: oauthTokenAndSecret) else {
+			return nil
+		}
+		
+		print("BellaDati Service Access Token Secret is: \(value))")
+		return value
     }
-    
-    /** Currently only xAuth is supported.OAuth Token secret is not used in current Authentication process */
-    
-    func parseAccessTokenSecret(oauthTokenAndSecret:NSData?) -> String {
-        
-        let oauthTokenAndSecret = NSString(data: oauthTokenAndSecret! as Data, encoding: self.encoding.rawValue)!.components(separatedBy: "&")
-        let accessTokenSecret = (oauthTokenAndSecret[1].components(separatedBy:"=")[1])
-        print("BellaDati Service Access Token Secret is:"+" "+accessTokenSecret)
-        return accessTokenSecret
-    }
-    
     
     /// This function does actual API Request. It calls OAuth signing and verification
     /// of response data.
@@ -419,7 +409,7 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
      
      */
     
-    public func getData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]! = [],callback: ((_ data:NSData?,_ error:NSError?) -> ())?) {
+    public func getData(service: APIService, id: String! = nil, urlSuffix: [String]? = nil, params: [NSURLQueryItem]! = [], callback: ((_ data: NSData?, _ error: NSError?) -> ())?) {
         self.apiRequest(service: service, method: APIMethod.GET, id: id, urlSuffix: urlSuffix, urlQueryParams:params) {(responseData, responseError) -> Void in
             if let error = responseError  {
                 print(error)
@@ -542,27 +532,17 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
     
     
     
-    /** BellaDati REST API is using GET and POST methods*/
-    
-    public enum  APIMethod {
-        case GET,POST
+    /// BellaDati REST API is using GET and POST methods.
+	public enum APIMethod: String {
+        case GET
+		case POST
         
         func toString() -> String {
-            
-            var method: String!
-            
-            switch self {
-                
-            case .GET: method = "GET"
-            case .POST: method = "POST"
-            }
-            
-            return method
+			return self.rawValue
         }
     }
     
-    /** BellaDati list of API services */
-    
+    /// BellaDati list of API services.
     public enum APIService {
         
         case IMPORTFORMS
@@ -650,7 +630,7 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
     
     /** handleErrorResponse function handle error response codes send by BellaDati service */
     
-    public func handleErrorResponse (code: Int, and body:NSString) -> String{
+    public func handleErrorResponse (code: Int, and body: NSString) -> String {
         
         var errorMessage: String? = nil
         
@@ -736,17 +716,23 @@ public func authenticateWithBellaDati(completionBlock: ((NSError?) -> Void)?) {
     }
 }
 
-/* Small extension of NSError class to identify network connectivity issues. It is extension. Outside of the APIClient scope */
 
+/// Small extension of NSError class to identify network connectivity issues. It is extension. Outside of the APIClient scope.
 extension NSError {
+	
     func isNetworkConnectionError() -> Bool {
-        let networkErrors = [NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet,NSURLErrorCannotFindHost,NSURLErrorCannotConnectToHost,NSURLErrorDataNotAllowed,NSURLErrorInternationalRoamingOff,NSURLErrorTimedOut]
+        let networkErrors = [
+			NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet, NSURLErrorCannotFindHost,
+			NSURLErrorCannotConnectToHost, NSURLErrorDataNotAllowed, NSURLErrorInternationalRoamingOff,
+			NSURLErrorTimedOut
+		]
         
-        if self.domain == NSURLErrorDomain && networkErrors.contains(self.code) {
+		if self.domain == NSURLErrorDomain, networkErrors.contains(self.code) {
             return true
         }
         return false
     }
+	
 }
 
 
