@@ -209,7 +209,7 @@ public class APIClient {
 		}
 		
 		let components = oauthTokenAndSecret.components(separatedBy: "&")
-		guard components.count < index else {
+		guard components.count > index else {
 			print("Requesting component at index \(index), but only \(components.count) are available in \(components)")
 			return nil
 		}
